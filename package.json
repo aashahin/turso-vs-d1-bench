@@ -1,0 +1,25 @@
+{
+  "name": "turso-vs-d1-bench",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "worker:dev": "wrangler dev --config worker/wrangler.jsonc --remote",
+    "worker:deploy": "wrangler deploy --config worker/wrangler.jsonc",
+    "worker:secret:turso": "wrangler secret put TURSO_TOKEN --config worker/wrangler.jsonc",
+    "worker:secret:admin": "wrangler secret put ADMIN_TOKEN --config worker/wrangler.jsonc",
+    "seed": "bun src/seed.ts",
+    "bench": "bun src/bench.ts",
+    "bench:quick": "bun src/bench.ts --iterations=20 --concurrency=1 --warmup=5",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "wrangler": "4.128.0"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "dependencies": {
+    "@tursodatabase/serverless": "^1.4.0"
+  }
+}

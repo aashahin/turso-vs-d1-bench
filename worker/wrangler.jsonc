@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bench-turso-vs-d1",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-09",
+  "account_id": "a793ff57a25dfe6874a8738f9addd295",
+  "observability": {
+    "enabled": true,
+    "traces": { "enabled": true }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bench-turso-vs-d1",
+      "database_id": "7a9264a0-0fe3-419a-92e7-010258f9558d"
+    },
+    {
+      "binding": "DB_EEUR",
+      "database_name": "bench-turso-vs-d1-eeur",
+      "database_id": "1f8fd88f-a970-4030-b275-20945da3808f"
+    }
+  ],
+  "vars": {
+    "TURSO_URL": "https://bench-turso-vs-d1-aashahin.aws-eu-west-1.turso.io"
+  }
+}
