@@ -17,8 +17,11 @@ The bun runner (`src/bench.ts`) hammers those endpoints and records **end-to-end
 doesn't pollute the DB comparison. An extra `direct` mode hits Turso straight from
 bun for a client-to-cloud reference (D1 has no public HTTP endpoint, so it is
 edge-only by construction).
-
 Both primaries live in the same region: Turso `aws-eu-west-1`, D1 `WEUR`.
+
+Accounts/tiers: Turso on the **Developer** plan, Cloudflare on **Workers Paid**
+(read replication included at no extra cost; billing is standard `rows_read` /
+`rows_written`).
 
 Tests: `point-read` (PK lookup), `scan-100` (100-row range), `insert` (single write).
 
