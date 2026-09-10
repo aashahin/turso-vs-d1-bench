@@ -10,7 +10,7 @@ import { median, mergeTx } from "./stats.ts";
 import type { EnvInfo, ResultDoc, RunRecord, ScenarioResult } from "./results.ts";
 import { tenantFor, type Dims, type OpQuery } from "./workloads/common.ts";
 import { kvMixedTest, kvOp, lmsMixedTest, lmsOp, writeOp } from "./workloads/index.ts";
-import { CONCURRENCY_TESTS, KV_TESTS, WRITE_TESTS } from "./testsets.ts";
+import { CONCURRENCY_TESTS, KV_TESTS, WRITE_TESTS } from "../shared/backend-tests.ts";
 
 const args = parseArgs();
 

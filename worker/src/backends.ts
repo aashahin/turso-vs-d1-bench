@@ -21,6 +21,7 @@
 // transaction its own server session and is rejected with "Database
 // connections limit exceeded" once concurrency climbs.)
 import { connect, type Connection as TursoClient } from "@tursodatabase/serverless";
+import { TX_WRITE_TESTS, WRITE_TESTS } from "../../shared/backend-tests.ts";
 
 export type { TursoClient };
 
@@ -37,43 +38,10 @@ export type BackendName =
   | "d1-eeur-drizzle"
   | "turso-drizzle";
 
-export type EngineName = "d1" | "libsql" | "tursodb";
+type EngineName = "d1" | "libsql" | "tursodb";
 
 /** How a benchmark op reaches the database engine for a (backend, test) pair. */
-export type TxMode = "none" | "transaction" | "concurrent";
-
-export type TestName =
-  | "point-read"
-  | "scan"
-  | "insert"
-  | "update"
-  | "student-dashboard"
-  | "course-page"
-  | "lesson-page"
-  | "quiz-page"
-  | "submit-quiz-answer"
-  | "update-progress"
-  | "enrollment"
-  | "independent-writes"
-  | "hot-row-write";
-
-/** Tests that mutate data (require POST + admin auth in edge mode). */
-export const WRITE_TESTS: Readonly<Record<string, true>> = {
-  insert: true,
-  update: true,
-  "submit-quiz-answer": true,
-  "update-progress": true,
-  enrollment: true,
-  "independent-writes": true,
-  "hot-row-write": true,
-};
-
-/**
- * Write tests whose logical operation is a read-then-write transaction (not a
- * single autocommit statement). Non-MVCC backends run these inside their
- * normal transaction equivalent; `tursodb-concurrent` uses BEGIN CONCURRENT.
- */
-export const TX_WRITE_TESTS: Readonly<Record<string, true>> = { "independent-writes": true, "hot-row-write": true };
+type TxMode = "none" | "transaction" | "concurrent";
 
 export interface Env {
   DB: D1Database;
@@ -126,10 +94,6 @@ export function isTursoBackend(b: BackendName): boolean {
   return isLibsqlBackend(b) || isTursoDbBackend(b);
 }
 
-export function isDrizzleBackend(b: BackendName): boolean {
-  return b === "d1-drizzle" || b === "d1-eeur-drizzle" || b === "turso-drizzle";
-}
-
 export function usesSessions(b: BackendName): boolean {
   return b === "d1-rr" || b === "d1-eeur-rr";
 }
@@ -150,12 +114,6 @@ export function txModeOf(b: BackendName, test: string): TxMode {
   if (b === "tursodb-concurrent") return "concurrent";
   if (TX_WRITE_TESTS[test] === true) return "transaction";
   return "none";
-}
-
-export function primaryLocation(b: BackendName): "WEUR" | "EEUR" | "turso-eu-west-1" {
-  if (b === "d1-eeur" || b === "d1-eeur-rr" || b === "d1-eeur-drizzle") return "EEUR";
-  if (isTursoBackend(b)) return "turso-eu-west-1";
-  return "WEUR";
 }
 
 export function tursoDbConfigured(env: Env): boolean {

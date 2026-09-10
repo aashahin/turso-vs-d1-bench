@@ -1,5 +1,5 @@
+import { isReadTest, WRITE_TESTS } from "../../shared/backend-tests.ts";
 import {
-  WRITE_TESTS,
   engineOf,
   freshTursoConn,
   freshTursoDbConn,
@@ -142,8 +142,7 @@ export default {
         const rawTest = m[2] ?? "";
         const test = rawTest === "scan-100" ? "scan" : rawTest;
         if (!backend) return bad(`unknown backend ${JSON.stringify(m[1])}`);
-        const READS: Readonly<Record<string, true>> = { "point-read": true, scan: true, "student-dashboard": true, "course-page": true, "lesson-page": true, "quiz-page": true };
-        if (WRITE_TESTS[test] !== true && READS[test] !== true) return bad(`unknown test ${JSON.stringify(rawTest)}`);
+        if (WRITE_TESTS[test] !== true && !isReadTest(test)) return bad(`unknown test ${JSON.stringify(rawTest)}`);
         const isWrite = WRITE_TESTS[test] === true;
         if (isWrite) {
           if (req.method !== "POST") return methodNotAllowed("POST");

@@ -58,6 +58,18 @@ export interface OpOutcome {
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')";
 
+interface ScenarioQuery {
+  text: string;
+  params: unknown[];
+  many: boolean;
+}
+
+/** The statement list a scenario executes: reads first, then writes. */
+interface ScenarioSql {
+  reads: ScenarioQuery[];
+  writes: { text: string; params: unknown[] }[];
+}
+
 function baseTimings(tenantDb: TenantDbKind, orm: "raw" | "drizzle"): OpTimings {
   return {
     dbMs: 0,
@@ -162,7 +174,7 @@ async function rrRun(tr: RRTracker, text: string, params: unknown[]): Promise<un
 
 // ---- Scenario SQL (shared text both backends) -------------------------------
 
-function scenario(test: string, p: OpParams): { reads: { text: string; params: unknown[]; many: boolean }[]; writes: { text: string; params: unknown[] }[] } {
+function scenario(test: string, p: OpParams): ScenarioSql {
   switch (test) {
     case "point-read":
       return { reads: [{ text: "SELECT id, payload FROM kv WHERE id = ?", params: [p.id], many: false }], writes: [] };
@@ -404,7 +416,7 @@ export async function execConcurrent(retries: number, attempt: () => Promise<voi
       await sleepBackoff(retry);
     }
   }
-  /* istanbul ignore next -- loop always returns */
+  // Unreachable: every loop iteration returns or throws. Kept for the type checker.
   return { stats, committed: false, queryMs: performance.now() - t0 };
 }
 
@@ -418,7 +430,7 @@ interface SqlStmt {
  * first when needed (the resolve step runs on the connection, outside the
  * batch — D1 has no interactive transactions and does the same).
  */
-async function scenarioStatements(conn: TursoClient, test: string, p: OpParams, sc: { reads: { text: string; params: unknown[]; many: boolean }[]; writes: { text: string; params: unknown[] }[] }, needsResolve: boolean): Promise<SqlStmt[]> {
+async function scenarioStatements(conn: TursoClient, test: string, p: OpParams, sc: ScenarioSql, needsResolve: boolean): Promise<SqlStmt[]> {
   const attemptId = needsResolve ? await tursoResolveAttempt(conn, p.tenant, p.quiz, p.student) : p.attempt;
   const s = attemptId === p.attempt ? sc : scenario(test, { ...p, attempt: attemptId });
   return [
@@ -442,7 +454,7 @@ function applyTx(extra: Record<string, unknown>, run: TxRun | undefined): void {
 }
 
 /** Statement walk over a plain Connection (autocommit), shared by libSQL/tursodb paths. */
-async function runSequential(conn: TursoClient, sc: { reads: { text: string; params: unknown[]; many: boolean }[]; writes: { text: string; params: unknown[] }[] }): Promise<number> {
+async function runSequential(conn: TursoClient, sc: ScenarioSql): Promise<number> {
   let n = 0;
   for (const q of sc.reads) {
     if (q.many) await conn.all(q.text, ...q.params);

@@ -3,7 +3,7 @@
 // Direct mode is informational: it measures client-to-cloud latency, which is
 // not comparable with edge-terminated D1 traffic.
 import { connect } from "@tursodatabase/serverless";
-import { TX_WRITE_TESTS } from "../worker/src/backends.ts";
+import { TX_WRITE_TESTS } from "../shared/backend-tests.ts";
 import type { OpSample, OpFn } from "./runner.ts";
 import type { TxCounts } from "./stats.ts";
 import type { OpQuery } from "./workloads/common.ts";

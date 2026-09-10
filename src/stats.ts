@@ -25,6 +25,9 @@ export interface ClassifiedError {
 export function classifyError(e: unknown): ClassifiedError {
   const message = e instanceof Error ? e.message : String(e);
   const lower = message.toLowerCase();
+  // MVCC conflicts surface as SQLITE_BUSY / SQLITE_BUSY_SNAPSHOT or a
+  // "Write-write conflict" message; they are neither transport nor app errors.
+  const looksLikeConflict = lower.includes("conflict") || lower.includes("sqlite_busy") || lower.includes("busy_snapshot");
   if (e instanceof DOMException && e.name === "TimeoutError") {
     return { message, errorClass: "timeout", httpStatus: null };
   }
@@ -39,17 +42,13 @@ export function classifyError(e: unknown): ClassifiedError {
   if (httpStatus !== null) {
     // Conflict markers win over the transport class: an MVCC conflict surfaced
     // through an error response is still a conflict, not a backend failure.
-    if (lower.includes("conflict") || lower.includes("sqlite_busy") || lower.includes("busy_snapshot")) {
-      return { message, errorClass: "conflict", httpStatus };
-    }
+    if (looksLikeConflict) return { message, errorClass: "conflict", httpStatus };
     return { message, errorClass: httpStatus >= 500 ? "backend" : "http", httpStatus };
   }
   if (lower.includes("fetch failed") || lower.includes("network") || lower.includes("econn") || lower.includes("socket")) {
     return { message, errorClass: "backend", httpStatus: null };
   }
-  if (lower.includes("conflict") || lower.includes("sqlite_busy") || lower.includes("busy_snapshot")) {
-    return { message, errorClass: "conflict", httpStatus };
-  }
+  if (looksLikeConflict) return { message, errorClass: "conflict", httpStatus };
   return { message, errorClass: "unknown", httpStatus: null };
 }
 

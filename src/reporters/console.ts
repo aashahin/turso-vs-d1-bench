@@ -3,7 +3,7 @@
 // the workload, concurrency, and tenant layout.
 import { fmt, median } from "../stats.ts";
 import type { ScenarioResult } from "../results.ts";
-import { READ_TESTS } from "../testsets.ts";
+import { isReadTest } from "../../shared/backend-tests.ts";
 
 export function printRunTable(scenarios: ScenarioResult[]): void {
   const head = ["benchmark", "runs", "ok", "err", "err%", "rps", "p50", "p90", "p95", "p99", "max", "db p50", "rep%"];
@@ -40,7 +40,7 @@ export function printSaturation(scenarios: ScenarioResult[]): void {
   const singles = scenarios.filter((s) => s.tenantMode === "single" && s.mode === "edge");
   if (singles.length === 0) return;
   for (const section of ["READ LATENCY", "WRITE LATENCY"] as const) {
-    const rows = singles.filter((s) => (section === "READ LATENCY") === (READ_TESTS[s.test] === true));
+    const rows = singles.filter((s) => (section === "READ LATENCY") === isReadTest(s.test));
     if (rows.length === 0) continue;
     console.log(`\n${section} — SINGLE TENANT SATURATION (server-side db p50 ms, median across runs)`);
     const tests = [...new Set(rows.map((s) => s.test))].sort();
@@ -70,7 +70,7 @@ export function printSaturation(scenarios: ScenarioResult[]): void {
  * reports "-".
  */
 export function printWriteComparison(scenarios: ScenarioResult[]): void {
-  const writes = scenarios.filter((s) => s.mode === "edge" && READ_TESTS[s.test] !== true);
+  const writes = scenarios.filter((s) => s.mode === "edge" && !isReadTest(s.test));
   if (writes.length === 0) return;
   console.log("\nWRITE / TRANSACTION COMPARISON (edge only; medians across runs; conflicts/retries are server-side MVCC counters)");
   console.log(

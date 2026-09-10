@@ -296,6 +296,10 @@ automatically, so a flag cannot override a value that is already in `.env` —
 export the env var instead). `/admin/*` and all write endpoints require
 `Authorization: Bearer ADMIN_TOKEN`; reads are open.
 
+Harness checks: `bun run typecheck` (tsc over client + Worker) and `bun test`
+(`tests/` — MVCC retry/conflict accounting, pool queueing regressions, and the
+read/write classification the reporters use).
+
 ## Seed
 
 ```bash
