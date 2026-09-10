@@ -1,0 +1,13 @@
+backend,engine,transactionMode,test,workload,tenantMode,tenantCount,concurrency,run,success,errors,errorRate,rps,p50,p90,p95,p99,mean,max,dbP50,replicaRate,attempted,attemptsTotal,committed,successAfterRetry,failedAfterRetries,conflicts,conflictRate,retries,retryRate,avgRetries,mode,loadModel
+turso-reused,libsql,none,mixed,lms,single,1,1,1,72,0,0.0000,3.57,263.89,391.16,408.75,473.23,280.08,473.23,144,,,,,,,,,,,,edge,constant
+turso-reused,libsql,none,mixed,lms,single,1,10,1,572,3,0.0052,28.29,265.3,347.54,406.23,579.33,273.3,607,154,,,,,,,,,,,,edge,constant
+turso-reused,libsql,none,mixed,lms,single,1,50,1,3060,68,0.0217,101.98,279.18,404.68,501.61,677.2,300.76,905.2,156,,,,,,,,,,,,edge,constant
+tursodb-reused,tursodb,none,mixed,lms,single,1,1,1,62,0,0.0000,3.08,302.75,448.43,521.41,916.38,324.88,916.38,154,,,,,,,,,,,,edge,constant
+tursodb-reused,tursodb,none,mixed,lms,single,1,10,1,746,0,0.0000,36.47,264.3,342.05,376.07,502.82,271.15,585.21,154,,,,,,,,,,,,edge,constant
+tursodb-reused,tursodb,none,mixed,lms,single,1,50,1,1796,0,0.0000,77.82,307.74,1489.94,2079.14,2643.8,578.29,3353.07,161,,,,,,,,,,,,edge,constant
+tursodb-concurrent,tursodb,concurrent,mixed,lms,single,1,1,1,60,0,0.0000,2.97,300.75,478.29,566.06,816.58,337.11,816.58,152,,7,7,7,0,0,0,0.0000,0,0.0000,0.0000,edge,constant
+tursodb-concurrent,tursodb,concurrent,mixed,lms,single,1,10,1,546,0,0.0000,26.96,339.96,537.67,600.88,813.12,370.44,930.63,151,,82,82,82,0,0,0,0.0000,0,0.0000,0.0000,edge,constant
+tursodb-concurrent,tursodb,concurrent,mixed,lms,single,1,50,1,246,83,0.2523,8.09,1092.73,1725.92,5318.9,9193.67,1454.68,10444.26,900,,15,18,14,0,1,4,0.2222,3,0.1667,0.2000,edge,constant
+d1-eeur,d1,none,mixed,lms,single,1,1,1,74,0,0.0000,3.69,240.04,410.76,433.35,717.34,270.66,717.34,123,,,,,,,,,,,,edge,constant
+d1-eeur,d1,none,mixed,lms,single,1,10,1,753,0,0.0000,37.05,256.95,361.41,409.06,526.93,268.2,576.76,134,,,,,,,,,,,,edge,constant
+d1-eeur,d1,none,mixed,lms,single,1,50,1,2137,0,0.0000,104.61,481.73,631.94,671.2,811.45,473.42,1039.6,358,,,,,,,,,,,,edge,constant

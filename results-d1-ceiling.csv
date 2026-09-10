@@ -1,0 +1,9 @@
+backend,engine,transactionMode,test,workload,tenantMode,tenantCount,concurrency,run,success,errors,errorRate,rps,p50,p90,p95,p99,mean,max,dbP50,replicaRate,attempted,attemptsTotal,committed,successAfterRetry,failedAfterRetries,conflicts,conflictRate,retries,retryRate,avgRetries,mode,loadModel
+d1-eeur,d1,none,point-read,kv,single,1,100,1,5873,0,0.0000,290.03,339.78,411.34,481.21,598.14,344.18,814.48,202,,,,,,,,,,,,edge,constant
+d1-eeur,d1,none,point-read,kv,single,1,200,1,6786,0,0.0000,328.86,566.14,825.57,917.46,1246.01,603.56,1783.96,411,,,,,,,,,,,,edge,constant
+d1-eeur,d1,none,insert,kv,single,1,100,1,5050,0,0.0000,249.63,363.19,591.37,775.43,942.15,396.93,3549.61,224,,,,,,,,,,,,edge,constant
+d1-eeur,d1,none,insert,kv,single,1,200,1,5955,0,0.0000,287.77,643.91,902.23,1046.46,1622.05,680.22,2384.36,405,,,,,,,,,,,,edge,constant
+d1-eeur,d1,transaction,independent-writes,concurrency,single,1,100,1,5091,0,0.0000,249.02,373.89,545.84,632.1,885.33,397.56,1274.76,198,,,,,,,,,,,,edge,constant
+d1-eeur,d1,transaction,independent-writes,concurrency,single,1,200,1,5460,1,0.0002,259.21,648.11,1127.43,1401.04,2141.35,748.22,3102.81,304,,,,,,,,,,,,edge,constant
+d1-eeur,d1,transaction,hot-row-write,concurrency,single,1,100,1,4966,0,0.0000,241.86,335.27,712.06,865.43,1114.16,407.82,2175.31,198,,,,,,,,,,,,edge,constant
+d1-eeur,d1,transaction,hot-row-write,concurrency,single,1,200,1,6354,0,0.0000,314.08,619.33,838.76,938.19,1208.5,635.5,1432.25,391,,,,,,,,,,,,edge,constant
