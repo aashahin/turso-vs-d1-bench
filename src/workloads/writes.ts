@@ -7,12 +7,15 @@
 //
 // Both are read-then-write transactions; the transaction form depends on the
 // backend (D1 batch, BEGIN IMMEDIATE, or BEGIN CONCURRENT).
-import { hash32, type Dims, type OpQuery } from "./common.ts";
+import { type Dims, type OpQuery } from "./common.ts";
 
 export function writeOp(test: string, opIndex: number, tenant: number, dims: Dims): OpQuery {
   if (test === "independent-writes") {
     // Distinct student row per op index, uniform over the seeded range.
-    const student = 1 + (hash32((opIndex ^ 0xc0ffee) >>> 0) % dims.seedRows);
+    // A hash modulo the row count collides before exhausting the row set.
+    // Cycle without replacement; wrapping still requires enough seeded rows
+    // for the requested concurrency and is documented in the benchmark notes.
+    const student = 1 + (opIndex % dims.seedRows);
     return { test, method: "POST", params: { tenant, student } };
   }
   if (test === "hot-row-write") {

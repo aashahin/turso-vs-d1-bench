@@ -12,6 +12,7 @@ export function printRunTable(scenarios: ScenarioResult[]): void {
     const ok = s.runs.reduce((a, r) => a + r.success, 0);
     const err = s.runs.reduce((a, r) => a + r.failed, 0);
     const rep = s.summary.medianReplicaRate;
+    const measured = s.runs.filter((r) => r.e2e.n > 0);
     console.log(
       [
         `${s.mode}/${s.backend}/${s.test} ${s.tenantMode}/t${s.tenantCount} c=${s.concurrency}`,
@@ -21,10 +22,10 @@ export function printRunTable(scenarios: ScenarioResult[]): void {
         (s.summary.medianErrorRate * 100).toFixed(1),
         Math.round(s.summary.medianRps).toString(),
         fmt(s.summary.medianP50),
-        fmt(median(s.runs.map((r) => r.e2e.p90))),
+        fmt(measured.length ? median(measured.map((r) => r.e2e.p90)) : null),
         fmt(s.summary.medianP95),
         fmt(s.summary.medianP99),
-        fmt(median(s.runs.map((r) => r.e2e.max))),
+        fmt(measured.length ? median(measured.map((r) => r.e2e.max)) : null),
         s.summary.medianDbP50 === null ? "-" : fmt(s.summary.medianDbP50),
         rep === null ? "-" : String(Math.round(rep * 100)),
       ].join("\t"),
@@ -143,8 +144,13 @@ export function printBests(scenarios: ScenarioResult[]): void {
     if (group.length < 2) continue;
     const by = (f: (s: ScenarioResult) => number): ScenarioResult => group.reduce((a, b) => (f(a) <= f(b) ? a : b));
     const byMax = (f: (s: ScenarioResult) => number): ScenarioResult => group.reduce((a, b) => (f(a) >= f(b) ? a : b));
+    const latencyBest = (metric: "medianP50" | "medianP95"): string => {
+      const eligible = group.filter((s) => s.summary[metric] !== null);
+      if (!eligible.length) return "n/a";
+      return eligible.reduce((a, b) => a.summary[metric]! <= b.summary[metric]! ? a : b).backend;
+    };
     console.log(
-      `${key}: best p50=${by((s) => s.summary.medianP50).backend} best p95=${by((s) => s.summary.medianP95).backend} best throughput=${byMax((s) => s.summary.medianRps).backend} lowest errors=${by((s) => s.summary.medianErrorRate).backend}`,
+      `${key}: best p50=${latencyBest("medianP50")} best p95=${latencyBest("medianP95")} best throughput=${byMax((s) => s.summary.medianRps).backend} lowest errors=${by((s) => s.summary.medianErrorRate).backend}`,
     );
   }
 }

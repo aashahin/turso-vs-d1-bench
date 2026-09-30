@@ -5,6 +5,7 @@
 // with Promise.all, kept only for before/after comparison (--load-model=burst).
 import { classifyError, mergeTx, summarize, type ClassifiedError, type ErrorClass, type Summary, type TxCounts, type TxStats } from "./stats.ts";
 import type { OpQuery } from "./workloads/common.ts";
+import type { WorkerLifecycle } from "../shared/lifecycle.ts";
 
 export interface OpSample {
   e2eMs: number;
@@ -27,6 +28,8 @@ export interface OpSample {
   tx: TxCounts | null;
   /** True when a concurrent transaction exhausted its retry budget. */
   txFailed: boolean;
+  /** Absent when an older Worker or direct mode cannot report lifecycle. */
+  lifecycle?: WorkerLifecycle | null;
 }
 
 export type OpFn = (op: OpQuery, signal: AbortSignal) => Promise<OpSample>;
@@ -90,11 +93,22 @@ function emptyOutcome(wallMs: number): RunOutcome {
   };
 }
 
-async function execOne(exec: OpFn, op: OpQuery, timeoutMs: number): Promise<{ ok: true; sample: OpSample } | { ok: false; err: ClassifiedError }> {
+export type OpResult = { ok: true; sample: OpSample } | { ok: false; err: ClassifiedError };
+
+export async function execOne(exec: OpFn, op: OpQuery, timeoutMs: number): Promise<OpResult> {
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(new DOMException(`op timed out after ${timeoutMs}ms`, "TimeoutError")), timeoutMs);
+  let timer!: ReturnType<typeof setTimeout>;
+  const deadline = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      const error = new DOMException(`op timed out after ${timeoutMs}ms`, "TimeoutError");
+      reject(error);
+      ctrl.abort(error);
+    }, timeoutMs);
+  });
   try {
-    const sample = await exec(op, ctrl.signal);
+    // Aborting a signal alone cannot bound an executor that ignores it. Racing
+    // also observes late rejections, without counting a late result twice.
+    const sample = await Promise.race([exec(op, ctrl.signal), deadline]);
     return { ok: true, sample };
   } catch (e) {
     return { ok: false, err: classifyError(e) };
@@ -124,7 +138,6 @@ export async function runScenario(opts: RunOpts): Promise<RunOutcome> {
   const errorsByStatus: Record<string, number> = {};
   const sampleErrors: string[] = [];
   const txCounts: TxCounts[] = [];
-  let txFailedOps = 0;
   let engine: string | null = null;
   let transactionMode: string | null = null;
   let success = 0;
@@ -158,7 +171,6 @@ export async function runScenario(opts: RunOpts): Promise<RunOutcome> {
       // latency is excluded from the success percentiles.
       if (s.txFailed) {
         failed++;
-        txFailedOps++;
         errorsByClass.conflict++;
         errorsByStatus.conflict = (errorsByStatus.conflict ?? 0) + 1;
         const msg = s.tx?.error ?? "concurrent transaction failed after retries";
@@ -218,7 +230,7 @@ export async function runScenario(opts: RunOpts): Promise<RunOutcome> {
 
   const wallMs = performance.now() - wall0;
   if (success === 0) {
-    return { ...emptyOutcome(wallMs), failed, errorRate: 1, errorsByClass, errorsByStatus, sampleErrors, engine, transactionMode, tx: mergeTx(txCounts), wallMs };
+    return { ...emptyOutcome(wallMs), failed, errorRate: failed > 0 ? 1 : 0, errorsByClass, errorsByStatus, sampleErrors, engine, transactionMode, tx: mergeTx(txCounts), replicaReads, primaryReads, totalReads, regions, wallMs };
   }
   return {
     e2e: summarize(e2e, wallMs),

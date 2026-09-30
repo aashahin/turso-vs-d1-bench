@@ -6,7 +6,9 @@ import { parseArgs, type Backend, type Test } from "./config.ts";
 import { printBests, printDistributed, printRunTable, printSaturation, printWriteComparison } from "./reporters/console.ts";
 import { toCsv } from "./reporters/csv.ts";
 import { runScenario } from "./runner.ts";
-import { median, mergeTx } from "./stats.ts";
+import { fmt } from "./stats.ts";
+import { coldStartCsv, runColdStart, type ColdStartRun } from "./cold-start.ts";
+import { summarizeRuns } from "./results.ts";
 import type { EnvInfo, ResultDoc, RunRecord, ScenarioResult } from "./results.ts";
 import { tenantFor, type Dims, type OpQuery } from "./workloads/common.ts";
 import { kvMixedTest, kvOp, lmsMixedTest, lmsOp, writeOp } from "./workloads/index.ts";
@@ -50,7 +52,7 @@ function buildOp(test: string, tenantMode: string, tenantCount: number): (index:
 
 async function coloOf(workerUrl: string): Promise<string | null> {
   try {
-    const res = await fetch(`${workerUrl}/cdn-cgi/trace`);
+    const res = await fetch(`${workerUrl}/cdn-cgi/trace`, { signal: AbortSignal.timeout(args.timeoutMs) });
     if (!res.ok) return null;
     const text = await res.text();
     return text.match(/^colo=(.*)$/m)?.[1]?.trim() ?? null;
@@ -61,7 +63,7 @@ async function coloOf(workerUrl: string): Promise<string | null> {
 
 async function metaOf(workerUrl: string): Promise<{ kv: Record<string, number | null>; lms: Record<string, number | null>; concurrency: Record<string, number | null> }> {
   try {
-    const res = await fetch(`${workerUrl}/bench/meta`);
+    const res = await fetch(`${workerUrl}/bench/meta`, { signal: AbortSignal.timeout(args.timeoutMs) });
     if (!res.ok) return { kv: {}, lms: {}, concurrency: {} };
     const m = (await res.json()) as Record<string, unknown>;
     const num = (k: string): number | null => (typeof m[k] === "number" ? (m[k] as number) : null);
@@ -85,7 +87,7 @@ async function metaOf(workerUrl: string): Promise<{ kv: Record<string, number | 
 /** Worker-side view of the configured Turso databases (hosts only, never tokens). */
 async function identityOf(workerUrl: string): Promise<{ tursoHost: string | null; tursodbHost: string | null; tursodbConfigured: boolean }> {
   try {
-    const res = await fetch(`${workerUrl}/bench/identity`);
+    const res = await fetch(`${workerUrl}/bench/identity`, { signal: AbortSignal.timeout(args.timeoutMs) });
     if (!res.ok) return { tursoHost: null, tursodbHost: null, tursodbConfigured: false };
     const identity = (await res.json()) as Record<string, unknown>;
     return {
@@ -121,6 +123,9 @@ interface Scenario {
 const DIRECT_BACKENDS: Readonly<Record<string, true>> = { turso: true, "turso-raw": true, "turso-reused": true, "turso-drizzle": true };
 
 const matrix: Scenario[] = [];
+if (args.tests.includes("cold-start") && !args.modes.includes("edge")) {
+  throw new Error("cold-start requires --modes=edge (Worker lifecycle evidence is unavailable in direct mode)");
+}
 for (const mode of args.modes) {
   for (const backend of args.backends) {
     if (mode === "direct" && DIRECT_BACKENDS[backend] !== true) {
@@ -129,12 +134,17 @@ for (const mode of args.modes) {
     }
     for (const rawTest of args.tests) {
       const test = normalizeTest(rawTest);
+      if (test === "cold-start" && mode !== "edge") continue;
       const needsAdmin = test === "mixed" || WRITE_TESTS[test] === true;
       if (mode === "edge" && needsAdmin && !args.adminToken) {
         throw new Error("edge writes need --admin-token (or ADMIN_TOKEN env): Worker write endpoints require Bearer auth");
       }
       const tenantCounts = args.tenantMode === "distributed" ? args.tenantCounts : [1];
       for (const tenantCount of tenantCounts) {
+        if (test === "cold-start") {
+          matrix.push({ mode, backend, test, scanLimit: null, tenantMode: args.tenantMode, tenantCount, concurrency: 1 });
+          continue;
+        }
         for (const c of args.concurrencies) {
           if (test === "scan") {
             for (const limit of args.scanLimits) {
@@ -149,6 +159,8 @@ for (const mode of args.modes) {
   }
 }
 if (matrix.length === 0) throw new Error("empty benchmark matrix: check --modes/--backends/--tests");
+// No health/meta/warmup requests before the cold-start observations.
+matrix.sort((a, b) => Number(b.test === "cold-start") - Number(a.test === "cold-start"));
 
 console.log(
   `modes=${args.modes.join("+")} backends=${args.backends.join(",")} tests=${args.tests.join(",")} workload=${args.workload} ` +
@@ -158,7 +170,20 @@ console.log(
 
 // ---- Runs ----
 const scenarios: ScenarioResult[] = [];
+const coldStarts: ColdStartRun[] = [];
 for (const s of matrix) {
+  if (s.test === "cold-start") {
+    for (let run = 1; run <= args.runs; run++) {
+      coldStarts.push(await runColdStart({
+        run, backend: s.backend, tenantMode: s.tenantMode, tenantCount: s.tenantCount,
+        samples: args.coldSamples, idleMs: args.coldIdleMs, warmRequests: args.coldWarmRequests,
+        timeoutMs: args.timeoutMs,
+        ops: (index) => kvOp("point-read", index, tenantFor(index, s.tenantMode, s.tenantCount), dims),
+        exec: makeEdgeExec(args.workerUrl, args.adminToken, s.backend),
+      }));
+    }
+    continue;
+  }
   const atomicForOps = s.scanLimit !== null ? "scan" : s.test;
   // Scan scenarios pin one limit per scenario; other ops builders sample from dims.
   const pinned = s.scanLimit !== null ? { ...dims, scanLimits: [s.scanLimit as number] } : dims;
@@ -222,17 +247,7 @@ for (const s of matrix) {
     iterations: args.iterations,
     timeoutMs: args.timeoutMs,
     runs,
-    summary: {
-      medianP50: median(runs.map((r) => r.e2e.p50)),
-      medianP95: median(runs.map((r) => r.e2e.p95)),
-      medianP99: median(runs.map((r) => r.e2e.p99)),
-      medianRps: median(runs.map((r) => r.rps)),
-      medianDbP50: runs.some((r) => r.db !== null) ? median(runs.map((r) => r.db?.p50 ?? 0)) : null,
-      medianErrorRate: median(runs.map((r) => r.errorRate)),
-      medianReplicaRate: runs.some((r) => r.replicaRate !== null) ? median(runs.map((r) => r.replicaRate ?? 0)) : null,
-      // Counters are summed across runs (rates must stay exact, not medians of rates).
-      tx: mergeTx(runs.map((r) => r.tx).filter((tx): tx is NonNullable<typeof tx> => tx !== null)),
-    },
+    summary: summarizeRuns(runs),
   });
 }
 
@@ -247,6 +262,8 @@ const hostOfUrl = (u: string): string | null => {
 };
 
 const notes: string[] = [];
+if (coldStarts.length) notes.push("cold-start measures a point-read after runner idle, then identical sequential follow-ups; no warmup or preflight. Idle does not force Worker eviction, a new DB connection, or a cold DB cache. Lifecycle is observational; paired deltas require the same reported isolate. End-to-end timing includes client networking; dbMs excludes platform startup. Other traffic can keep a Worker or database warm.");
+if (args.tests.includes("independent-writes")) notes.push("independent-writes cycles through seeded student rows without replacement, then wraps. Use --iterations <= --seed-rows with --warmup=0 to avoid any reuse within a run; a slow in-flight write can overlap a later cycle. Seed at least as many rows as concurrency.");
 if (args.modes.includes("direct")) notes.push("direct mode hits Turso Cloud from this machine; it is a client-to-cloud reference, not comparable with edge-terminated D1 traffic.");
 if (args.tenantMode === "distributed") notes.push("distributed requests spread uniformly over tenantCount databases; per-tenant RPS = total RPS / tenantCount. Tenant DBs backed by explicit DB_TENANT_* bindings report tenantDb isolated, otherwise tenant_id scoping in the shared primary (see tenantBinding per response).");
 if (args.backends.some((b) => b.startsWith("tursodb"))) notes.push("tursodb backends target the new Turso Database engine (turso db create --tursodb). tursodb-concurrent uses BEGIN CONCURRENT (early-preview MVCC): conflicts are detected at commit, retried up to --write-retries, and every retry is inside the measured latency.");
@@ -288,7 +305,7 @@ const environment: EnvInfo = {
   }
 }
 
-const doc: ResultDoc = { timestamp: environment.timestamp, environment, scenarios };
+const doc: ResultDoc = { timestamp: environment.timestamp, environment, scenarios, coldStarts };
 
 // ---- Output ----
 printRunTable(scenarios);
@@ -296,7 +313,21 @@ printSaturation(scenarios);
 printWriteComparison(scenarios);
 printDistributed(scenarios);
 printBests(scenarios);
+if (coldStarts.length) {
+  console.log("\nCOLD START — first request after idle vs following requests (no forced eviction; paired deltas use the same observed isolate)");
+  console.log(["backend", "run", "idle ms", "first ok/err", "following ok/err", "first e2e p50", "following e2e p50", "first db p50", "following db p50", "new/reused/unknown", "paired trials", "paired e2e delta"].join("\t"));
+  for (const r of coldStarts) console.log([
+    r.backend, r.run, r.idleMs, `${r.first.success}/${r.first.failed}`, `${r.following.success}/${r.following.failed}`,
+    fmt(r.first.e2e?.p50 ?? null), fmt(r.following.e2e?.p50 ?? null), fmt(r.first.db?.p50 ?? null), fmt(r.following.db?.p50 ?? null),
+    `${r.firstOnNewIsolate}/${r.firstOnReusedIsolate}/${r.firstLifecycleUnknown}`, r.pairedTrials, fmt(r.medianE2eDeltaMs),
+  ].join("\t"));
+}
 await Bun.write(args.out, JSON.stringify(doc, null, 2));
 const csvOut = args.out.endsWith(".json") ? `${args.out.slice(0, -".json".length)}.csv` : `${args.out}.csv`;
 await Bun.write(csvOut, toCsv(scenarios));
 console.log(`wrote ${args.out} + ${csvOut}`);
+if (coldStarts.length) {
+  const coldCsvOut = csvOut.replace(/\.csv$/, "-cold-start.csv");
+  await Bun.write(coldCsvOut, coldStartCsv(coldStarts));
+  console.log(`wrote ${coldCsvOut}`);
+}

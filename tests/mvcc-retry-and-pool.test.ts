@@ -9,11 +9,14 @@
 //     were reported as writes).
 //
 // Run with: bun test
-import { describe, expect, test } from "bun:test";
+import { afterEach, describe, expect, jest, mock, test } from "bun:test";
 import { execConcurrent, isConflictError } from "../worker/src/queries.ts";
 import { txModeOf, withPooledTurso, withPooledTursoDb } from "../worker/src/backends.ts";
 import { mergeTx } from "../src/stats.ts";
 import { isReadTest, WRITE_TESTS } from "../shared/backend-tests.ts";
+import { deferred } from "./helpers.ts";
+
+afterEach(() => { jest.useRealTimers(); });
 
 function conflictError(message: string, code?: string): Error {
   const error = new Error(message);
@@ -71,17 +74,26 @@ describe("MVCC conflict retrying", () => {
     expect(run.stats.error).toContain("locked");
   });
 
+  test("a zero retry budget still attempts the transaction exactly once", async () => {
+    const attempt = mock(async () => { throw conflictError("database is locked"); });
+    const run = await execConcurrent(0, attempt);
+    expect(attempt).toHaveBeenCalledTimes(1);
+    expect(run).toMatchObject({ committed: false, stats: { attempted: 1, attemptsTotal: 1, committed: 0, conflicts: 1, retries: 0, successAfterRetry: 0, failedAfterRetries: 1 } });
+  });
+
   test.each([
     ["constraint", conflictError("UNIQUE constraint failed: kv.id", "SQLITE_CONSTRAINT")],
     ["query timeout", conflictError("Query timed out", "TIMEOUT")],
     ["application", conflictError("no such table: nope")],
     ["connection limit", conflictError("Database connections limit exceeded, try to reduce concurrency")],
   ])("propagates %s errors instead of retrying them", async (_name, error) => {
-    const run = execConcurrent(3, attempts(() => {
+    const attempt = mock(async () => {
       throw error;
-    }));
+    });
+    const run = execConcurrent(3, attempt);
 
     await expect(run).rejects.toBe(error);
+    expect(attempt).toHaveBeenCalledTimes(1);
   });
 
   test.each([
@@ -109,7 +121,7 @@ describe("MVCC conflict retrying", () => {
     expect(merged?.avgRetries).toBeCloseTo(7 / 20, 10);
   });
 
-  test("a single-run scenario reports no transaction counters", () => {
+  test("a scenario with no transaction samples reports no transaction counters", () => {
     expect(mergeTx([])).toBeNull();
   });
 });
@@ -189,39 +201,75 @@ describe("connection pool queueing", () => {
     expect(ran).toBe(false);
   });
 
-  test("an abandoned queued request frees its slot for later requests", async () => {
+  test.each([
+    ["libSQL", withPooledTurso], ["tursodb", withPooledTursoDb],
+  ] as const)("%s: an abandoned queued request frees its slot without releasing active work", async (_name, pooled) => {
     // Every slot busy, so the request below is genuinely queued.
-    const busy = Array.from({ length: slots }, () => withPooledTurso(poolEnv, () => Bun.sleep(60)));
+    const release = deferred();
+    const entered = Array.from({ length: slots }, () => deferred());
+    const busy = entered.map((entry) => pooled(poolEnv, async () => {
+      entry.resolve();
+      await release.promise;
+    }));
+    await Promise.all(entered.map((entry) => entry.promise));
     const controller = new AbortController();
     let ran = false;
-    const abandoned = withPooledTurso(poolEnv, async () => {
+    const abandoned = pooled(poolEnv, async () => {
       ran = true;
       return "never";
     }, controller.signal);
-    await Bun.sleep(5);
     controller.abort();
 
     expect((await rejectionOf(abandoned)).name).toBe("AbortError");
     expect(ran).toBe(false);
-    await Promise.all(busy);
-
     // Before the fix the abandoned request left its slot gated forever and the
     // Workers runtime cancelled every later request that landed on it.
-    const after = await Promise.all(Array.from({ length: slots }, () => withPooledTurso(poolEnv, async () => "ok")));
+    let followingStarted = 0;
+    const following = Array.from({ length: slots }, () => pooled(poolEnv, async () => { followingStarted++; return "ok"; }));
+    await Promise.resolve();
+    expect(followingStarted).toBe(0);
+    release.resolve();
+    await Promise.all(busy);
+    const after = await Promise.all(following);
     expect(after.map((result) => result.out)).toEqual(Array.from({ length: slots }, () => "ok"));
   });
 
-  test("a stalled request frees its slot after the pool deadline", async () => {
-    // The pool deadline is 15s; a stalled slot used to block later requests
-    // for the lifetime of the isolate.
-    const stalled = Array.from({ length: slots }, () => withPooledTurso(poolEnv, () => new Promise<string>(() => {})).catch(() => null));
-    void stalled;
+  test.each([
+    ["libSQL", withPooledTurso], ["tursodb", withPooledTursoDb],
+  ] as const)("%s: stalled calls reject at the deadline and all slots recover with new connections", async (_name, pooled) => {
+    jest.useFakeTimers();
+    const entered = Array.from({ length: slots }, () => deferred());
+    const oldConnections = new Set<unknown>();
+    const stalled = entered.map((entry) => rejectionOf(pooled(poolEnv, async (conn) => {
+      oldConnections.add(conn);
+      entry.resolve();
+      return new Promise<never>(() => {});
+    })));
+    await Promise.all(entered.map((entry) => entry.promise));
+    let recovered = 0;
+    const following = Array.from({ length: slots }, () => pooled(poolEnv, async (conn) => {
+      expect(oldConnections.has(conn)).toBe(false);
+      recovered++;
+      return "ok";
+    }));
+    jest.advanceTimersByTime(14_999);
+    await Promise.resolve();
+    expect(recovered).toBe(0);
+    jest.advanceTimersByTime(1);
+    const errors = await Promise.all(stalled);
+    expect(errors.every((error) => error.message.includes("15000ms; connection recycled"))).toBe(true);
+    expect((await Promise.all(following)).map((r) => r.out)).toEqual(Array(slots).fill("ok"));
+    expect(recovered).toBe(slots);
+    expect(jest.getTimerCount()).toBe(0);
+  });
 
-    const started = Date.now();
-    const later = await withPooledTurso(poolEnv, async () => "later");
-    const waitedMs = Date.now() - started;
-
-    expect(later.out).toBe("later");
-    expect(waitedMs).toBeGreaterThanOrEqual(14_000);
-  }, 30_000);
+  test.each([
+    ["libSQL", withPooledTurso], ["tursodb", withPooledTursoDb],
+  ] as const)("%s: rejected operations release all pool slots", async (_name, pooled) => {
+    const error = new Error("application failure");
+    const errors = await Promise.all(Array.from({ length: slots }, () => rejectionOf(pooled(poolEnv, async () => { throw error; }))));
+    expect(errors.every((e) => e === error)).toBe(true);
+    const next = await Promise.all(Array.from({ length: slots }, () => pooled(poolEnv, async () => "ok")));
+    expect(next.map((r) => r.out)).toEqual(Array(slots).fill("ok"));
+  });
 });

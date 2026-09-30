@@ -72,7 +72,7 @@ export function summarize(samplesMs: number[], wallMs: number): Summary {
     max: s[n - 1] ?? 0,
     mean,
     stdev: Math.sqrt(variance),
-    ops: n / (wallMs / 1000),
+    ops: wallMs > 0 ? n / (wallMs / 1000) : 0,
   };
 }
 
@@ -83,7 +83,7 @@ export function median(values: number[]): number {
   return s.length % 2 === 1 ? (s[mid] ?? 0) : ((s[mid - 1] ?? 0) + (s[mid] ?? 0)) / 2;
 }
 
-export const fmt = (v: number): string => (v < 10 ? v.toFixed(2) : v < 100 ? v.toFixed(1) : Math.round(v).toString());
+export const fmt = (v: number | null): string => (v === null ? "-" : v < 10 ? v.toFixed(2) : v < 100 ? v.toFixed(1) : Math.round(v).toString());
 
 // ---- MVCC / transaction statistics -----------------------------------------
 // Raw counters (attempted/committed/conflicts/retries) come from the Worker's

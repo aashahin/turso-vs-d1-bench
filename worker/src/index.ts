@@ -13,6 +13,9 @@ import {
 import { runOp, type OpParams } from "./queries.ts";
 import { allSeedTargets, resolveTenantDb } from "./tenant.ts";
 import { KV_DDL, LMS_DDL, analyze, seedKv, seedLms, type SeedDims } from "./seed.ts";
+import { createLifecycleTracker } from "./lifecycle.ts";
+
+const trackRequest = createLifecycleTracker();
 
 const MAX_SEED_ROWS = 50000;
 const MAX_SCAN_LIMIT = 1000;
@@ -72,6 +75,9 @@ function strField(body: Record<string, unknown>, name: string): string | undefin
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
+    // Count every route, including health/meta/errors: any can warm this isolate.
+    // Capture before awaiting so concurrent completions cannot swap identities.
+    const lifecycle = trackRequest();
     try {
       const url = new URL(req.url);
 
@@ -217,6 +223,7 @@ export default {
           tenantBinding: binding,
           sessions: usesSessions(backend),
           ...extra,
+          lifecycle,
         });
       }
 

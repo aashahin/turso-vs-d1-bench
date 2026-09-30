@@ -1,5 +1,7 @@
 // Shared result types for the JSON/CSV/console reporters.
 import type { ErrorClass, Summary, TxStats } from "./stats.ts";
+import { median, mergeTx } from "./stats.ts";
+import type { ColdStartRun } from "./cold-start.ts";
 
 export interface RunRecord {
   run: number;
@@ -28,9 +30,9 @@ export interface RunRecord {
 }
 
 export interface ScenarioSummary {
-  medianP50: number;
-  medianP95: number;
-  medianP99: number;
+  medianP50: number | null;
+  medianP95: number | null;
+  medianP99: number | null;
   medianRps: number;
   medianDbP50: number | null;
   medianErrorRate: number;
@@ -80,4 +82,22 @@ export interface ResultDoc {
   timestamp: string;
   environment: EnvInfo;
   scenarios: ScenarioResult[];
+  coldStarts: ColdStartRun[];
+}
+
+/** Missing latency is not zero latency; failure rates still include every run. */
+export function summarizeRuns(runs: RunRecord[]): ScenarioSummary {
+  const successful = runs.filter((r) => r.e2e.n > 0);
+  const db = runs.flatMap((r) => r.db !== null && r.db.n > 0 ? [r.db.p50] : []);
+  const replicas = runs.flatMap((r) => r.replicaRate === null ? [] : [r.replicaRate]);
+  return {
+    medianP50: successful.length ? median(successful.map((r) => r.e2e.p50)) : null,
+    medianP95: successful.length ? median(successful.map((r) => r.e2e.p95)) : null,
+    medianP99: successful.length ? median(successful.map((r) => r.e2e.p99)) : null,
+    medianRps: median(runs.map((r) => r.rps)),
+    medianDbP50: db.length ? median(db) : null,
+    medianErrorRate: median(runs.map((r) => r.errorRate)),
+    medianReplicaRate: replicas.length ? median(replicas) : null,
+    tx: mergeTx(runs.flatMap((r) => r.tx === null ? [] : [r.tx])),
+  };
 }

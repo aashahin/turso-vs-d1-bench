@@ -18,6 +18,7 @@ export const BACKENDS = [
 ] as const;
 
 export const TESTS = [
+  "cold-start",
   "point-read",
   "scan",
   "scan-100",
@@ -68,6 +69,9 @@ export interface BenchArgs {
   timeoutMs: number;
   runs: number;
   writeRetries: number;
+  coldSamples: number;
+  coldIdleMs: number;
+  coldWarmRequests: number;
   tenantMode: TenantMode;
   tenantCounts: number[];
   tenants: number;
@@ -152,6 +156,9 @@ export function parseArgs(): BenchArgs {
     timeoutMs: int("timeout-ms", "5000", 100),
     runs: int("runs", "1", 1, 25),
     writeRetries: int("write-retries", "3", 0, 20),
+    coldSamples: int("cold-samples", "5", 1, 1000),
+    coldIdleMs: int("cold-idle-ms", "30000", 0, 3600000),
+    coldWarmRequests: int("cold-warm-requests", "5", 1, 100),
     tenantMode: oneValue("tenant-mode", "single", TENANT_MODES),
     tenantCounts: intList("tenant-count", "1", 1),
     tenants: int("tenants", "10", 1, 100000),

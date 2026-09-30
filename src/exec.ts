@@ -7,6 +7,7 @@ import { TX_WRITE_TESTS } from "../shared/backend-tests.ts";
 import type { OpSample, OpFn } from "./runner.ts";
 import type { TxCounts } from "./stats.ts";
 import type { OpQuery } from "./workloads/common.ts";
+import { parseLifecycle } from "../shared/lifecycle.ts";
 
 interface EdgeBody {
   dbMs: number;
@@ -25,6 +26,7 @@ interface EdgeBody {
   tx?: TxCounts | null;
   txFailed?: boolean;
   error?: string;
+  lifecycle?: unknown;
 }
 
 /** Server-side transaction counters as reported by the Worker. */
@@ -67,7 +69,7 @@ export function makeEdgeExec(workerUrl: string, adminToken: string, backend: str
     const text = await res.text();
     if (!res.ok) throw new Error(`edge ${backend}/${op.test}: HTTP ${res.status} ${text.slice(0, 200)}`);
     const parsed = JSON.parse(text) as EdgeBody;
-    if (typeof parsed.dbMs !== "number") throw new Error(`edge ${backend}/${op.test}: bad response ${text.slice(0, 200)}`);
+    if (typeof parsed.dbMs !== "number" || !Number.isFinite(parsed.dbMs) || parsed.dbMs < 0) throw new Error(`edge ${backend}/${op.test}: bad response ${text.slice(0, 200)}`);
     const replica = parsed.servedByPrimary === false ? true : parsed.servedByPrimary === true ? false : null;
     return {
       e2eMs: performance.now() - t0,
@@ -86,6 +88,7 @@ export function makeEdgeExec(workerUrl: string, adminToken: string, backend: str
       transactionMode: typeof parsed.transactionMode === "string" ? parsed.transactionMode : null,
       tx: txOf(parsed.tx),
       txFailed: parsed.txFailed === true,
+      lifecycle: parseLifecycle(parsed.lifecycle),
     };
   };
 }

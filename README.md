@@ -162,7 +162,12 @@ that pool, not serialized by application code.
   full benefit of `BEGIN CONCURRENT`.
 - `independent-writes` — each op does `SELECT progress … ; UPDATE
   concurrent_progress SET progress = progress + 1 WHERE student_id = ?` for a
-  different `student_id` (seeded 1..`--rows`) inside one transaction. This is
+  different `student_id` (seeded 1..`--rows`) inside one transaction. IDs now
+  cycle through the seeded rows without replacement; hashing modulo the row
+  count previously introduced accidental same-row conflicts. After one full
+  cycle IDs repeat, so a slow in-flight operation can overlap the next cycle.
+  Use `--iterations` no larger than `--seed-rows` and `--warmup=0` to prevent
+  reuse within a run, and seed at least as many rows as concurrency. This is
   the Manhali pattern (student A → row A, student B → row B, …) and the
   workload where row-level MVCC should help most.
 - `hot-row-write` — every op reads and updates the single `hot_counter` row
@@ -456,9 +461,63 @@ for saturation curves; raise `--runs` for confidence. Never write results over
 the existing historical files: use `--out=results-tursodb*.json` (the runner
 writes the matching `.csv` next to it).
 
+### Cold start: first request after idle
+
+```bash
+bun run bench -- \
+  --worker-url=https://YOUR-WORKER.workers.dev \
+  --backends=d1,d1-eeur,turso-reused,tursodb-reused \
+  --tests=cold-start --runs=3 \
+  --cold-samples=5 --cold-idle-ms=30000 --cold-warm-requests=5 \
+  --out=results-cold-start.json
+```
+
+`bun run bench:cold-start` supplies the same cold-start settings with one run;
+set `WORKER_URL` to your seeded benchmark Worker. Select only configured
+backends. Deploy the updated Worker to collect lifecycle evidence.
+
+Each trial waits for `--cold-idle-ms`, measures one `point-read`, then issues
+`--cold-warm-requests` sequential reads of the **same row and tenant**. The next
+trial uses a new deterministic operation index; every backend replays the same
+sequence. There is no warmup, probe, metadata call or automatic retry before
+the first request. Failed first requests stay failures, even if the following
+requests succeed. The experiment is read-only and needs no admin token.
+
+Cold-start trials run **before** other requested tests and always at concurrency
+1. They use `--cold-samples` instead of `--iterations`/`--duration`; ordinary
+`--concurrency`, `--warmup` and `--load-model` settings do not apply. `--runs`
+still repeats the experiment. `--cold-idle-ms=0` is useful for local smoke
+checks, but provides no idle period. The default five 30-second idle periods
+take at least 2.5 minutes per backend per run.
+
+The Worker returns an isolate ID, request number and `firstRequest` flag.
+Every route, including health checks and metadata, increments the counter.
+Results distinguish first requests on a new isolate, reused isolates, and
+unknown lifecycle (older Workers or failed responses). An idle interval does
+**not** force Worker eviction, a fresh database connection, or a cold database
+cache. External traffic can keep both warm. This measures observed latency
+after idle, not guaranteed platform boot time. Pooled clients keep their normal
+round-robin behavior; follow-ups may use different pooled connections.
+
+JSON stores raw first/following samples, errors, actual idle durations, timing
+breakdowns and lifecycle evidence in `coldStarts`. Each run reports first and
+following latency separately. Paired deltas compare the first request with the
+median of successful following requests on the **same observed isolate**;
+cross-isolate and unknown pairs are excluded. A positive delta means the first
+request was slower. Follow-up summaries still include all successful follow-ups,
+so inspect the raw lifecycle evidence when routing changes between requests.
+`e2e` includes runner-to-edge networking; `dbMs` measures database work inside the
+handler and cannot include Worker startup before the handler.
+
+Cold results get their own console table and `<output-stem>-cold-start.csv`
+(e.g. `results-cold-start-cold-start.csv` for the command above). They never enter
+saturation tables or best-backend rankings. The usual `<output-stem>.csv` holds
+only ordinary load scenarios. No live performance numbers are supplied by the
+offline test suite.
+
 Other useful flags:
 `--backends=d1,d1-eeur,turso,turso-reused,tursodb,tursodb-reused,tursodb-concurrent,d1-rr,d1-eeur-rr,d1-drizzle,turso-drizzle`
-`--tests=point-read,scan,insert,update,student-dashboard,course-page,lesson-page,quiz-page,submit-quiz-answer,update-progress,enrollment,independent-writes,hot-row-write,mixed`
+`--tests=point-read,scan,insert,update,student-dashboard,course-page,lesson-page,quiz-page,submit-quiz-answer,update-progress,enrollment,independent-writes,hot-row-write,mixed,cold-start`
 (`scan-100` still accepted as a legacy alias; `tursodb` is an alias for
 `tursodb-reused`), `--workload=kv|lms` (mixed preset: kv = 70/15/10/5
 reads/scan/updates/inserts; lms = 40 lesson-page, 20 course-page, 15
@@ -474,6 +533,11 @@ the mixed LMS workload runs unchanged against all four tursodb/D1 backends),
 
 ## Interpreting results
 
+- Runs with no successful samples have no latency: their scenario latency
+  summaries are `null`, console cells show `-`, and CSV latency fields are
+  blank. They cannot win latency rankings. When some runs fail completely,
+  latency medians use only runs with samples while error/throughput summaries
+  still include every run. Always compare latency together with the error rate.
 - Every scenario runs `--runs` times; tables show **medians across runs**
   (D1 varies ±30% run to run). `results.json` keeps every run plus environment
   metadata (colo, row counts per engine, transaction mode, SDK/wrangler
@@ -502,6 +566,26 @@ the mixed LMS workload runs unchanged against all four tursodb/D1 backends),
   from an actual run of the commands above (`results-tursodb*.json`), with the
   database URLs/regions, SDK version, seed dims, duration and runs recorded in
   the same `environment` block.
+
+## Offline regression tests
+
+```bash
+bun test
+bun run typecheck
+```
+
+The suite exercises both load models, exact operation budgets, concurrency caps,
+duration boundaries, warmup exclusion, hard operation deadlines, error/MVCC
+accounting, deterministic workload generation, failure-aware statistics, and
+cold-start sequencing/lifecycle evidence. Pool tests cover **both** Turso engines:
+abandoned checkouts, application failures, deadline rejection and connection
+replacement. Fake timers and promise barriers replace the previous 15-second
+wait and timing-sensitive queue sleeps.
+
+An end-to-end CLI regression test starts an ephemeral loopback HTTP server,
+invokes the real runner, and checks request ordering plus JSON/CSV output.
+It needs permission to listen on `127.0.0.1`, but no external network access,
+database credentials or deployed Worker. Tests have been verified with Bun 1.4.2.
 
 ## Historical results (legacy micro-benchmark, 2026-09-09)
 
