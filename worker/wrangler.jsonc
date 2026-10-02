@@ -3,30 +3,529 @@
   "name": "bench-turso-vs-d1",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-09",
+  "version_metadata": { "binding": "CF_VERSION_METADATA" },
   "account_id": "a793ff57a25dfe6874a8738f9addd295",
   "observability": {
     "enabled": true,
     "traces": { "enabled": true }
   },
   "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "bench-turso-vs-d1",
-      "database_id": "7a9264a0-0fe3-419a-92e7-010258f9558d"
-    },
-    {
-      "binding": "DB_EEUR",
-      "database_name": "bench-turso-vs-d1-eeur",
-      "database_id": "1f8fd88f-a970-4030-b275-20945da3808f"
-    }
-    // Distributed tenant benchmark: provision one D1 database per tenant and
-    // add DB_TENANT_<n> (WEUR family) / DB_EEUR_TENANT_<n> bindings here, e.g.
-    // { "binding": "DB_TENANT_1", "database_name": "bench-tenant-1", "database_id": "<id>" }.
-    // Without these bindings the Worker falls back to tenant_id scoping in
-    // the shared primary and reports tenantDb "shared" — request fan-out is
-    // still exercised, but it is NOT an isolated-DB scaling number.
-  ],
+  {
+    "binding": "DB",
+    "database_name": "bench-turso-vs-d1",
+    "database_id": "7a9264a0-0fe3-419a-92e7-010258f9558d"
+  },
+  {
+    "binding": "DB_EEUR",
+    "database_name": "bench-turso-vs-d1-eeur",
+    "database_id": "1f8fd88f-a970-4030-b275-20945da3808f"
+  },
+  {
+    "binding": "DB_TENANT_1",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-1",
+    "database_id": "b2903555-ed7f-4eba-a74b-4a74a1ff225c"
+  },
+  {
+    "binding": "DB_TENANT_2",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-2",
+    "database_id": "b367abda-81e6-4610-abc1-bca58a27d199"
+  },
+  {
+    "binding": "DB_TENANT_3",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-3",
+    "database_id": "c29497a5-b7a7-4acb-a876-2ef23a030ea3"
+  },
+  {
+    "binding": "DB_TENANT_4",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-4",
+    "database_id": "a628409e-226a-49af-9d5d-7c2416d8f8dc"
+  },
+  {
+    "binding": "DB_TENANT_5",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-5",
+    "database_id": "c550d6a9-867b-4280-9807-b1ef7853ae67"
+  },
+  {
+    "binding": "DB_TENANT_6",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-6",
+    "database_id": "8c1588b1-e229-47c9-9cb5-5f449600c31d"
+  },
+  {
+    "binding": "DB_TENANT_7",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-7",
+    "database_id": "42b95a20-93de-47d2-b20a-88426043826a"
+  },
+  {
+    "binding": "DB_TENANT_8",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-8",
+    "database_id": "de768e31-143a-4254-9f04-666592a6a9d5"
+  },
+  {
+    "binding": "DB_TENANT_9",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-9",
+    "database_id": "4c9eaccf-d822-4b49-9361-6e4c1fc71d76"
+  },
+  {
+    "binding": "DB_TENANT_10",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-10",
+    "database_id": "dcc01879-6d54-4bff-8db1-1917e4e92841"
+  },
+  {
+    "binding": "DB_TENANT_11",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-11",
+    "database_id": "7027ccd1-9e15-49d7-a22e-130a06d7e87c"
+  },
+  {
+    "binding": "DB_TENANT_12",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-12",
+    "database_id": "53d26681-7dc4-4d83-9253-cc16cb9c854e"
+  },
+  {
+    "binding": "DB_TENANT_13",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-13",
+    "database_id": "9c51e316-4f72-4a77-81df-9cb7bbce72e9"
+  },
+  {
+    "binding": "DB_TENANT_14",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-14",
+    "database_id": "e8134659-ce04-486b-8312-f40e6ab0e21b"
+  },
+  {
+    "binding": "DB_TENANT_15",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-15",
+    "database_id": "3b68a871-2e34-4516-9739-4a557fd0afd9"
+  },
+  {
+    "binding": "DB_TENANT_16",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-16",
+    "database_id": "08a11f31-2c2b-4c9a-81c0-a61542b57326"
+  },
+  {
+    "binding": "DB_TENANT_17",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-17",
+    "database_id": "bd526954-c28f-4f1e-bc5b-2ee3f02700c7"
+  },
+  {
+    "binding": "DB_TENANT_18",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-18",
+    "database_id": "70c2d244-55c0-4892-ac56-27670a3ed32d"
+  },
+  {
+    "binding": "DB_TENANT_19",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-19",
+    "database_id": "d86c64bc-fcb9-4dfd-8e9a-08f36e5e2c96"
+  },
+  {
+    "binding": "DB_TENANT_20",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-20",
+    "database_id": "7bab7401-1da5-4fd5-b5c2-7eb8d111369e"
+  },
+  {
+    "binding": "DB_TENANT_21",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-21",
+    "database_id": "6f447b11-f0cc-42b2-b6a2-2b91801e217b"
+  },
+  {
+    "binding": "DB_TENANT_22",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-22",
+    "database_id": "ef50f9f2-3757-467e-83ac-ef7fa25b7345"
+  },
+  {
+    "binding": "DB_TENANT_23",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-23",
+    "database_id": "27e4de5c-b536-4bbe-b551-dd531be2daff"
+  },
+  {
+    "binding": "DB_TENANT_24",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-24",
+    "database_id": "44055dc5-8976-453e-87ad-db0388de8295"
+  },
+  {
+    "binding": "DB_TENANT_25",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-25",
+    "database_id": "de2defeb-8d01-4ab7-9366-c9daf182ffa5"
+  },
+  {
+    "binding": "DB_TENANT_26",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-26",
+    "database_id": "5cf07085-2948-4477-96ed-98fb44239def"
+  },
+  {
+    "binding": "DB_TENANT_27",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-27",
+    "database_id": "9c5d86cf-0723-4c76-996f-0639fa561f22"
+  },
+  {
+    "binding": "DB_TENANT_28",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-28",
+    "database_id": "ec8789b7-aa4a-4e94-bc5c-5509a4124ad5"
+  },
+  {
+    "binding": "DB_TENANT_29",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-29",
+    "database_id": "9bb905de-abd2-4cc4-9e15-73cb50e46092"
+  },
+  {
+    "binding": "DB_TENANT_30",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-30",
+    "database_id": "274b5668-e73c-439d-a310-2f0e34c755e5"
+  },
+  {
+    "binding": "DB_TENANT_31",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-31",
+    "database_id": "5baa19d1-b02c-4c2b-a7e2-02fa7ce5affa"
+  },
+  {
+    "binding": "DB_TENANT_32",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-32",
+    "database_id": "f7c8a5dd-dafb-4b94-aefc-47154f419ddb"
+  },
+  {
+    "binding": "DB_TENANT_33",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-33",
+    "database_id": "ae73ed3d-546d-4250-9afb-5594558b2319"
+  },
+  {
+    "binding": "DB_TENANT_34",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-34",
+    "database_id": "3feed85e-961b-45e1-b75d-551bdfa353ef"
+  },
+  {
+    "binding": "DB_TENANT_35",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-35",
+    "database_id": "ad8834c8-4eb7-40fb-8117-fad8e6188b5d"
+  },
+  {
+    "binding": "DB_TENANT_36",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-36",
+    "database_id": "6ae105be-067c-4de6-8b4c-23dc1412cc2c"
+  },
+  {
+    "binding": "DB_TENANT_37",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-37",
+    "database_id": "35a48fc7-d151-4903-89d2-5ae2aee840fd"
+  },
+  {
+    "binding": "DB_TENANT_38",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-38",
+    "database_id": "a6efaba5-8b93-4bf5-81f9-1f8226caaf37"
+  },
+  {
+    "binding": "DB_TENANT_39",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-39",
+    "database_id": "605977f4-f930-4756-af9e-5b3bdc5c9637"
+  },
+  {
+    "binding": "DB_TENANT_40",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-40",
+    "database_id": "b69f6dfa-e2af-4954-a58f-0491788d7211"
+  },
+  {
+    "binding": "DB_TENANT_41",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-41",
+    "database_id": "8b861eb8-1442-401f-a019-00d8bf9dbd84"
+  },
+  {
+    "binding": "DB_TENANT_42",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-42",
+    "database_id": "228b2fe2-034a-48e4-8d52-f715d21fb4ff"
+  },
+  {
+    "binding": "DB_TENANT_43",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-43",
+    "database_id": "d1b8a8ed-9610-499f-9364-b4acb0b56fe6"
+  },
+  {
+    "binding": "DB_TENANT_44",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-44",
+    "database_id": "3e8df4fe-afb5-48d9-ba21-3a9916b29af6"
+  },
+  {
+    "binding": "DB_TENANT_45",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-45",
+    "database_id": "f1286632-0d71-4537-a333-196885cd3e1b"
+  },
+  {
+    "binding": "DB_TENANT_46",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-46",
+    "database_id": "2c4eb4a1-70a0-4289-b7c2-8d8bb8f928d4"
+  },
+  {
+    "binding": "DB_TENANT_47",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-47",
+    "database_id": "ec475db0-565d-4a88-8a58-42d7d4e03922"
+  },
+  {
+    "binding": "DB_TENANT_48",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-48",
+    "database_id": "aaf3764d-93b4-4fa4-8032-5895591ededb"
+  },
+  {
+    "binding": "DB_TENANT_49",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-49",
+    "database_id": "994451cf-c93a-49fe-b4b2-7f7ed0f9bf63"
+  },
+  {
+    "binding": "DB_TENANT_50",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-50",
+    "database_id": "1cf774d6-ca83-44ce-9920-ce04cde9260e"
+  },
+  {
+    "binding": "DB_TENANT_51",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-51",
+    "database_id": "7867e390-8091-4168-a6ef-1ba9c12b6e76"
+  },
+  {
+    "binding": "DB_TENANT_52",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-52",
+    "database_id": "57e06b6a-0f57-42a0-904b-e4b03b0fa2ee"
+  },
+  {
+    "binding": "DB_TENANT_53",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-53",
+    "database_id": "a8e098f6-802d-4137-9106-9d5547d66c37"
+  },
+  {
+    "binding": "DB_TENANT_54",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-54",
+    "database_id": "0891522c-8881-4395-b089-b1f67d33cf64"
+  },
+  {
+    "binding": "DB_TENANT_55",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-55",
+    "database_id": "b26d3b6c-bef3-42bb-aa0e-294bac82d493"
+  },
+  {
+    "binding": "DB_TENANT_56",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-56",
+    "database_id": "1e3a7a0f-1d22-4a61-9e53-c284fa5e3279"
+  },
+  {
+    "binding": "DB_TENANT_57",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-57",
+    "database_id": "a0071683-71fa-4a16-8dd5-580b17dd913a"
+  },
+  {
+    "binding": "DB_TENANT_58",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-58",
+    "database_id": "736066bb-220f-4f00-a29c-277a70f58d06"
+  },
+  {
+    "binding": "DB_TENANT_59",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-59",
+    "database_id": "a1ed7dca-7e6a-4029-b003-c7a21e6b28de"
+  },
+  {
+    "binding": "DB_TENANT_60",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-60",
+    "database_id": "dedeaaec-9569-40f9-bd84-fec2f5867c79"
+  },
+  {
+    "binding": "DB_TENANT_61",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-61",
+    "database_id": "bc59b1cc-218d-45bf-aa28-f4efb4d58894"
+  },
+  {
+    "binding": "DB_TENANT_62",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-62",
+    "database_id": "388767b5-4801-4a15-9d12-be9e1bb3a47e"
+  },
+  {
+    "binding": "DB_TENANT_63",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-63",
+    "database_id": "3a62d27e-f8f5-47ea-9e1c-c280b7246305"
+  },
+  {
+    "binding": "DB_TENANT_64",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-64",
+    "database_id": "b13af8da-0512-4838-be42-3ebe5b761ca5"
+  },
+  {
+    "binding": "DB_TENANT_65",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-65",
+    "database_id": "50fcb30b-e9e0-4a03-a524-8e426dab90e5"
+  },
+  {
+    "binding": "DB_TENANT_66",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-66",
+    "database_id": "f2a1a5f0-2266-409b-9dbd-23a55e4671fa"
+  },
+  {
+    "binding": "DB_TENANT_67",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-67",
+    "database_id": "824dfecf-737b-461d-aadd-4d33bb4e4174"
+  },
+  {
+    "binding": "DB_TENANT_68",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-68",
+    "database_id": "41221c4e-55f2-4089-aeb8-fe896b3a0e84"
+  },
+  {
+    "binding": "DB_TENANT_69",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-69",
+    "database_id": "c4e8536a-3a4a-483b-80c4-5cd0f339e2cf"
+  },
+  {
+    "binding": "DB_TENANT_70",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-70",
+    "database_id": "0ae23277-0d84-441a-a91c-5904645d1cdb"
+  },
+  {
+    "binding": "DB_TENANT_71",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-71",
+    "database_id": "f4441920-4828-4de0-b4d2-0710e54a6615"
+  },
+  {
+    "binding": "DB_TENANT_72",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-72",
+    "database_id": "eb26bdb6-941e-449e-b8d4-52d74ac7329f"
+  },
+  {
+    "binding": "DB_TENANT_73",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-73",
+    "database_id": "30db7950-0ee5-4f1e-8864-c4f956713e7d"
+  },
+  {
+    "binding": "DB_TENANT_74",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-74",
+    "database_id": "f2207bfd-89df-4cc8-909a-c6e42620b556"
+  },
+  {
+    "binding": "DB_TENANT_75",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-75",
+    "database_id": "ec7bd009-8964-4691-b6bd-533e57496241"
+  },
+  {
+    "binding": "DB_TENANT_76",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-76",
+    "database_id": "0c77c826-bb0a-4d68-985d-62889e9fa892"
+  },
+  {
+    "binding": "DB_TENANT_77",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-77",
+    "database_id": "792ef418-7830-47b0-963e-6f32b36657ba"
+  },
+  {
+    "binding": "DB_TENANT_78",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-78",
+    "database_id": "1087c0fd-960e-4753-a3d2-9fcdbd8acb11"
+  },
+  {
+    "binding": "DB_TENANT_79",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-79",
+    "database_id": "fef518eb-6498-4dd1-8892-17ff5e4caf17"
+  },
+  {
+    "binding": "DB_TENANT_80",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-80",
+    "database_id": "335eabaf-1276-480e-8183-220b1cc362a8"
+  },
+  {
+    "binding": "DB_TENANT_81",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-81",
+    "database_id": "d8788131-8f3d-4891-adcc-9918d88f3408"
+  },
+  {
+    "binding": "DB_TENANT_82",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-82",
+    "database_id": "d84e120a-eeac-4a07-aec3-52ee5efa9d98"
+  },
+  {
+    "binding": "DB_TENANT_83",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-83",
+    "database_id": "8df249be-a151-4502-a953-8bab564ddc11"
+  },
+  {
+    "binding": "DB_TENANT_84",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-84",
+    "database_id": "db8a78ff-0344-498c-af91-e09c2d0882ec"
+  },
+  {
+    "binding": "DB_TENANT_85",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-85",
+    "database_id": "fcc4a10f-5b6d-4f85-b74d-776cacc19e7b"
+  },
+  {
+    "binding": "DB_TENANT_86",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-86",
+    "database_id": "b73c7184-81c2-4c54-8afc-e24d6553ea78"
+  },
+  {
+    "binding": "DB_TENANT_87",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-87",
+    "database_id": "defc7ac8-4667-4ec4-8db7-781004488ea7"
+  },
+  {
+    "binding": "DB_TENANT_88",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-88",
+    "database_id": "3eb855a2-2343-41b6-a6a0-bc2a2a71f426"
+  },
+  {
+    "binding": "DB_TENANT_89",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-89",
+    "database_id": "6033eaf3-6294-47df-bb79-faf2660a13b5"
+  },
+  {
+    "binding": "DB_TENANT_90",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-90",
+    "database_id": "adc0b1d4-2e40-4ad3-91f2-1f604adf02db"
+  },
+  {
+    "binding": "DB_TENANT_91",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-91",
+    "database_id": "6b423931-1579-4e15-b2fa-0b24862a25c3"
+  },
+  {
+    "binding": "DB_TENANT_92",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-92",
+    "database_id": "e94046e8-1e4e-4b7c-961e-b465c4f5fc85"
+  },
+  {
+    "binding": "DB_TENANT_93",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-93",
+    "database_id": "c7800e5c-d168-4afe-8ce8-388452dc5b14"
+  },
+  {
+    "binding": "DB_TENANT_94",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-94",
+    "database_id": "a10e266d-481a-4ad6-9c57-21f5ee729e96"
+  },
+  {
+    "binding": "DB_TENANT_95",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-95",
+    "database_id": "4063801f-b8ed-4f65-8315-d5df3821d2e7"
+  },
+  {
+    "binding": "DB_TENANT_96",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-96",
+    "database_id": "452bf037-1ab8-46c7-b36a-d31c3c395969"
+  },
+  {
+    "binding": "DB_TENANT_97",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-97",
+    "database_id": "40b58158-3f01-469c-b2df-dafdbfc1498e"
+  },
+  {
+    "binding": "DB_TENANT_98",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-98",
+    "database_id": "6ee8c515-a1ca-41aa-9885-3acfc90faac7"
+  },
+  {
+    "binding": "DB_TENANT_99",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-99",
+    "database_id": "adb44e3a-81be-4b59-8bb7-efb5211ac47c"
+  },
+  {
+    "binding": "DB_TENANT_100",
+    "database_name": "bench-manhali-full-d1-20261001-tenant-100",
+    "database_id": "54c5ab30-26fa-47b3-81c4-c75f4daea918"
+  }
+],
   "vars": {
+    // worker:deploy embeds source/SDK build metadata and the version binding
+    // supplies the Cloudflare deployment identity.
+    // "TURSO_POOL_CONFIG": "{\"sizePerTenant\":8,\"maxActivePools\":100,\"idleTtlMs\":60000,\"maxTotalConnections\":128}",
+    // TURSO_TENANTS and TURSODB_TENANTS are JSON secrets; see docs/methodology.md.
     "TURSO_URL": "https://bench-turso-vs-d1-aashahin.aws-eu-west-1.turso.io",
     // New Turso Database engine (MVCC / BEGIN CONCURRENT), created with:
     //   turso db create --tursodb bench-tursodb --group manhali --wait

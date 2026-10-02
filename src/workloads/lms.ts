@@ -7,23 +7,41 @@ import { hash32, payloadFor, type Dims, type OpQuery } from "./common.ts";
 
 const QUESTIONS_PER_QUIZ = 5;
 
-export function lmsOp(test: string, opIndex: number, tenant: number, dims: Dims): OpQuery {
+export function lmsOp(
+  test: string,
+  opIndex: number,
+  tenant: number,
+  dims: Dims,
+): OpQuery {
   const S = dims.studentsPerTenant;
   const C = dims.coursesPerTenant;
   const L = dims.lessonsPerCourse;
   const h = (salt: number): number => hash32((opIndex ^ salt) >>> 0);
   const student = (t: number, s: number): number => (t - 1) * S + s;
   const course = (t: number, c: number): number => (t - 1) * C + c;
-  const lesson = (t: number, c: number, l: number): number => (t - 1) * C * L + (c - 1) * L + l;
+  const lesson = (t: number, c: number, l: number): number =>
+    (t - 1) * C * L + (c - 1) * L + l;
 
   if (test === "student-dashboard") {
     const s = 1 + (h(0xa1) % S);
-    return { test, method: "GET", params: { tenant, student: student(tenant, s) } };
+    return {
+      test,
+      method: "GET",
+      params: { tenant, student: student(tenant, s) },
+    };
   }
   if (test === "course-page") {
     const c = 1 + (h(0xa2) % C);
     const s = 1 + (h(0xa3) % S);
-    return { test, method: "GET", params: { tenant, course: course(tenant, c), student: student(tenant, s) } };
+    return {
+      test,
+      method: "GET",
+      params: {
+        tenant,
+        course: course(tenant, c),
+        student: student(tenant, s),
+      },
+    };
   }
   if (test === "lesson-page") {
     const c = 1 + (h(0xa4) % C);
@@ -32,13 +50,23 @@ export function lmsOp(test: string, opIndex: number, tenant: number, dims: Dims)
     return {
       test,
       method: "GET",
-      params: { tenant, lesson: lesson(tenant, c, l), course: course(tenant, c), student: student(tenant, s), position: l },
+      params: {
+        tenant,
+        lesson: lesson(tenant, c, l),
+        course: course(tenant, c),
+        student: student(tenant, s),
+        position: l,
+      },
     };
   }
   if (test === "quiz-page") {
     const c = 1 + (h(0xa7) % C);
     const s = 1 + (h(0xa8) % S);
-    return { test, method: "GET", params: { tenant, quiz: course(tenant, c), student: student(tenant, s) } };
+    return {
+      test,
+      method: "GET",
+      params: { tenant, quiz: course(tenant, c), student: student(tenant, s) },
+    };
   }
   if (test === "submit-quiz-answer") {
     const c = 1 + (h(0xa9) % C);
@@ -79,7 +107,11 @@ export function lmsOp(test: string, opIndex: number, tenant: number, dims: Dims)
   // enrollment: random student + course (ON CONFLICT DO NOTHING keeps reruns fair).
   const c = 1 + (h(0xb1) % C);
   const s = 1 + (h(0xb2) % S);
-  return { test: "enrollment", method: "POST", params: { tenant, student: student(tenant, s), course: course(tenant, c) } };
+  return {
+    test: test === "order-event" ? "order-event" : "enrollment",
+    method: "POST",
+    params: { tenant, student: student(tenant, s), course: course(tenant, c) },
+  };
 }
 
 // Default LMS mix: 40% lesson-page, 20% course-page, 15% student-dashboard,

@@ -1,0 +1,6725 @@
+{
+  "timestamp": "2026-09-09T18:14:28.921Z",
+  "environment": {
+    "timestamp": "2026-09-09T18:14:28.921Z",
+    "workerUrl": "https://bench-turso-vs-d1.manhali-sandbox.workers.dev",
+    "colo": "MRS",
+    "tursoHost": "bench-turso-vs-d1-aashahin.aws-eu-west-1.turso.io",
+    "kvRows": {
+      "d1_weur": 10000,
+      "d1_eeur": 10000,
+      "turso": 10000
+    },
+    "lmsRows": {
+      "users": 2000,
+      "courses": 50,
+      "lessons": 500,
+      "enrollments": 4000
+    },
+    "kvPayloadBytes": 200,
+    "seedDims": {
+      "seedRows": 10000,
+      "tenants": 10,
+      "studentsPerTenant": 200,
+      "coursesPerTenant": 5,
+      "lessonsPerCourse": 10
+    },
+    "sdk": {
+      "tursoServerless": "1.4.0",
+      "drizzleOrm": "0.44.7"
+    },
+    "wrangler": "4.128.0",
+    "bun": "1.4.2",
+    "notes": []
+  },
+  "scenarios": [
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 258,
+            "min": 196.53835300000355,
+            "p50": 227.69776199999615,
+            "p90": 261.67187600000034,
+            "p95": 274.07113599999866,
+            "p99": 313.2214499999973,
+            "max": 359.5608280000015,
+            "mean": 233.1300683410856,
+            "stdev": 23.137236888991687,
+            "ops": 4.288047262076698
+          },
+          "db": {
+            "n": 258,
+            "min": 120,
+            "p50": 147,
+            "p90": 178,
+            "p95": 188,
+            "p99": 202,
+            "max": 230,
+            "mean": 151.02325581395348,
+            "stdev": 18.431505348171523,
+            "ops": 4.288047262076698
+          },
+          "query": {
+            "n": 258,
+            "min": 120,
+            "p50": 147,
+            "p90": 178,
+            "p95": 188,
+            "p99": 202,
+            "max": 230,
+            "mean": 151.02325581395348,
+            "stdev": 18.431505348171523,
+            "ops": 4.288047262076698
+          },
+          "success": 258,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.288047262076698,
+          "wallMs": 60167.247288
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 254,
+            "min": 204.88905200001318,
+            "p50": 229.87287099999958,
+            "p90": 262.4190149999922,
+            "p95": 280.4632819999824,
+            "p99": 356.4998219999834,
+            "max": 444.3152130000235,
+            "mean": 236.8401119212597,
+            "stdev": 28.75242993170119,
+            "ops": 4.220510830067678
+          },
+          "db": {
+            "n": 254,
+            "min": 125,
+            "p50": 149,
+            "p90": 175,
+            "p95": 190,
+            "p99": 266,
+            "max": 309,
+            "mean": 152.89370078740157,
+            "stdev": 21.955406659403124,
+            "ops": 4.220510830067678
+          },
+          "query": {
+            "n": 254,
+            "min": 125,
+            "p50": 149,
+            "p90": 175,
+            "p95": 190,
+            "p99": 266,
+            "max": 309,
+            "mean": 152.89370078740157,
+            "stdev": 21.955406659403124,
+            "ops": 4.220510830067678
+          },
+          "success": 254,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.220510830067678,
+          "wallMs": 60182.288407000015
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 251,
+            "min": 191.6060240000079,
+            "p50": 229.33353299999726,
+            "p90": 265.6807709999848,
+            "p95": 289.7403130000166,
+            "p99": 671.6963619999879,
+            "max": 925.8570909999835,
+            "mean": 240.0836782390434,
+            "stdev": 64.85547636429227,
+            "ops": 4.164089610593662
+          },
+          "db": {
+            "n": 251,
+            "min": 121,
+            "p50": 150,
+            "p90": 172,
+            "p95": 184,
+            "p99": 232,
+            "max": 591,
+            "mean": 154.11155378486055,
+            "stdev": 35.66035421200961,
+            "ops": 4.164089610593662
+          },
+          "query": {
+            "n": 251,
+            "min": 121,
+            "p50": 150,
+            "p90": 172,
+            "p95": 184,
+            "p99": 232,
+            "max": 591,
+            "mean": 154.11155378486055,
+            "stdev": 35.66035421200961,
+            "ops": 4.164089610593662
+          },
+          "success": 251,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.164089610593662,
+          "wallMs": 60277.281103999994
+        }
+      ],
+      "summary": {
+        "medianP50": 229.33353299999726,
+        "medianP95": 280.4632819999824,
+        "medianP99": 356.4998219999834,
+        "medianRps": 4.220510830067678,
+        "medianDbP50": 149,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1820,
+            "min": 180.16173299995717,
+            "p50": 319.1377179999836,
+            "p90": 403.75601599999936,
+            "p95": 451.1087139999727,
+            "p99": 584.0078159999684,
+            "max": 682.7580469999812,
+            "mean": 330.24083761593283,
+            "stdev": 69.24722070452573,
+            "ops": 30.230665164581804
+          },
+          "db": {
+            "n": 1820,
+            "min": 124,
+            "p50": 252,
+            "p90": 330,
+            "p95": 370,
+            "p99": 480,
+            "max": 624,
+            "mean": 260.30494505494505,
+            "stdev": 61.65564489140472,
+            "ops": 30.230665164581804
+          },
+          "query": {
+            "n": 1820,
+            "min": 124,
+            "p50": 252,
+            "p90": 330,
+            "p95": 370,
+            "p99": 480,
+            "max": 624,
+            "mean": 260.30494505494505,
+            "stdev": 61.65564489140472,
+            "ops": 30.230665164581804
+          },
+          "success": 1820,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 30.230665164581804,
+          "wallMs": 60203.76958600001
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1816,
+            "min": 194.34310200001346,
+            "p50": 323.66199200000847,
+            "p90": 401.4707300000009,
+            "p95": 446.91495499998564,
+            "p99": 579.3392810000223,
+            "max": 747.7643859999953,
+            "mean": 331.1099181321586,
+            "stdev": 67.84304234731603,
+            "ops": 30.142965116390396
+          },
+          "db": {
+            "n": 1816,
+            "min": 130,
+            "p50": 255,
+            "p90": 331,
+            "p95": 367,
+            "p99": 492,
+            "max": 651,
+            "mean": 261.99229074889865,
+            "stdev": 63.74408451465519,
+            "ops": 30.142965116390396
+          },
+          "query": {
+            "n": 1816,
+            "min": 130,
+            "p50": 255,
+            "p90": 331,
+            "p95": 367,
+            "p99": 492,
+            "max": 651,
+            "mean": 261.99229074889865,
+            "stdev": 63.74408451465519,
+            "ops": 30.142965116390396
+          },
+          "success": 1816,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 30.142965116390396,
+          "wallMs": 60246.22969200002
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1867,
+            "min": 176.2701840000227,
+            "p50": 311.47219900001073,
+            "p90": 384.47622399998363,
+            "p95": 424.9093040000298,
+            "p99": 663.1466989999753,
+            "max": 805.8594290000037,
+            "mean": 321.86511317943183,
+            "stdev": 74.17303817009787,
+            "ops": 31.016630236057583
+          },
+          "db": {
+            "n": 1867,
+            "min": 120,
+            "p50": 246,
+            "p90": 317,
+            "p95": 351,
+            "p99": 594,
+            "max": 681,
+            "mean": 255.38403856454204,
+            "stdev": 70.96788822605463,
+            "ops": 31.016630236057583
+          },
+          "query": {
+            "n": 1867,
+            "min": 120,
+            "p50": 246,
+            "p90": 317,
+            "p95": 351,
+            "p99": 594,
+            "max": 681,
+            "mean": 255.38403856454204,
+            "stdev": 70.96788822605463,
+            "ops": 31.016630236057583
+          },
+          "success": 1867,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 31.016630236057583,
+          "wallMs": 60193.51508500002
+        }
+      ],
+      "summary": {
+        "medianP50": 319.1377179999836,
+        "medianP95": 446.91495499998564,
+        "medianP99": 584.0078159999684,
+        "medianRps": 30.230665164581804,
+        "medianDbP50": 252,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 512.8314300000202,
+            "p50": 1015.6185359999072,
+            "p90": 1236.4706749999896,
+            "p95": 1280.3636500000139,
+            "p99": 1398.207684999914,
+            "max": 1630.2670439999783,
+            "mean": 1032.0544267360008,
+            "stdev": 130.56371385679384,
+            "ops": 48.160509934683226
+          },
+          "db": {
+            "n": 2000,
+            "min": 455,
+            "p50": 948,
+            "p90": 1133,
+            "p95": 1193,
+            "p99": 1293,
+            "max": 1437,
+            "mean": 958.8065,
+            "stdev": 123.194184350358,
+            "ops": 48.160509934683226
+          },
+          "query": {
+            "n": 2000,
+            "min": 455,
+            "p50": 948,
+            "p90": 1133,
+            "p95": 1193,
+            "p99": 1293,
+            "max": 1437,
+            "mean": 958.8065,
+            "stdev": 123.194184350358,
+            "ops": 48.160509934683226
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 48.160509934683226,
+          "wallMs": 41527.79949200002
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 524.3605049999896,
+            "p50": 1077.7152609999757,
+            "p90": 1264.564904000028,
+            "p95": 1360.9603869999992,
+            "p99": 1720.158127999981,
+            "max": 1737.7372569999425,
+            "mean": 1101.5359175515018,
+            "stdev": 169.33854428843398,
+            "ops": 45.05163930726829
+          },
+          "db": {
+            "n": 2000,
+            "min": 472,
+            "p50": 1016,
+            "p90": 1202,
+            "p95": 1305,
+            "p99": 1666,
+            "max": 1689,
+            "mean": 1037.8915,
+            "stdev": 170.11596258949356,
+            "ops": 45.05163930726829
+          },
+          "query": {
+            "n": 2000,
+            "min": 472,
+            "p50": 1016,
+            "p90": 1202,
+            "p95": 1305,
+            "p99": 1666,
+            "max": 1689,
+            "mean": 1037.8915,
+            "stdev": 170.11596258949356,
+            "ops": 45.05163930726829
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 45.05163930726829,
+          "wallMs": 44393.50111900002
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 546.2470789999934,
+            "p50": 1068.1366520000156,
+            "p90": 1246.5335549999727,
+            "p95": 1531.3446320000803,
+            "p99": 1716.0763370000059,
+            "max": 1732.8523740000091,
+            "mean": 1085.5502658854991,
+            "stdev": 178.09590581794535,
+            "ops": 45.642340793125946
+          },
+          "db": {
+            "n": 2000,
+            "min": 492,
+            "p50": 1004,
+            "p90": 1190,
+            "p95": 1341,
+            "p99": 1653,
+            "max": 1693,
+            "mean": 1018.247,
+            "stdev": 171.73033800409283,
+            "ops": 45.642340793125946
+          },
+          "query": {
+            "n": 2000,
+            "min": 492,
+            "p50": 1004,
+            "p90": 1190,
+            "p95": 1341,
+            "p99": 1653,
+            "max": 1693,
+            "mean": 1018.247,
+            "stdev": 171.73033800409283,
+            "ops": 45.642340793125946
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 45.642340793125946,
+          "wallMs": 43818.96207000001
+        }
+      ],
+      "summary": {
+        "medianP50": 1068.1366520000156,
+        "medianP95": 1360.9603869999992,
+        "medianP99": 1716.0763370000059,
+        "medianRps": 45.642340793125946,
+        "medianDbP50": 1004,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1986,
+            "min": 2485.313147000037,
+            "p50": 3741.738110999926,
+            "p90": 4577.863019999932,
+            "p95": 4876.021116000018,
+            "p99": 4947.37092799996,
+            "max": 4996.483746999991,
+            "mean": 3869.417154442087,
+            "stdev": 519.8286536753152,
+            "ops": 50.72850404652787
+          },
+          "db": {
+            "n": 1986,
+            "min": 2429,
+            "p50": 3674,
+            "p90": 4320,
+            "p95": 4813,
+            "p99": 4885,
+            "max": 4946,
+            "mean": 3768.669687814703,
+            "stdev": 536.5236350191315,
+            "ops": 50.72850404652787
+          },
+          "query": {
+            "n": 1986,
+            "min": 2429,
+            "p50": 3674,
+            "p90": 4320,
+            "p95": 4813,
+            "p99": 4885,
+            "max": 4946,
+            "mean": 3768.669687814703,
+            "stdev": 536.5236350191315,
+            "ops": 50.72850404652787
+          },
+          "success": 1986,
+          "failed": 14,
+          "errorRate": 0.007,
+          "errorsByClass": {
+            "timeout": 14,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 14
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 50.72850404652787,
+          "wallMs": 39149.587344
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1999,
+            "min": 2447.9003830000293,
+            "p50": 3863.855050000013,
+            "p90": 4298.8194309999235,
+            "p95": 4366.234915000037,
+            "p99": 4743.705625999952,
+            "max": 4786.641402999987,
+            "mean": 3827.859805867932,
+            "stdev": 388.14733890742355,
+            "ops": 51.83489466663878
+          },
+          "db": {
+            "n": 1999,
+            "min": 2382,
+            "p50": 3759,
+            "p90": 4196,
+            "p95": 4251,
+            "p99": 4312,
+            "max": 4357,
+            "mean": 3720.103551775888,
+            "stdev": 362.9734710040358,
+            "ops": 51.83489466663878
+          },
+          "query": {
+            "n": 1999,
+            "min": 2382,
+            "p50": 3759,
+            "p90": 4196,
+            "p95": 4251,
+            "p99": 4312,
+            "max": 4357,
+            "mean": 3720.103551775888,
+            "stdev": 362.9734710040358,
+            "ops": 51.83489466663878
+          },
+          "success": 1999,
+          "failed": 1,
+          "errorRate": 0.0005,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 51.83489466663878,
+          "wallMs": 38564.754744000034
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1964,
+            "min": 2491.571907000034,
+            "p50": 4036.103105999995,
+            "p90": 4406.476175000076,
+            "p95": 4721.751083999989,
+            "p99": 4971.513903999934,
+            "max": 4998.750665999949,
+            "mean": 3987.0224915575373,
+            "stdev": 389.7376600062154,
+            "ops": 48.841784508892204
+          },
+          "db": {
+            "n": 1964,
+            "min": 2439,
+            "p50": 3862,
+            "p90": 4343,
+            "p95": 4537,
+            "p99": 4621,
+            "max": 4698,
+            "mean": 3880.0504073319757,
+            "stdev": 369.4723311254139,
+            "ops": 48.841784508892204
+          },
+          "query": {
+            "n": 1964,
+            "min": 2439,
+            "p50": 3862,
+            "p90": 4343,
+            "p95": 4537,
+            "p99": 4621,
+            "max": 4698,
+            "mean": 3880.0504073319757,
+            "stdev": 369.4723311254139,
+            "ops": 48.841784508892204
+          },
+          "success": 1964,
+          "failed": 36,
+          "errorRate": 0.018,
+          "errorsByClass": {
+            "timeout": 36,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 36
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 48.841784508892204,
+          "wallMs": 40211.47097200004
+        }
+      ],
+      "summary": {
+        "medianP50": 3863.855050000013,
+        "medianP95": 4721.751083999989,
+        "medianP99": 4947.37092799996,
+        "medianRps": 50.72850404652787,
+        "medianDbP50": 3759,
+        "medianErrorRate": 0.007,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 289,
+            "min": 118.95148199994583,
+            "p50": 204.58437799999956,
+            "p90": 253.23700299998745,
+            "p95": 292.37432100006845,
+            "p99": 480.0084270000225,
+            "max": 1605.277146999957,
+            "mean": 207.5933037923885,
+            "stdev": 98.88388620086222,
+            "ops": 4.815852315270537
+          },
+          "db": {
+            "n": 289,
+            "min": 60,
+            "p50": 135,
+            "p90": 172,
+            "p95": 187,
+            "p99": 287,
+            "max": 1546,
+            "mean": 134.5847750865052,
+            "stdev": 92.93514822241596,
+            "ops": 4.815852315270537
+          },
+          "query": {
+            "n": 289,
+            "min": 60,
+            "p50": 135,
+            "p90": 172,
+            "p95": 187,
+            "p99": 287,
+            "max": 1546,
+            "mean": 134.5847750865052,
+            "stdev": 92.93514822241596,
+            "ops": 4.815852315270537
+          },
+          "success": 289,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.815852315270537,
+          "wallMs": 60010.145885000005
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 298,
+            "min": 119.07044799998403,
+            "p50": 209.02611099998467,
+            "p90": 244.92078899999615,
+            "p95": 257.52188399992883,
+            "p99": 349.0702150000725,
+            "max": 578.9770930000814,
+            "mean": 201.69644304026377,
+            "stdev": 48.16676251175944,
+            "ops": 4.95643910463428
+          },
+          "db": {
+            "n": 298,
+            "min": 62,
+            "p50": 140,
+            "p90": 171,
+            "p95": 181,
+            "p99": 217,
+            "max": 261,
+            "mean": 131.4731543624161,
+            "stdev": 36.86053368768925,
+            "ops": 4.95643910463428
+          },
+          "query": {
+            "n": 298,
+            "min": 62,
+            "p50": 140,
+            "p90": 171,
+            "p95": 181,
+            "p99": 217,
+            "max": 261,
+            "mean": 131.4731543624161,
+            "stdev": 36.86053368768925,
+            "ops": 4.95643910463428
+          },
+          "success": 298,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.95643910463428,
+          "wallMs": 60123.8093940001
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 255,
+            "min": 124.68288700003177,
+            "p50": 226.7652399998624,
+            "p90": 307.31967899994925,
+            "p95": 369.68899100017734,
+            "p99": 545.0036880001426,
+            "max": 716.4385609999299,
+            "mean": 235.50625151764766,
+            "stdev": 75.4527353077189,
+            "ops": 4.245176705791023
+          },
+          "db": {
+            "n": 255,
+            "min": 57,
+            "p50": 141,
+            "p90": 174,
+            "p95": 191,
+            "p99": 229,
+            "max": 250,
+            "mean": 132.9607843137255,
+            "stdev": 38.62649745015983,
+            "ops": 4.245176705791023
+          },
+          "query": {
+            "n": 255,
+            "min": 57,
+            "p50": 141,
+            "p90": 174,
+            "p95": 191,
+            "p99": 229,
+            "max": 250,
+            "mean": 132.9607843137255,
+            "stdev": 38.62649745015983,
+            "ops": 4.245176705791023
+          },
+          "success": 255,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.245176705791023,
+          "wallMs": 60068.17093200004
+        }
+      ],
+      "summary": {
+        "medianP50": 209.02611099998467,
+        "medianP95": 292.37432100006845,
+        "medianP99": 480.0084270000225,
+        "medianRps": 4.815852315270537,
+        "medianDbP50": 140,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1994,
+            "min": 116.02468800009228,
+            "p50": 290.6343539999798,
+            "p90": 420.16608399990946,
+            "p95": 478.4157579999883,
+            "p99": 742.2224400001578,
+            "max": 1252.0210489998572,
+            "mean": 302.3683703129309,
+            "stdev": 112.37509096819274,
+            "ops": 33.02464485072935
+          },
+          "db": {
+            "n": 1994,
+            "min": 62,
+            "p50": 222,
+            "p90": 336,
+            "p95": 393,
+            "p99": 660,
+            "max": 1085,
+            "mean": 230.59077231695085,
+            "stdev": 105.45045486102241,
+            "ops": 33.02464485072935
+          },
+          "query": {
+            "n": 1994,
+            "min": 62,
+            "p50": 222,
+            "p90": 336,
+            "p95": 393,
+            "p99": 660,
+            "max": 1085,
+            "mean": 230.59077231695085,
+            "stdev": 105.45045486102241,
+            "ops": 33.02464485072935
+          },
+          "success": 1994,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 33.02464485072935,
+          "wallMs": 60379.15044999984
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1940,
+            "min": 117.25320399994962,
+            "p50": 289.12278799992055,
+            "p90": 417.74384300014935,
+            "p95": 497.88648599991575,
+            "p99": 739.9610850000754,
+            "max": 3150.184520999901,
+            "mean": 310.0757736659788,
+            "stdev": 188.63543074408352,
+            "ops": 32.21120751367656
+          },
+          "db": {
+            "n": 1940,
+            "min": 66,
+            "p50": 217,
+            "p90": 334,
+            "p95": 413,
+            "p99": 621,
+            "max": 3094,
+            "mean": 236.91546391752578,
+            "stdev": 184.89013474443604,
+            "ops": 32.21120751367656
+          },
+          "query": {
+            "n": 1940,
+            "min": 66,
+            "p50": 217,
+            "p90": 334,
+            "p95": 413,
+            "p99": 621,
+            "max": 3094,
+            "mean": 236.91546391752578,
+            "stdev": 184.89013474443604,
+            "ops": 32.21120751367656
+          },
+          "success": 1940,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 32.21120751367656,
+          "wallMs": 60227.484460999956
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 112.65253299986944,
+            "p50": 262.41577000007965,
+            "p90": 356.11154399998486,
+            "p95": 405.57256100000814,
+            "p99": 475.11063000001013,
+            "max": 541.6507449999917,
+            "mean": 263.8909695785013,
+            "stdev": 75.84022472753323,
+            "ops": 37.79788676523622
+          },
+          "db": {
+            "n": 2000,
+            "min": 59,
+            "p50": 192,
+            "p90": 282,
+            "p95": 328,
+            "p99": 407,
+            "max": 445,
+            "mean": 194.5035,
+            "stdev": 71.38617504636314,
+            "ops": 37.79788676523622
+          },
+          "query": {
+            "n": 2000,
+            "min": 59,
+            "p50": 192,
+            "p90": 282,
+            "p95": 328,
+            "p99": 407,
+            "max": 445,
+            "mean": 194.5035,
+            "stdev": 71.38617504636314,
+            "ops": 37.79788676523622
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 37.79788676523622,
+          "wallMs": 52913.01104800007
+        }
+      ],
+      "summary": {
+        "medianP50": 289.12278799992055,
+        "medianP95": 478.4157579999883,
+        "medianP99": 739.9610850000754,
+        "medianRps": 33.02464485072935,
+        "medianDbP50": 217,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 161.52242500009015,
+            "p50": 770.4889400000684,
+            "p90": 1037.6113650000188,
+            "p95": 1133.3500949998852,
+            "p99": 1363.248181000119,
+            "max": 1491.122197000077,
+            "mean": 754.4739415770003,
+            "stdev": 235.13032794944078,
+            "ops": 65.73133151061018
+          },
+          "db": {
+            "n": 2000,
+            "min": 111,
+            "p50": 702,
+            "p90": 964,
+            "p95": 1068,
+            "p99": 1279,
+            "max": 1406,
+            "mean": 686.327,
+            "stdev": 227.94235909764575,
+            "ops": 65.73133151061018
+          },
+          "query": {
+            "n": 2000,
+            "min": 111,
+            "p50": 702,
+            "p90": 964,
+            "p95": 1068,
+            "p99": 1279,
+            "max": 1406,
+            "mean": 686.327,
+            "stdev": 227.94235909764575,
+            "ops": 65.73133151061018
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 65.73133151061018,
+          "wallMs": 30426.89009999996
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1998,
+            "min": 258.38663200009614,
+            "p50": 781.2468159999698,
+            "p90": 1091.5571429999545,
+            "p95": 1215.1071889998857,
+            "p99": 1398.655013000127,
+            "max": 1560.7585859999526,
+            "mean": 780.2943126201177,
+            "stdev": 247.94033651562822,
+            "ops": 63.69719092916937
+          },
+          "db": {
+            "n": 1998,
+            "min": 192,
+            "p50": 716,
+            "p90": 1027,
+            "p95": 1128,
+            "p99": 1311,
+            "max": 1494,
+            "mean": 716.1386386386387,
+            "stdev": 243.47765743126567,
+            "ops": 63.69719092916937
+          },
+          "query": {
+            "n": 1998,
+            "min": 192,
+            "p50": 716,
+            "p90": 1027,
+            "p95": 1128,
+            "p99": 1311,
+            "max": 1494,
+            "mean": 716.1386386386387,
+            "stdev": 243.47765743126567,
+            "ops": 63.69719092916937
+          },
+          "success": 1998,
+          "failed": 2,
+          "errorRate": 0.001,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 2,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "backend": 2
+          },
+          "sampleErrors": [
+            "The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+            "The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 63.69719092916937,
+          "wallMs": 31367.160323000047
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 227.9458070001565,
+            "p50": 800.6051479999442,
+            "p90": 1135.7077930001542,
+            "p95": 1255.2224890000653,
+            "p99": 1466.3167120001744,
+            "max": 1645.937641999917,
+            "mean": 793.1987300980027,
+            "stdev": 255.97035849690513,
+            "ops": 62.61331265418324
+          },
+          "db": {
+            "n": 2000,
+            "min": 145,
+            "p50": 735,
+            "p90": 1036,
+            "p95": 1188,
+            "p99": 1407,
+            "max": 1563,
+            "mean": 726.1595,
+            "stdev": 252.01320016965386,
+            "ops": 62.61331265418324
+          },
+          "query": {
+            "n": 2000,
+            "min": 145,
+            "p50": 735,
+            "p90": 1036,
+            "p95": 1188,
+            "p99": 1407,
+            "max": 1563,
+            "mean": 726.1595,
+            "stdev": 252.01320016965386,
+            "ops": 62.61331265418324
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 62.61331265418324,
+          "wallMs": 31942.088913999964
+        }
+      ],
+      "summary": {
+        "medianP50": 781.2468159999698,
+        "medianP95": 1215.1071889998857,
+        "medianP99": 1398.655013000127,
+        "medianRps": 63.69719092916937,
+        "medianDbP50": 716,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1977,
+            "min": 334.7987969999667,
+            "p50": 3038.9073170002084,
+            "p90": 4141.095291999867,
+            "p95": 4327.612502000062,
+            "p99": 4651.848974000197,
+            "max": 4823.108353999909,
+            "mean": 2914.9506004188192,
+            "stdev": 960.2182090529332,
+            "ops": 65.79354882326439
+          },
+          "db": {
+            "n": 1977,
+            "min": 279,
+            "p50": 2910,
+            "p90": 4071,
+            "p95": 4233,
+            "p99": 4510,
+            "max": 4747,
+            "mean": 2800.482549317147,
+            "stdev": 963.6566391527025,
+            "ops": 65.79354882326439
+          },
+          "query": {
+            "n": 1977,
+            "min": 279,
+            "p50": 2910,
+            "p90": 4071,
+            "p95": 4233,
+            "p99": 4510,
+            "max": 4747,
+            "mean": 2800.482549317147,
+            "stdev": 963.6566391527025,
+            "ops": 65.79354882326439
+          },
+          "success": 1977,
+          "failed": 23,
+          "errorRate": 0.0115,
+          "errorsByClass": {
+            "timeout": 23,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 23
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 65.79354882326439,
+          "wallMs": 30048.538729999913
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 394.6985640001949,
+            "p50": 2784.7262490000576,
+            "p90": 3772.1425689999014,
+            "p95": 3892.2107879999094,
+            "p99": 4335.06354100001,
+            "max": 4523.410200000042,
+            "mean": 2685.1555712490053,
+            "stdev": 840.8323668859881,
+            "ops": 72.60507172772982
+          },
+          "db": {
+            "n": 2000,
+            "min": 347,
+            "p50": 2679,
+            "p90": 3660,
+            "p95": 3784,
+            "p99": 3922,
+            "max": 4009,
+            "mean": 2573.713,
+            "stdev": 825.7344819195833,
+            "ops": 72.60507172772982
+          },
+          "query": {
+            "n": 2000,
+            "min": 347,
+            "p50": 2679,
+            "p90": 3660,
+            "p95": 3784,
+            "p99": 3922,
+            "max": 4009,
+            "mean": 2573.713,
+            "stdev": 825.7344819195833,
+            "ops": 72.60507172772982
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 72.60507172772982,
+          "wallMs": 27546.285023999866
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1998,
+            "min": 421.5653180000372,
+            "p50": 2594.0340410000645,
+            "p90": 3448.384919999866,
+            "p95": 3759.000378999859,
+            "p99": 4295.440544999903,
+            "max": 4653.739525000099,
+            "mean": 2489.4351755640746,
+            "stdev": 796.1767121607616,
+            "ops": 78.23449208760468
+          },
+          "db": {
+            "n": 1998,
+            "min": 365,
+            "p50": 2514,
+            "p90": 3283,
+            "p95": 3561,
+            "p99": 3984,
+            "max": 4024,
+            "mean": 2377,
+            "stdev": 768.8089868480065,
+            "ops": 78.23449208760468
+          },
+          "query": {
+            "n": 1998,
+            "min": 365,
+            "p50": 2514,
+            "p90": 3283,
+            "p95": 3561,
+            "p99": 3984,
+            "max": 4024,
+            "mean": 2377,
+            "stdev": 768.8089868480065,
+            "ops": 78.23449208760468
+          },
+          "success": 1998,
+          "failed": 2,
+          "errorRate": 0.001,
+          "errorsByClass": {
+            "timeout": 2,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 2
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 78.23449208760468,
+          "wallMs": 25538.607674000086
+        }
+      ],
+      "summary": {
+        "medianP50": 2784.7262490000576,
+        "medianP95": 3892.2107879999094,
+        "medianP99": 4335.06354100001,
+        "medianRps": 72.60507172772982,
+        "medianDbP50": 2679,
+        "medianErrorRate": 0.001,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 272,
+            "min": 174.28329399996437,
+            "p50": 204.49666299996898,
+            "p90": 306.77391600003466,
+            "p95": 307.29346999991685,
+            "p99": 318.13782899989747,
+            "max": 390.74760899995454,
+            "mean": 221.14604694852332,
+            "stdev": 41.88461152691904,
+            "ops": 4.521044507443939
+          },
+          "db": {
+            "n": 272,
+            "min": 116,
+            "p50": 138,
+            "p90": 153,
+            "p95": 158,
+            "p99": 187,
+            "max": 196,
+            "mean": 138.97426470588235,
+            "stdev": 12.249372710971109,
+            "ops": 4.521044507443939
+          },
+          "query": {
+            "n": 272,
+            "min": 116,
+            "p50": 138,
+            "p90": 153,
+            "p95": 158,
+            "p99": 187,
+            "max": 196,
+            "mean": 138.97426470588235,
+            "stdev": 12.249372710971109,
+            "ops": 4.521044507443939
+          },
+          "success": 272,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.521044507443939,
+          "wallMs": 60163.088319999864
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 304,
+            "min": 166.81044299993664,
+            "p50": 192.56876900000498,
+            "p90": 212.2044740000274,
+            "p95": 222.96498299995437,
+            "p99": 328.70493999985047,
+            "max": 390.7923479999881,
+            "mean": 197.41067669735946,
+            "stdev": 24.59882868183314,
+            "ops": 5.064552170385745
+          },
+          "db": {
+            "n": 304,
+            "min": 107,
+            "p50": 131,
+            "p90": 149,
+            "p95": 156,
+            "p99": 179,
+            "max": 221,
+            "mean": 133.80921052631578,
+            "stdev": 13.494264645548483,
+            "ops": 5.064552170385745
+          },
+          "query": {
+            "n": 304,
+            "min": 107,
+            "p50": 131,
+            "p90": 149,
+            "p95": 156,
+            "p99": 179,
+            "max": 221,
+            "mean": 133.80921052631578,
+            "stdev": 13.494264645548483,
+            "ops": 5.064552170385745
+          },
+          "success": 304,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 5.064552170385745,
+          "wallMs": 60025.05054199998
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 193,
+            "min": 165.94497099984437,
+            "p50": 241.20143299992196,
+            "p90": 503.489580999827,
+            "p95": 537.3348830000032,
+            "p99": 902.627858000109,
+            "max": 1295.497583999997,
+            "mean": 312.2816780932619,
+            "stdev": 148.7741986267295,
+            "ops": 3.201847986573619
+          },
+          "db": {
+            "n": 193,
+            "min": 109,
+            "p50": 138,
+            "p90": 155,
+            "p95": 169,
+            "p99": 328,
+            "max": 338,
+            "mean": 141.04145077720207,
+            "stdev": 24.6414357205892,
+            "ops": 3.201847986573619
+          },
+          "query": {
+            "n": 193,
+            "min": 109,
+            "p50": 138,
+            "p90": 155,
+            "p95": 169,
+            "p99": 328,
+            "max": 338,
+            "mean": 141.04145077720207,
+            "stdev": 24.6414357205892,
+            "ops": 3.201847986573619
+          },
+          "success": 193,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 3.201847986573619,
+          "wallMs": 60277.689887000015
+        }
+      ],
+      "summary": {
+        "medianP50": 204.49666299996898,
+        "medianP95": 307.29346999991685,
+        "medianP99": 328.70493999985047,
+        "medianRps": 4.521044507443939,
+        "medianDbP50": 138,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 157.64758799993433,
+            "p50": 208.09332600003108,
+            "p90": 266.6585409999825,
+            "p95": 314.9023009999655,
+            "p99": 461.72455099993385,
+            "max": 3198.847955999896,
+            "mean": 222.12238978699978,
+            "stdev": 88.57980236918347,
+            "ops": 44.82101406064774
+          },
+          "db": {
+            "n": 2000,
+            "min": 72,
+            "p50": 142,
+            "p90": 174,
+            "p95": 193,
+            "p99": 276,
+            "max": 3124,
+            "mean": 144.814,
+            "stdev": 76.77768819129682,
+            "ops": 44.82101406064774
+          },
+          "query": {
+            "n": 2000,
+            "min": 72,
+            "p50": 142,
+            "p90": 174,
+            "p95": 193,
+            "p99": 276,
+            "max": 3124,
+            "mean": 144.814,
+            "stdev": 76.77768819129682,
+            "ops": 44.82101406064774
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 44.82101406064774,
+          "wallMs": 44621.926609999966
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1998,
+            "min": 156.5909859999083,
+            "p50": 201.30094600003213,
+            "p90": 240.0505450000055,
+            "p95": 279.06028899992816,
+            "p99": 442.4401330000255,
+            "max": 3155.071511999937,
+            "mean": 215.29272961511697,
+            "stdev": 111.49133334856421,
+            "ops": 44.193938509963154
+          },
+          "db": {
+            "n": 1998,
+            "min": 74,
+            "p50": 138,
+            "p90": 170,
+            "p95": 188,
+            "p99": 297,
+            "max": 3093,
+            "mean": 143.26676676676678,
+            "stdev": 107.79535818346984,
+            "ops": 44.193938509963154
+          },
+          "query": {
+            "n": 1998,
+            "min": 74,
+            "p50": 138,
+            "p90": 170,
+            "p95": 188,
+            "p99": 297,
+            "max": 3093,
+            "mean": 143.26676676676678,
+            "stdev": 107.79535818346984,
+            "ops": 44.193938509963154
+          },
+          "success": 1998,
+          "failed": 2,
+          "errorRate": 0.001,
+          "errorsByClass": {
+            "timeout": 2,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 2
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 44.193938509963154,
+          "wallMs": 45209.81988399988
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 156.53532999986783,
+            "p50": 201.04867899999954,
+            "p90": 237.87603899999522,
+            "p95": 257.40661099995486,
+            "p99": 410.081162000075,
+            "max": 1570.0421889999416,
+            "mean": 211.26981482850084,
+            "stdev": 64.2541089030633,
+            "ops": 47.22236700416315
+          },
+          "db": {
+            "n": 2000,
+            "min": 73,
+            "p50": 135,
+            "p90": 166,
+            "p95": 184,
+            "p99": 325,
+            "max": 1517,
+            "mean": 137.4925,
+            "stdev": 64.51999646427457,
+            "ops": 47.22236700416315
+          },
+          "query": {
+            "n": 2000,
+            "min": 73,
+            "p50": 135,
+            "p90": 166,
+            "p95": 184,
+            "p99": 325,
+            "max": 1517,
+            "mean": 137.4925,
+            "stdev": 64.51999646427457,
+            "ops": 47.22236700416315
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 47.22236700416315,
+          "wallMs": 42352.81132399989
+        }
+      ],
+      "summary": {
+        "medianP50": 201.30094600003213,
+        "medianP95": 279.06028899992816,
+        "medianP99": 442.4401330000255,
+        "medianRps": 44.82101406064774,
+        "medianDbP50": 138,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 252.21100300038233,
+            "p50": 564.0925430003554,
+            "p90": 731.8190170000307,
+            "p95": 801.6284870002419,
+            "p99": 989.0131850000471,
+            "max": 1291.6345210000873,
+            "mean": 578.8506497709933,
+            "stdev": 128.73033645762715,
+            "ops": 85.7898053953479
+          },
+          "db": {
+            "n": 2000,
+            "min": 173,
+            "p50": 482,
+            "p90": 613,
+            "p95": 702,
+            "p99": 816,
+            "max": 1214,
+            "mean": 489.881,
+            "stdev": 105.9877862727588,
+            "ops": 85.7898053953479
+          },
+          "query": {
+            "n": 2000,
+            "min": 173,
+            "p50": 482,
+            "p90": 613,
+            "p95": 702,
+            "p99": 816,
+            "max": 1214,
+            "mean": 489.881,
+            "stdev": 105.9877862727588,
+            "ops": 85.7898053953479
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 85.7898053953479,
+          "wallMs": 23312.79329499975
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 204.92324300017208,
+            "p50": 584.6088259997778,
+            "p90": 690.1953520001844,
+            "p95": 722.8649789998308,
+            "p99": 856.8609850001521,
+            "max": 865.3009999999776,
+            "mean": 577.2629719669986,
+            "stdev": 92.40557141307062,
+            "ops": 85.96043370108532
+          },
+          "db": {
+            "n": 2000,
+            "min": 118,
+            "p50": 504,
+            "p90": 585,
+            "p95": 640,
+            "p99": 682,
+            "max": 691,
+            "mean": 495.66,
+            "stdev": 84.22111018028666,
+            "ops": 85.96043370108532
+          },
+          "query": {
+            "n": 2000,
+            "min": 118,
+            "p50": 504,
+            "p90": 585,
+            "p95": 640,
+            "p99": 682,
+            "max": 691,
+            "mean": 495.66,
+            "stdev": 84.22111018028666,
+            "ops": 85.96043370108532
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 85.96043370108532,
+          "wallMs": 23266.518256000243
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 200.77846100041643,
+            "p50": 551.0954790003598,
+            "p90": 666.9203049996868,
+            "p95": 775.5834030001424,
+            "p99": 852.5953609999269,
+            "max": 1177.8589240000583,
+            "mean": 559.7546524385007,
+            "stdev": 101.61869353107612,
+            "ops": 87.66311824050163
+          },
+          "db": {
+            "n": 2000,
+            "min": 111,
+            "p50": 479,
+            "p90": 579,
+            "p95": 701,
+            "p99": 726,
+            "max": 740,
+            "mean": 482.4805,
+            "stdev": 96.12403247757555,
+            "ops": 87.66311824050163
+          },
+          "query": {
+            "n": 2000,
+            "min": 111,
+            "p50": 479,
+            "p90": 579,
+            "p95": 701,
+            "p99": 726,
+            "max": 740,
+            "mean": 482.4805,
+            "stdev": 96.12403247757555,
+            "ops": 87.66311824050163
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 87.66311824050163,
+          "wallMs": 22814.611664999742
+        }
+      ],
+      "summary": {
+        "medianP50": 564.0925430003554,
+        "medianP95": 775.5834030001424,
+        "medianP99": 856.8609850001521,
+        "medianRps": 85.96043370108532,
+        "medianDbP50": 482,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1999,
+            "min": 529.7689859997481,
+            "p50": 1990.0761110000312,
+            "p90": 2357.214151999913,
+            "p95": 2435.1096310000867,
+            "p99": 3064.565256000031,
+            "max": 3430.789701999631,
+            "mean": 1980.9053583896814,
+            "stdev": 315.784289270465,
+            "ops": 99.44922888758929
+          },
+          "db": {
+            "n": 1999,
+            "min": 465,
+            "p50": 1834,
+            "p90": 2221,
+            "p95": 2252,
+            "p99": 2323,
+            "max": 2398,
+            "mean": 1841.0290145072536,
+            "stdev": 269.92584377778405,
+            "ops": 99.44922888758929
+          },
+          "query": {
+            "n": 1999,
+            "min": 465,
+            "p50": 1834,
+            "p90": 2221,
+            "p95": 2252,
+            "p99": 2323,
+            "max": 2398,
+            "mean": 1841.0290145072536,
+            "stdev": 269.92584377778405,
+            "ops": 99.44922888758929
+          },
+          "success": 1999,
+          "failed": 1,
+          "errorRate": 0.0005,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 99.44922888758929,
+          "wallMs": 20100.708897999953
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 753.0388609999791,
+            "p50": 1940.4292239998467,
+            "p90": 2197.4674539999105,
+            "p95": 2272.983035000041,
+            "p99": 3043.6263989997096,
+            "max": 3059.106151000131,
+            "mean": 1935.1863430614953,
+            "stdev": 303.29215873681807,
+            "ops": 101.74129050195262
+          },
+          "db": {
+            "n": 2000,
+            "min": 692,
+            "p50": 1866,
+            "p90": 2097,
+            "p95": 2133,
+            "p99": 2224,
+            "max": 2389,
+            "mean": 1827.262,
+            "stdev": 251.6950622400051,
+            "ops": 101.74129050195262
+          },
+          "query": {
+            "n": 2000,
+            "min": 692,
+            "p50": 1866,
+            "p90": 2097,
+            "p95": 2133,
+            "p99": 2224,
+            "max": 2389,
+            "mean": 1827.262,
+            "stdev": 251.6950622400051,
+            "ops": 101.74129050195262
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 101.74129050195262,
+          "wallMs": 19657.702297000214
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1840,
+            "min": 1611.4381129997782,
+            "p50": 2135.8345260000788,
+            "p90": 2668.7865019999444,
+            "p95": 2693.182957999874,
+            "p99": 3321.96267899964,
+            "max": 3368.3642980000004,
+            "mean": 2188.593711782071,
+            "stdev": 294.5261994441127,
+            "ops": 82.01965746221171
+          },
+          "db": {
+            "n": 1840,
+            "min": 1494,
+            "p50": 2035,
+            "p90": 2590,
+            "p95": 2622,
+            "p99": 3255,
+            "max": 3289,
+            "mean": 2083.366304347826,
+            "stdev": 293.93818958989584,
+            "ops": 82.01965746221171
+          },
+          "query": {
+            "n": 1840,
+            "min": 1494,
+            "p50": 2035,
+            "p90": 2590,
+            "p95": 2622,
+            "p99": 3255,
+            "max": 3289,
+            "mean": 2083.366304347826,
+            "stdev": 293.93818958989584,
+            "ops": 82.01965746221171
+          },
+          "success": 1840,
+          "failed": 160,
+          "errorRate": 0.08,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 160,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "http-500": 160
+          },
+          "sampleErrors": [
+            "edge d1-eeur/lesson-page: HTTP 500 {\"error\":\"Error: D1_ERROR: D1 DB is overloaded. Requests queued for too long.\"}",
+            "edge d1-eeur/lesson-page: HTTP 500 {\"error\":\"Error: D1_ERROR: D1 DB is overloaded. Requests queued for too long.\"}",
+            "edge d1-eeur/lesson-page: HTTP 500 {\"error\":\"Error: D1_ERROR: D1 DB is overloaded. Requests queued for too long.\"}",
+            "edge d1-eeur/lesson-page: HTTP 500 {\"error\":\"Error: D1_ERROR: D1 DB is overloaded. Requests queued for too long.\"}",
+            "edge d1-eeur/lesson-page: HTTP 500 {\"error\":\"Error: D1_ERROR: D1 DB is overloaded. Requests queued for too long.\"}"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 82.01965746221171,
+          "wallMs": 22433.646481000353
+        }
+      ],
+      "summary": {
+        "medianP50": 1990.0761110000312,
+        "medianP95": 2435.1096310000867,
+        "medianP99": 3064.565256000031,
+        "medianRps": 99.44922888758929,
+        "medianDbP50": 1866,
+        "medianErrorRate": 0.0005,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 243,
+            "min": 116.99500899994746,
+            "p50": 204.6201130002737,
+            "p90": 307.18582000024617,
+            "p95": 467.59875899972394,
+            "p99": 1435.9497469998896,
+            "max": 2808.7480509998277,
+            "mean": 247.4920102386839,
+            "stdev": 258.3069308642707,
+            "ops": 4.039923218371758
+          },
+          "db": {
+            "n": 243,
+            "min": 38,
+            "p50": 85,
+            "p90": 130,
+            "p95": 258,
+            "p99": 1359,
+            "max": 2453,
+            "mean": 124.90123456790124,
+            "stdev": 241.8114392215421,
+            "ops": 4.039923218371758
+          },
+          "query": {
+            "n": 243,
+            "min": 38,
+            "p50": 85,
+            "p90": 130,
+            "p95": 258,
+            "p99": 1359,
+            "max": 2453,
+            "mean": 124.90123456790124,
+            "stdev": 241.8114392215421,
+            "ops": 4.039923218371758
+          },
+          "success": 243,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.039923218371758,
+          "wallMs": 60149.65801700018
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 211,
+            "min": 115.5954939997755,
+            "p50": 204.74401700031012,
+            "p90": 307.12576199974865,
+            "p95": 379.8455619998276,
+            "p99": 2048.087247000076,
+            "max": 3789.518019999843,
+            "mean": 261.0918225402617,
+            "stdev": 346.8204209457993,
+            "ops": 3.5103895976169546
+          },
+          "db": {
+            "n": 211,
+            "min": 37,
+            "p50": 87,
+            "p90": 128,
+            "p95": 184,
+            "p99": 1888,
+            "max": 3621,
+            "mean": 134.7772511848341,
+            "stdev": 338.8921771433163,
+            "ops": 3.5103895976169546
+          },
+          "query": {
+            "n": 211,
+            "min": 37,
+            "p50": 87,
+            "p90": 128,
+            "p95": 184,
+            "p99": 1888,
+            "max": 3621,
+            "mean": 134.7772511848341,
+            "stdev": 338.8921771433163,
+            "ops": 3.5103895976169546
+          },
+          "success": 211,
+          "failed": 1,
+          "errorRate": 0.0047169811320754715,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 3.5103895976169546,
+          "wallMs": 60107.28841700032
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 281,
+            "min": 116.14316800003871,
+            "p50": 204.58390499977395,
+            "p90": 307.0611270000227,
+            "p95": 309.2095300001092,
+            "p99": 572.0132529996336,
+            "max": 840.1521160001867,
+            "mean": 213.82205711386177,
+            "stdev": 85.8358635996581,
+            "ops": 4.675473658418713
+          },
+          "db": {
+            "n": 281,
+            "min": 39,
+            "p50": 86,
+            "p90": 111,
+            "p95": 133,
+            "p99": 356,
+            "max": 642,
+            "mean": 87.05338078291815,
+            "stdev": 52.11246390513748,
+            "ops": 4.675473658418713
+          },
+          "query": {
+            "n": 281,
+            "min": 39,
+            "p50": 86,
+            "p90": 111,
+            "p95": 133,
+            "p99": 356,
+            "max": 642,
+            "mean": 87.05338078291815,
+            "stdev": 52.11246390513748,
+            "ops": 4.675473658418713
+          },
+          "success": 281,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.675473658418713,
+          "wallMs": 60100.862614000216
+        }
+      ],
+      "summary": {
+        "medianP50": 204.6201130002737,
+        "medianP95": 379.8455619998276,
+        "medianP99": 1435.9497469998896,
+        "medianRps": 4.039923218371758,
+        "medianDbP50": 86,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 110.65076000010595,
+            "p50": 207.13858800008893,
+            "p90": 341.7455460000783,
+            "p95": 433.365851000417,
+            "p99": 605.3424590001814,
+            "max": 1203.8307839999907,
+            "mean": 231.01195987850357,
+            "stdev": 100.69908722075549,
+            "ops": 43.127903478564775
+          },
+          "db": {
+            "n": 2000,
+            "min": 37,
+            "p50": 117,
+            "p90": 202,
+            "p95": 277,
+            "p99": 487,
+            "max": 752,
+            "mean": 133.766,
+            "stdev": 80.40674252822333,
+            "ops": 43.127903478564775
+          },
+          "query": {
+            "n": 2000,
+            "min": 37,
+            "p50": 117,
+            "p90": 202,
+            "p95": 277,
+            "p99": 487,
+            "max": 752,
+            "mean": 133.766,
+            "stdev": 80.40674252822333,
+            "ops": 43.127903478564775
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 43.127903478564775,
+          "wallMs": 46373.689391000196
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 110.14520499994978,
+            "p50": 205.05033400002867,
+            "p90": 343.97324199974537,
+            "p95": 435.1433650003746,
+            "p99": 595.0348149999045,
+            "max": 2723.98770100018,
+            "mean": 236.51324975950084,
+            "stdev": 186.03371632623166,
+            "ops": 42.210328475062674
+          },
+          "db": {
+            "n": 2000,
+            "min": 37,
+            "p50": 113,
+            "p90": 179,
+            "p95": 230,
+            "p99": 448,
+            "max": 2510,
+            "mean": 134.806,
+            "stdev": 173.2809521095726,
+            "ops": 42.210328475062674
+          },
+          "query": {
+            "n": 2000,
+            "min": 37,
+            "p50": 113,
+            "p90": 179,
+            "p95": 230,
+            "p99": 448,
+            "max": 2510,
+            "mean": 134.806,
+            "stdev": 173.2809521095726,
+            "ops": 42.210328475062674
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 42.210328475062674,
+          "wallMs": 47381.76821299968
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 112.76751999976113,
+            "p50": 207.31784099992365,
+            "p90": 420.9598260000348,
+            "p95": 497.5169069999829,
+            "p99": 1192.435707999859,
+            "max": 2426.1043049995787,
+            "mean": 260.90814330699993,
+            "stdev": 208.77701378219757,
+            "ops": 37.92474674538331
+          },
+          "db": {
+            "n": 2000,
+            "min": 36,
+            "p50": 114,
+            "p90": 186,
+            "p95": 235,
+            "p99": 839,
+            "max": 2348,
+            "mean": 139.8475,
+            "stdev": 166.1376334361062,
+            "ops": 37.92474674538331
+          },
+          "query": {
+            "n": 2000,
+            "min": 36,
+            "p50": 114,
+            "p90": 186,
+            "p95": 235,
+            "p99": 839,
+            "max": 2348,
+            "mean": 139.8475,
+            "stdev": 166.1376334361062,
+            "ops": 37.92474674538331
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 37.92474674538331,
+          "wallMs": 52736.014651000034
+        }
+      ],
+      "summary": {
+        "medianP50": 207.13858800008893,
+        "medianP95": 435.1433650003746,
+        "medianP99": 605.3424590001814,
+        "medianRps": 42.210328475062674,
+        "medianDbP50": 114,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 151.72284100018442,
+            "p50": 444.83627500012517,
+            "p90": 696.0535409995355,
+            "p95": 787.3391730003059,
+            "p99": 1345.3178300000727,
+            "max": 2715.9130170000717,
+            "mean": 477.28029046400684,
+            "stdev": 212.41896966342796,
+            "ops": 103.02886456752091
+          },
+          "db": {
+            "n": 2000,
+            "min": 67,
+            "p50": 334,
+            "p90": 479,
+            "p95": 557,
+            "p99": 737,
+            "max": 868,
+            "mean": 332.195,
+            "stdev": 129.3650106288405,
+            "ops": 103.02886456752091
+          },
+          "query": {
+            "n": 2000,
+            "min": 67,
+            "p50": 334,
+            "p90": 479,
+            "p95": 557,
+            "p99": 737,
+            "max": 868,
+            "mean": 332.195,
+            "stdev": 129.3650106288405,
+            "ops": 103.02886456752091
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 103.02886456752091,
+          "wallMs": 19412.035728000104
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 145.6597620001994,
+            "p50": 426.10034499969333,
+            "p90": 739.9648460000753,
+            "p95": 828.7881200001575,
+            "p99": 1638.947358999867,
+            "max": 4644.936407000292,
+            "mean": 486.8576063274962,
+            "stdev": 279.9359827678218,
+            "ops": 98.34205317436577
+          },
+          "db": {
+            "n": 2000,
+            "min": 65,
+            "p50": 303,
+            "p90": 441,
+            "p95": 499,
+            "p99": 638,
+            "max": 766,
+            "mean": 302.511,
+            "stdev": 115.99462866443433,
+            "ops": 98.34205317436577
+          },
+          "query": {
+            "n": 2000,
+            "min": 65,
+            "p50": 303,
+            "p90": 441,
+            "p95": 499,
+            "p99": 638,
+            "max": 766,
+            "mean": 302.511,
+            "stdev": 115.99462866443433,
+            "ops": 98.34205317436577
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 98.34205317436577,
+          "wallMs": 20337.179623999633
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1999,
+            "min": 145.16066800011322,
+            "p50": 428.37504799989983,
+            "p90": 706.6125380001031,
+            "p95": 810.4717780002393,
+            "p99": 1606.7472880003043,
+            "max": 3065.7666520001367,
+            "mean": 481.16000133167216,
+            "stdev": 258.41840379174715,
+            "ops": 97.12078186995771
+          },
+          "db": {
+            "n": 1999,
+            "min": 66,
+            "p50": 291,
+            "p90": 427,
+            "p95": 483,
+            "p99": 587,
+            "max": 709,
+            "mean": 290.72236118059027,
+            "stdev": 108.1986780519694,
+            "ops": 97.12078186995771
+          },
+          "query": {
+            "n": 1999,
+            "min": 66,
+            "p50": 291,
+            "p90": 427,
+            "p95": 483,
+            "p99": 587,
+            "max": 709,
+            "mean": 290.72236118059027,
+            "stdev": 108.1986780519694,
+            "ops": 97.12078186995771
+          },
+          "success": 1999,
+          "failed": 1,
+          "errorRate": 0.0005,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 97.12078186995771,
+          "wallMs": 20582.61848299997
+        }
+      ],
+      "summary": {
+        "medianP50": 428.37504799989983,
+        "medianP95": 810.4717780002393,
+        "medianP99": 1606.7472880003043,
+        "medianRps": 98.34205317436577,
+        "medianDbP50": 303,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 229.9237560001202,
+            "p50": 1719.7834350001067,
+            "p90": 2436.2214289996773,
+            "p95": 2954.8141850000247,
+            "p99": 3619.382550999988,
+            "max": 4322.9549769996665,
+            "mean": 1702.8361913865033,
+            "stdev": 620.6614270171651,
+            "ops": 106.41780979897946
+          },
+          "db": {
+            "n": 2000,
+            "min": 170,
+            "p50": 1487,
+            "p90": 2055,
+            "p95": 2347,
+            "p99": 2695,
+            "max": 3487,
+            "mean": 1455.6425,
+            "stdev": 509.28051375813493,
+            "ops": 106.41780979897946
+          },
+          "query": {
+            "n": 2000,
+            "min": 170,
+            "p50": 1487,
+            "p90": 2055,
+            "p95": 2347,
+            "p99": 2695,
+            "max": 3487,
+            "mean": 1455.6425,
+            "stdev": 509.28051375813493,
+            "ops": 106.41780979897946
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 106.41780979897946,
+          "wallMs": 18793.846667000093
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1999,
+            "min": 322.2222420000471,
+            "p50": 1632.2811719998717,
+            "p90": 2359.3828129996546,
+            "p95": 2576.343913000077,
+            "p99": 3335.703612000216,
+            "max": 4702.102076000068,
+            "mean": 1646.9381275122553,
+            "stdev": 579.5569186392337,
+            "ops": 108.70791864616781
+          },
+          "db": {
+            "n": 1999,
+            "min": 268,
+            "p50": 1381,
+            "p90": 1940,
+            "p95": 2141,
+            "p99": 2383,
+            "max": 2517,
+            "mean": 1348.1330665332666,
+            "stdev": 483.5906784402367,
+            "ops": 108.70791864616781
+          },
+          "query": {
+            "n": 1999,
+            "min": 268,
+            "p50": 1381,
+            "p90": 1940,
+            "p95": 2141,
+            "p99": 2383,
+            "max": 2517,
+            "mean": 1348.1330665332666,
+            "stdev": 483.5906784402367,
+            "ops": 108.70791864616781
+          },
+          "success": 1999,
+          "failed": 1,
+          "errorRate": 0.0005,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 108.70791864616781,
+          "wallMs": 18388.724803999998
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1998,
+            "min": 423.32177500007674,
+            "p50": 1595.1707029999234,
+            "p90": 2264.394519000314,
+            "p95": 2447.124418000225,
+            "p99": 3081.1740529998206,
+            "max": 4920.622385000344,
+            "mean": 1596.3537374509535,
+            "stdev": 533.8452185360464,
+            "ops": 106.95246227135841
+          },
+          "db": {
+            "n": 1998,
+            "min": 164,
+            "p50": 1316,
+            "p90": 1862,
+            "p95": 1983,
+            "p99": 2229,
+            "max": 2429,
+            "mean": 1285.1236236236236,
+            "stdev": 434.90293145973965,
+            "ops": 106.95246227135841
+          },
+          "query": {
+            "n": 1998,
+            "min": 164,
+            "p50": 1316,
+            "p90": 1862,
+            "p95": 1983,
+            "p99": 2229,
+            "max": 2429,
+            "mean": 1285.1236236236236,
+            "stdev": 434.90293145973965,
+            "ops": 106.95246227135841
+          },
+          "success": 1998,
+          "failed": 2,
+          "errorRate": 0.001,
+          "errorsByClass": {
+            "timeout": 2,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 2
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 106.95246227135841,
+          "wallMs": 18681.196837999858
+        }
+      ],
+      "summary": {
+        "medianP50": 1632.2811719998717,
+        "medianP95": 2576.343913000077,
+        "medianP99": 3335.703612000216,
+        "medianRps": 106.95246227135841,
+        "medianDbP50": 1381,
+        "medianErrorRate": 0.0005,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 79,
+            "min": 410.6468840003945,
+            "p50": 614.749244000297,
+            "p90": 1228.640395999886,
+            "p95": 1944.558968000114,
+            "p99": 2047.5965790003538,
+            "max": 2047.5965790003538,
+            "mean": 765.939171481017,
+            "stdev": 392.314142750817,
+            "ops": 1.305436781539818
+          },
+          "db": {
+            "n": 79,
+            "min": 132,
+            "p50": 166,
+            "p90": 180,
+            "p95": 195,
+            "p99": 404,
+            "max": 404,
+            "mean": 166.56962025316454,
+            "stdev": 32.65689821648123,
+            "ops": 1.305436781539818
+          },
+          "query": {
+            "n": 79,
+            "min": 132,
+            "p50": 166,
+            "p90": 180,
+            "p95": 195,
+            "p99": 404,
+            "max": 404,
+            "mean": 166.56962025316454,
+            "stdev": 32.65689821648123,
+            "ops": 1.305436781539818
+          },
+          "success": 79,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 1.305436781539818,
+          "wallMs": 60516.143805
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 67,
+            "min": 518.1435589999892,
+            "p50": 640.0970680001192,
+            "p90": 1734.3392619998194,
+            "p95": 1944.9680919996463,
+            "p99": 2355.594066000078,
+            "max": 2355.594066000078,
+            "mean": 898.8918739850633,
+            "stdev": 477.75167516942395,
+            "ops": 1.112363247338479
+          },
+          "db": {
+            "n": 67,
+            "min": 132,
+            "p50": 140,
+            "p90": 156,
+            "p95": 166,
+            "p99": 210,
+            "max": 210,
+            "mean": 143.9402985074627,
+            "stdev": 11.697532074215964,
+            "ops": 1.112363247338479
+          },
+          "query": {
+            "n": 67,
+            "min": 132,
+            "p50": 140,
+            "p90": 156,
+            "p95": 166,
+            "p99": 210,
+            "max": 210,
+            "mean": 143.9402985074627,
+            "stdev": 11.697532074215964,
+            "ops": 1.112363247338479
+          },
+          "success": 67,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 1.112363247338479,
+          "wallMs": 60232.12305899989
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 65,
+            "min": 405.4635029998608,
+            "p50": 666.6482930001803,
+            "p90": 1898.375347000081,
+            "p95": 2044.4115120000206,
+            "p99": 2559.790574999992,
+            "max": 2559.790574999992,
+            "mean": 929.5097307384444,
+            "stdev": 537.8008960522767,
+            "ops": 1.0757060807466299
+          },
+          "db": {
+            "n": 65,
+            "min": 130,
+            "p50": 140,
+            "p90": 154,
+            "p95": 176,
+            "p99": 201,
+            "max": 201,
+            "mean": 143.5076923076923,
+            "stdev": 12.525817126022408,
+            "ops": 1.0757060807466299
+          },
+          "query": {
+            "n": 65,
+            "min": 130,
+            "p50": 140,
+            "p90": 154,
+            "p95": 176,
+            "p99": 201,
+            "max": 201,
+            "mean": 143.5076923076923,
+            "stdev": 12.525817126022408,
+            "ops": 1.0757060807466299
+          },
+          "success": 65,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 1.0757060807466299,
+          "wallMs": 60425.42769199982
+        }
+      ],
+      "summary": {
+        "medianP50": 640.0970680001192,
+        "medianP95": 1944.9680919996463,
+        "medianP99": 2355.594066000078,
+        "medianRps": 1.112363247338479,
+        "medianDbP50": 140,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 173.52270900039002,
+            "p50": 207.36049799993634,
+            "p90": 552.2953809997998,
+            "p95": 619.9525069999509,
+            "p99": 1616.8831989997998,
+            "max": 3184.58844999969,
+            "mean": 276.75018087699823,
+            "stdev": 222.62660657638844,
+            "ops": 35.51711324339436
+          },
+          "db": {
+            "n": 2000,
+            "min": 99,
+            "p50": 142,
+            "p90": 167,
+            "p95": 179,
+            "p99": 227,
+            "max": 533,
+            "mean": 141.5805,
+            "stdev": 29.318177292423854,
+            "ops": 35.51711324339436
+          },
+          "query": {
+            "n": 2000,
+            "min": 99,
+            "p50": 142,
+            "p90": 167,
+            "p95": 179,
+            "p99": 227,
+            "max": 533,
+            "mean": 141.5805,
+            "stdev": 29.318177292423854,
+            "ops": 35.51711324339436
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 35.51711324339436,
+          "wallMs": 56310.882764999755
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 174.783784000203,
+            "p50": 203.20347899990156,
+            "p90": 304.25055700028315,
+            "p95": 630.1555499997921,
+            "p99": 1726.93542899983,
+            "max": 3869.563010000158,
+            "mean": 266.87039342900226,
+            "stdev": 249.87471684978405,
+            "ops": 37.16611369450932
+          },
+          "db": {
+            "n": 2000,
+            "min": 98,
+            "p50": 143,
+            "p90": 165,
+            "p95": 174,
+            "p99": 196,
+            "max": 243,
+            "mean": 138.4125,
+            "stdev": 23.14617341484346,
+            "ops": 37.16611369450932
+          },
+          "query": {
+            "n": 2000,
+            "min": 98,
+            "p50": 143,
+            "p90": 165,
+            "p95": 174,
+            "p99": 196,
+            "max": 243,
+            "mean": 138.4125,
+            "stdev": 23.14617341484346,
+            "ops": 37.16611369450932
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 37.16611369450932,
+          "wallMs": 53812.45982400002
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 172.9174670004286,
+            "p50": 205.47225000010803,
+            "p90": 530.941916000098,
+            "p95": 683.2557779997587,
+            "p99": 1868.3690909999423,
+            "max": 3906.0934160002507,
+            "mean": 282.66287993949487,
+            "stdev": 272.82806532013205,
+            "ops": 35.15308631732319
+          },
+          "db": {
+            "n": 2000,
+            "min": 97,
+            "p50": 142,
+            "p90": 164,
+            "p95": 174,
+            "p99": 200,
+            "max": 395,
+            "mean": 139.869,
+            "stdev": 23.448514643789256,
+            "ops": 35.15308631732319
+          },
+          "query": {
+            "n": 2000,
+            "min": 97,
+            "p50": 142,
+            "p90": 164,
+            "p95": 174,
+            "p99": 200,
+            "max": 395,
+            "mean": 139.869,
+            "stdev": 23.448514643789256,
+            "ops": 35.15308631732319
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 35.15308631732319,
+          "wallMs": 56894.008735000156
+        }
+      ],
+      "summary": {
+        "medianP50": 205.47225000010803,
+        "medianP95": 630.1555499997921,
+        "medianP99": 1726.93542899983,
+        "medianRps": 35.51711324339436,
+        "medianDbP50": 142,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1952,
+            "min": 169.49006399977952,
+            "p50": 210.18181099975482,
+            "p90": 550.0314290001988,
+            "p95": 628.1418110001832,
+            "p99": 1494.8756820000708,
+            "max": 2879.1399210002273,
+            "mean": 289.09905975869884,
+            "stdev": 233.36855873846315,
+            "ops": 103.51830327497646
+          },
+          "db": {
+            "n": 1952,
+            "min": 96,
+            "p50": 142,
+            "p90": 176,
+            "p95": 191,
+            "p99": 275,
+            "max": 441,
+            "mean": 142.70901639344262,
+            "stdev": 35.02091530597938,
+            "ops": 103.51830327497646
+          },
+          "query": {
+            "n": 1952,
+            "min": 96,
+            "p50": 142,
+            "p90": 176,
+            "p95": 191,
+            "p99": 275,
+            "max": 441,
+            "mean": 142.70901639344262,
+            "stdev": 35.02091530597938,
+            "ops": 103.51830327497646
+          },
+          "success": 1952,
+          "failed": 48,
+          "errorRate": 0.024,
+          "errorsByClass": {
+            "timeout": 33,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 15,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "http-500": 15,
+            "timeout": 33
+          },
+          "sampleErrors": [
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 103.51830327497646,
+          "wallMs": 18856.568725000136
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1945,
+            "min": 160.88896600017324,
+            "p50": 210.13614200009033,
+            "p90": 500.57807500008494,
+            "p95": 665.1108210003003,
+            "p99": 1662.1420849999413,
+            "max": 2896.574206000194,
+            "mean": 279.026492265293,
+            "stdev": 228.2638249944657,
+            "ops": 101.04236665487119
+          },
+          "db": {
+            "n": 1945,
+            "min": 89,
+            "p50": 137,
+            "p90": 187,
+            "p95": 202,
+            "p99": 253,
+            "max": 453,
+            "mean": 142.64781491002572,
+            "stdev": 34.05889163402843,
+            "ops": 101.04236665487119
+          },
+          "query": {
+            "n": 1945,
+            "min": 89,
+            "p50": 137,
+            "p90": 187,
+            "p95": 202,
+            "p99": 253,
+            "max": 453,
+            "mean": 142.5439588688946,
+            "stdev": 34.02520229954997,
+            "ops": 101.04236665487119
+          },
+          "success": 1945,
+          "failed": 55,
+          "errorRate": 0.0275,
+          "errorsByClass": {
+            "timeout": 45,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 10,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "http-500": 10,
+            "timeout": 45
+          },
+          "sampleErrors": [
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 101.04236665487119,
+          "wallMs": 19249.35118199978
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1984,
+            "min": 166.2884789998643,
+            "p50": 272.44547999976203,
+            "p90": 684.0990230003372,
+            "p95": 854.5362379997969,
+            "p99": 1976.8195670000277,
+            "max": 4304.056737000123,
+            "mean": 393.77020128931724,
+            "stdev": 329.9563180097202,
+            "ops": 94.34188653007595
+          },
+          "db": {
+            "n": 1984,
+            "min": 94,
+            "p50": 145,
+            "p90": 195,
+            "p95": 301,
+            "p99": 568,
+            "max": 1126,
+            "mean": 159.546875,
+            "stdev": 88.1339581371898,
+            "ops": 94.34188653007595
+          },
+          "query": {
+            "n": 1984,
+            "min": 94,
+            "p50": 145,
+            "p90": 195,
+            "p95": 301,
+            "p99": 568,
+            "max": 1126,
+            "mean": 159.546875,
+            "stdev": 88.1339581371898,
+            "ops": 94.34188653007595
+          },
+          "success": 1984,
+          "failed": 16,
+          "errorRate": 0.008,
+          "errorsByClass": {
+            "timeout": 16,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 16
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 94.34188653007595,
+          "wallMs": 21029.895341000054
+        }
+      ],
+      "summary": {
+        "medianP50": 210.18181099975482,
+        "medianP95": 665.1108210003003,
+        "medianP99": 1662.1420849999413,
+        "medianRps": 101.04236665487119,
+        "medianDbP50": 142,
+        "medianErrorRate": 0.024,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1924,
+            "min": 164.93833399983123,
+            "p50": 217.8735690000467,
+            "p90": 871.2886139997281,
+            "p95": 1341.7365349996835,
+            "p99": 2251.2139149997383,
+            "max": 3920.034704999998,
+            "mean": 401.8134312505203,
+            "stdev": 443.29633404036724,
+            "ops": 198.56863512592113
+          },
+          "db": {
+            "n": 1924,
+            "min": 93,
+            "p50": 144,
+            "p90": 247,
+            "p95": 310,
+            "p99": 477,
+            "max": 705,
+            "mean": 160.90072765072765,
+            "stdev": 74.74968637242661,
+            "ops": 198.56863512592113
+          },
+          "query": {
+            "n": 1924,
+            "min": 93,
+            "p50": 143,
+            "p90": 177,
+            "p95": 191,
+            "p99": 227,
+            "max": 705,
+            "mean": 141.99272349272348,
+            "stdev": 33.7974883286127,
+            "ops": 198.56863512592113
+          },
+          "success": 1924,
+          "failed": 76,
+          "errorRate": 0.038,
+          "errorsByClass": {
+            "timeout": 76,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 76
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 198.56863512592113,
+          "wallMs": 9689.344939999748
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1752,
+            "min": 165.6547019998543,
+            "p50": 268.1382150002755,
+            "p90": 594.9516960000619,
+            "p95": 902.6833509998396,
+            "p99": 1696.2801240002736,
+            "max": 2381.72313700011,
+            "mean": 377.5643272357323,
+            "stdev": 284.72185834209944,
+            "ops": 153.09978102661663
+          },
+          "db": {
+            "n": 1752,
+            "min": 93,
+            "p50": 151,
+            "p90": 196,
+            "p95": 249,
+            "p99": 460,
+            "max": 606,
+            "mean": 157.57534246575344,
+            "stdev": 63.639332516514905,
+            "ops": 153.09978102661663
+          },
+          "query": {
+            "n": 1752,
+            "min": 93,
+            "p50": 149,
+            "p90": 178,
+            "p95": 194,
+            "p99": 237,
+            "max": 397,
+            "mean": 145.5439497716895,
+            "stdev": 30.749304998898527,
+            "ops": 153.09978102661663
+          },
+          "success": 1752,
+          "failed": 248,
+          "errorRate": 0.124,
+          "errorsByClass": {
+            "timeout": 181,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 67,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "http-500": 67,
+            "timeout": 181
+          },
+          "sampleErrors": [
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 153.09978102661663,
+          "wallMs": 11443.517347000074
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1847,
+            "min": 165.28247300023213,
+            "p50": 275.5425939997658,
+            "p90": 561.6483249999583,
+            "p95": 729.1146370000206,
+            "p99": 1398.1420440003276,
+            "max": 3702.7325620003976,
+            "mean": 365.9163358283681,
+            "stdev": 240.69496925395416,
+            "ops": 168.19204719422171
+          },
+          "db": {
+            "n": 1847,
+            "min": 94,
+            "p50": 140,
+            "p90": 181,
+            "p95": 213,
+            "p99": 423,
+            "max": 641,
+            "mean": 146.60584731997835,
+            "stdev": 53.16406177536948,
+            "ops": 168.19204719422171
+          },
+          "query": {
+            "n": 1847,
+            "min": 94,
+            "p50": 140,
+            "p90": 171,
+            "p95": 182,
+            "p99": 210,
+            "max": 281,
+            "mean": 138.48348673524634,
+            "stdev": 27.036213120454814,
+            "ops": 168.19204719422171
+          },
+          "success": 1847,
+          "failed": 153,
+          "errorRate": 0.0765,
+          "errorsByClass": {
+            "timeout": 153,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 153
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 168.19204719422171,
+          "wallMs": 10981.494254999794
+        }
+      ],
+      "summary": {
+        "medianP50": 268.1382150002755,
+        "medianP95": 902.6833509998396,
+        "medianP99": 1696.2801240002736,
+        "medianRps": 168.19204719422171,
+        "medianDbP50": 144,
+        "medianErrorRate": 0.0765,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 242,
+            "min": 122.47097499947995,
+            "p50": 273.28210800047964,
+            "p90": 307.444516999647,
+            "p95": 307.55445400066674,
+            "p99": 381.23362100031227,
+            "max": 548.3668329995126,
+            "mean": 247.89159566113986,
+            "stdev": 70.35668302444448,
+            "ops": 4.033018058061749
+          },
+          "db": {
+            "n": 242,
+            "min": 69,
+            "p50": 153,
+            "p90": 181,
+            "p95": 206,
+            "p99": 231,
+            "max": 244,
+            "mean": 140.47520661157026,
+            "stdev": 40.574202570272526,
+            "ops": 4.033018058061749
+          },
+          "query": {
+            "n": 242,
+            "min": 69,
+            "p50": 153,
+            "p90": 181,
+            "p95": 206,
+            "p99": 231,
+            "max": 244,
+            "mean": 140.47520661157026,
+            "stdev": 40.574202570272526,
+            "ops": 4.033018058061749
+          },
+          "success": 242,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.033018058061749,
+          "wallMs": 60004.69041199982
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 241,
+            "min": 126.40762699954212,
+            "p50": 270.3364920001477,
+            "p90": 307.3871110007167,
+            "p95": 307.72124900016934,
+            "p99": 315.81250699982047,
+            "max": 358.83897100016475,
+            "mean": 249.06957689625563,
+            "stdev": 63.91061554926595,
+            "ops": 4.01399779980336
+          },
+          "db": {
+            "n": 241,
+            "min": 72,
+            "p50": 153,
+            "p90": 176,
+            "p95": 184,
+            "p99": 206,
+            "max": 235,
+            "mean": 138.34854771784234,
+            "stdev": 35.86273519824131,
+            "ops": 4.01399779980336
+          },
+          "query": {
+            "n": 241,
+            "min": 72,
+            "p50": 153,
+            "p90": 176,
+            "p95": 184,
+            "p99": 206,
+            "max": 235,
+            "mean": 138.34854771784234,
+            "stdev": 35.86273519824131,
+            "ops": 4.01399779980336
+          },
+          "success": 241,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 4.01399779980336,
+          "wallMs": 60039.89339799993
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 196,
+            "min": 128.48773699998856,
+            "p50": 292.953793999739,
+            "p90": 307.8318189997226,
+            "p95": 366.5996489999816,
+            "p99": 453.4699910003692,
+            "max": 510.8883480001241,
+            "mean": 260.1083146020133,
+            "stdev": 72.93691902820756,
+            "ops": 3.2131422318372396
+          },
+          "db": {
+            "n": 196,
+            "min": 73,
+            "p50": 158,
+            "p90": 191,
+            "p95": 206,
+            "p99": 294,
+            "max": 394,
+            "mean": 146.82142857142858,
+            "stdev": 45.08250656251474,
+            "ops": 3.2131422318372396
+          },
+          "query": {
+            "n": 196,
+            "min": 73,
+            "p50": 158,
+            "p90": 191,
+            "p95": 206,
+            "p99": 294,
+            "max": 394,
+            "mean": 146.82142857142858,
+            "stdev": 45.08250656251474,
+            "ops": 3.2131422318372396
+          },
+          "success": 196,
+          "failed": 2,
+          "errorRate": 0.010101010101010102,
+          "errorsByClass": {
+            "timeout": 2,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 2
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 3.2131422318372396,
+          "wallMs": 60999.478347999975
+        }
+      ],
+      "summary": {
+        "medianP50": 273.28210800047964,
+        "medianP95": 307.72124900016934,
+        "medianP99": 381.23362100031227,
+        "medianRps": 4.01399779980336,
+        "medianDbP50": 153,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1987,
+            "min": 114.92861299961805,
+            "p50": 197.97939299978316,
+            "p90": 350.5844139996916,
+            "p95": 464.86733399983495,
+            "p99": 633.0212090006098,
+            "max": 1940.8669420005754,
+            "mean": 229.40505637846948,
+            "stdev": 135.90364366212233,
+            "ops": 37.97315230529454
+          },
+          "db": {
+            "n": 1987,
+            "min": 45,
+            "p50": 111,
+            "p90": 168,
+            "p95": 187,
+            "p99": 238,
+            "max": 324,
+            "mean": 118.694514343231,
+            "stdev": 40.99850593351228,
+            "ops": 37.97315230529454
+          },
+          "query": {
+            "n": 1987,
+            "min": 45,
+            "p50": 111,
+            "p90": 168,
+            "p95": 187,
+            "p99": 238,
+            "max": 324,
+            "mean": 118.694514343231,
+            "stdev": 40.99850593351228,
+            "ops": 37.97315230529454
+          },
+          "success": 1987,
+          "failed": 13,
+          "errorRate": 0.0065,
+          "errorsByClass": {
+            "timeout": 13,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 13
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 37.97315230529454,
+          "wallMs": 52326.44327300042
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1986,
+            "min": 117.45567299984396,
+            "p50": 206.36956200003624,
+            "p90": 323.73663999978453,
+            "p95": 477.2277379995212,
+            "p99": 567.1858740001917,
+            "max": 1966.465439999476,
+            "mean": 230.39421410323004,
+            "stdev": 121.86214049607788,
+            "ops": 36.44750383444173
+          },
+          "db": {
+            "n": 1986,
+            "min": 43,
+            "p50": 118,
+            "p90": 180,
+            "p95": 197,
+            "p99": 242,
+            "max": 355,
+            "mean": 125.83585095669687,
+            "stdev": 44.09036134406351,
+            "ops": 36.44750383444173
+          },
+          "query": {
+            "n": 1986,
+            "min": 43,
+            "p50": 118,
+            "p90": 180,
+            "p95": 197,
+            "p99": 242,
+            "max": 355,
+            "mean": 125.83585095669687,
+            "stdev": 44.09036134406351,
+            "ops": 36.44750383444173
+          },
+          "success": 1986,
+          "failed": 14,
+          "errorRate": 0.007,
+          "errorsByClass": {
+            "timeout": 11,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 3,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "backend": 3,
+            "timeout": 11
+          },
+          "sampleErrors": [
+            "The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+            "The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+            "The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 36.44750383444173,
+          "wallMs": 54489.32824099995
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1493,
+            "min": 120.30977199971676,
+            "p50": 293.7064249999821,
+            "p90": 564.8429229995236,
+            "p95": 618.6264389995486,
+            "p99": 1519.1143860006705,
+            "max": 2132.244075999595,
+            "mean": 380.56296701807395,
+            "stdev": 256.92887688801295,
+            "ops": 24.612737711278168
+          },
+          "db": {
+            "n": 1493,
+            "min": 67,
+            "p50": 155,
+            "p90": 190,
+            "p95": 201,
+            "p99": 240,
+            "max": 296,
+            "mean": 144.91091761553918,
+            "stdev": 39.605887917048825,
+            "ops": 24.612737711278168
+          },
+          "query": {
+            "n": 1493,
+            "min": 67,
+            "p50": 155,
+            "p90": 190,
+            "p95": 201,
+            "p99": 240,
+            "max": 296,
+            "mean": 144.91091761553918,
+            "stdev": 39.605887917048825,
+            "ops": 24.612737711278168
+          },
+          "success": 1493,
+          "failed": 7,
+          "errorRate": 0.004666666666666667,
+          "errorsByClass": {
+            "timeout": 7,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 7
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 24.612737711278168,
+          "wallMs": 60659.64776099939
+        }
+      ],
+      "summary": {
+        "medianP50": 206.36956200003624,
+        "medianP95": 477.2277379995212,
+        "medianP99": 633.0212090006098,
+        "medianRps": 36.44750383444173,
+        "medianDbP50": 118,
+        "medianErrorRate": 0.0065,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1917,
+            "min": 115.62639100011438,
+            "p50": 266.8597109997645,
+            "p90": 589.0254939999431,
+            "p95": 797.0656439997256,
+            "p99": 1624.701588000171,
+            "max": 2355.8744099996984,
+            "mean": 378.52678994680366,
+            "stdev": 276.1872235892987,
+            "ops": 71.32124974824045
+          },
+          "db": {
+            "n": 1917,
+            "min": 66,
+            "p50": 155,
+            "p90": 190,
+            "p95": 207,
+            "p99": 261,
+            "max": 390,
+            "mean": 146.85133020344287,
+            "stdev": 41.063767281675155,
+            "ops": 71.32124974824045
+          },
+          "query": {
+            "n": 1917,
+            "min": 66,
+            "p50": 155,
+            "p90": 190,
+            "p95": 207,
+            "p99": 261,
+            "max": 390,
+            "mean": 146.85133020344287,
+            "stdev": 41.063767281675155,
+            "ops": 71.32124974824045
+          },
+          "success": 1917,
+          "failed": 83,
+          "errorRate": 0.0415,
+          "errorsByClass": {
+            "timeout": 83,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 83
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 71.32124974824045,
+          "wallMs": 26878.384868000634
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1958,
+            "min": 117.92941200081259,
+            "p50": 280.18691399972886,
+            "p90": 610.2220999998972,
+            "p95": 796.3388210004196,
+            "p99": 1682.0977220004424,
+            "max": 2594.6988810002804,
+            "mean": 393.17835391624243,
+            "stdev": 293.4244271902149,
+            "ops": 83.78897316199043
+          },
+          "db": {
+            "n": 1958,
+            "min": 67,
+            "p50": 161,
+            "p90": 208,
+            "p95": 235,
+            "p99": 355,
+            "max": 612,
+            "mean": 157.73033707865167,
+            "stdev": 53.85184542196428,
+            "ops": 83.78897316199043
+          },
+          "query": {
+            "n": 1958,
+            "min": 67,
+            "p50": 161,
+            "p90": 208,
+            "p95": 235,
+            "p99": 355,
+            "max": 612,
+            "mean": 157.73033707865167,
+            "stdev": 53.85184542196428,
+            "ops": 83.78897316199043
+          },
+          "success": 1958,
+          "failed": 42,
+          "errorRate": 0.021,
+          "errorsByClass": {
+            "timeout": 40,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 2,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "http-500": 2,
+            "timeout": 40
+          },
+          "sampleErrors": [
+            "edge turso-reused/student-dashboard: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 83.78897316199043,
+          "wallMs": 23368.230044000782
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1970,
+            "min": 116.4789180001244,
+            "p50": 295.56327500008047,
+            "p90": 622.0580299999565,
+            "p95": 714.6095799999312,
+            "p99": 1810.25722600054,
+            "max": 3461.065733999945,
+            "mean": 407.9952192365471,
+            "stdev": 315.9650074103082,
+            "ops": 85.65238496051776
+          },
+          "db": {
+            "n": 1970,
+            "min": 67,
+            "p50": 159,
+            "p90": 196,
+            "p95": 216,
+            "p99": 267,
+            "max": 320,
+            "mean": 151.7482233502538,
+            "stdev": 41.7514224736045,
+            "ops": 85.65238496051776
+          },
+          "query": {
+            "n": 1970,
+            "min": 67,
+            "p50": 159,
+            "p90": 196,
+            "p95": 216,
+            "p99": 267,
+            "max": 320,
+            "mean": 151.7482233502538,
+            "stdev": 41.7514224736045,
+            "ops": 85.65238496051776
+          },
+          "success": 1970,
+          "failed": 30,
+          "errorRate": 0.015,
+          "errorsByClass": {
+            "timeout": 30,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 30
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 85.65238496051776,
+          "wallMs": 22999.943328000605
+        }
+      ],
+      "summary": {
+        "medianP50": 280.18691399972886,
+        "medianP95": 796.3388210004196,
+        "medianP99": 1682.0977220004424,
+        "medianRps": 83.78897316199043,
+        "medianDbP50": 159,
+        "medianErrorRate": 0.021,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "turso-reused",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1766,
+            "min": 118.08213999960572,
+            "p50": 398.05750699993223,
+            "p90": 1327.8077809996903,
+            "p95": 1708.8951899996027,
+            "p99": 2580.2545919995755,
+            "max": 4744.557523999363,
+            "mean": 574.4248925413254,
+            "stdev": 524.8576642391247,
+            "ops": 121.97156229544223
+          },
+          "db": {
+            "n": 1766,
+            "min": 66,
+            "p50": 165,
+            "p90": 382,
+            "p95": 999,
+            "p99": 1383,
+            "max": 2432,
+            "mean": 244.29105322763306,
+            "stdev": 272.98771683715785,
+            "ops": 121.97156229544223
+          },
+          "query": {
+            "n": 1766,
+            "min": 66,
+            "p50": 161,
+            "p90": 278,
+            "p95": 692,
+            "p99": 1240,
+            "max": 1407,
+            "mean": 210.04077010192526,
+            "stdev": 212.80382858157552,
+            "ops": 121.97156229544223
+          },
+          "success": 1766,
+          "failed": 234,
+          "errorRate": 0.117,
+          "errorsByClass": {
+            "timeout": 228,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 6,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "http-500": 6,
+            "timeout": 228
+          },
+          "sampleErrors": [
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/course-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi",
+            "edge turso-reused/lesson-page: HTTP 500 <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endi"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 121.97156229544223,
+          "wallMs": 14478.784781999886
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1754,
+            "min": 116.20143499970436,
+            "p50": 447.8450889997184,
+            "p90": 766.9369359994307,
+            "p95": 1498.7788500003517,
+            "p99": 2130.055196999572,
+            "max": 4380.587590000592,
+            "mean": 508.54287794924915,
+            "stdev": 417.9085817406828,
+            "ops": 119.17546896130925
+          },
+          "db": {
+            "n": 1754,
+            "min": 67,
+            "p50": 158,
+            "p90": 221,
+            "p95": 286,
+            "p99": 359,
+            "max": 3959,
+            "mean": 166.5279361459521,
+            "stdev": 152.12693705533735,
+            "ops": 119.17546896130925
+          },
+          "query": {
+            "n": 1754,
+            "min": 67,
+            "p50": 157,
+            "p90": 218,
+            "p95": 279,
+            "p99": 354,
+            "max": 3959,
+            "mean": 165.20980615735462,
+            "stdev": 151.6714003300214,
+            "ops": 119.17546896130925
+          },
+          "success": 1754,
+          "failed": 246,
+          "errorRate": 0.123,
+          "errorsByClass": {
+            "timeout": 246,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 246
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 119.17546896130925,
+          "wallMs": 14717.79398300033
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1775,
+            "min": 118.93431000038981,
+            "p50": 330.4986720001325,
+            "p90": 718.3860280001536,
+            "p95": 1207.0968040004373,
+            "p99": 2209.283826000057,
+            "max": 3137.156791999936,
+            "mean": 442.6933416247777,
+            "stdev": 378.0991847466651,
+            "ops": 139.59076646694206
+          },
+          "db": {
+            "n": 1775,
+            "min": 66,
+            "p50": 164,
+            "p90": 334,
+            "p95": 674,
+            "p99": 1985,
+            "max": 2891,
+            "mean": 232.88788732394366,
+            "stdev": 295.4528123612235,
+            "ops": 139.59076646694206
+          },
+          "query": {
+            "n": 1775,
+            "min": 66,
+            "p50": 163,
+            "p90": 307,
+            "p95": 585,
+            "p99": 1941,
+            "max": 2181,
+            "mean": 220.9425352112676,
+            "stdev": 271.97569292653424,
+            "ops": 139.59076646694206
+          },
+          "success": 1775,
+          "failed": 225,
+          "errorRate": 0.1125,
+          "errorsByClass": {
+            "timeout": 225,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 225
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "rps": 139.59076646694206,
+          "wallMs": 12715.740767999552
+        }
+      ],
+      "summary": {
+        "medianP50": 398.05750699993223,
+        "medianP95": 1498.7788500003517,
+        "medianP99": 2209.283826000057,
+        "medianRps": 121.97156229544223,
+        "medianDbP50": 164,
+        "medianErrorRate": 0.117,
+        "medianReplicaRate": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 119,
+            "min": 261.77980699948967,
+            "p50": 495.94866900052875,
+            "p90": 566.385266000405,
+            "p95": 636.1232089996338,
+            "p99": 1393.958530000411,
+            "max": 1530.8965349998325,
+            "mean": 507.50714454621453,
+            "stdev": 173.5699460495409,
+            "ops": 1.9700634299246473
+          },
+          "db": {
+            "n": 119,
+            "min": 131,
+            "p50": 153,
+            "p90": 173,
+            "p95": 182,
+            "p99": 197,
+            "max": 200,
+            "mean": 155.65546218487395,
+            "stdev": 13.153545053538261,
+            "ops": 1.9700634299246473
+          },
+          "query": {
+            "n": 119,
+            "min": 131,
+            "p50": 153,
+            "p90": 173,
+            "p95": 182,
+            "p99": 197,
+            "max": 200,
+            "mean": 155.65546218487395,
+            "stdev": 13.153545053538261,
+            "ops": 1.9700634299246473
+          },
+          "success": 119,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 1,
+          "replicaReads": 476,
+          "primaryReads": 0,
+          "totalReads": 476,
+          "regions": {
+            "WEUR": 119
+          },
+          "rps": 1.9700634299246473,
+          "wallMs": 60404.14648200013
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 118,
+            "min": 284.02141600009054,
+            "p50": 484.8338599996641,
+            "p90": 614.5338989999145,
+            "p95": 616.2414849996567,
+            "p99": 1432.921695000492,
+            "max": 1515.92756799981,
+            "mean": 510.1908200423912,
+            "stdev": 168.26038832537088,
+            "ops": 1.959708630700168
+          },
+          "db": {
+            "n": 118,
+            "min": 137,
+            "p50": 164,
+            "p90": 190,
+            "p95": 200,
+            "p99": 247,
+            "max": 277,
+            "mean": 167.77966101694915,
+            "stdev": 18.854993311227833,
+            "ops": 1.959708630700168
+          },
+          "query": {
+            "n": 118,
+            "min": 137,
+            "p50": 164,
+            "p90": 190,
+            "p95": 200,
+            "p99": 247,
+            "max": 277,
+            "mean": 167.77966101694915,
+            "stdev": 18.854993311227833,
+            "ops": 1.959708630700168
+          },
+          "success": 118,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 1,
+          "replicaReads": 472,
+          "primaryReads": 0,
+          "totalReads": 472,
+          "regions": {
+            "WEUR": 118
+          },
+          "rps": 1.959708630700168,
+          "wallMs": 60213.03276999947
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 98,
+            "min": 388.3773530004546,
+            "p50": 533.2418700000271,
+            "p90": 716.1231520008296,
+            "p95": 1444.1376120001078,
+            "p99": 1740.6819970002398,
+            "max": 1740.6819970002398,
+            "mean": 612.4170388163504,
+            "stdev": 254.5942836859198,
+            "ops": 1.6326540050222487
+          },
+          "db": {
+            "n": 98,
+            "min": 127,
+            "p50": 165,
+            "p90": 187,
+            "p95": 201,
+            "p99": 204,
+            "max": 204,
+            "mean": 167.8673469387755,
+            "stdev": 14.945914570511276,
+            "ops": 1.6326540050222487
+          },
+          "query": {
+            "n": 98,
+            "min": 127,
+            "p50": 165,
+            "p90": 187,
+            "p95": 201,
+            "p99": 204,
+            "max": 204,
+            "mean": 167.8673469387755,
+            "stdev": 14.945914570511276,
+            "ops": 1.6326540050222487
+          },
+          "success": 98,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 1,
+          "replicaReads": 392,
+          "primaryReads": 0,
+          "totalReads": 392,
+          "regions": {
+            "WEUR": 98
+          },
+          "rps": 1.6326540050222487,
+          "wallMs": 60024.96530100051
+        }
+      ],
+      "summary": {
+        "medianP50": 495.94866900052875,
+        "medianP95": 636.1232089996338,
+        "medianP99": 1432.921695000492,
+        "medianRps": 1.959708630700168,
+        "medianDbP50": 164,
+        "medianErrorRate": 0,
+        "medianReplicaRate": 1
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1739,
+            "min": 187.0435680001974,
+            "p50": 292.02112099993974,
+            "p90": 542.1749709993601,
+            "p95": 602.1532870000228,
+            "p99": 1012.8530959999189,
+            "max": 2037.3627120004967,
+            "mean": 346.1702760586562,
+            "stdev": 166.68504129882717,
+            "ops": 28.741603506457803
+          },
+          "db": {
+            "n": 1739,
+            "min": 123,
+            "p50": 195,
+            "p90": 251,
+            "p95": 278,
+            "p99": 421,
+            "max": 525,
+            "mean": 203.40828062104657,
+            "stdev": 48.05379700910205,
+            "ops": 28.741603506457803
+          },
+          "query": {
+            "n": 1739,
+            "min": 123,
+            "p50": 195,
+            "p90": 251,
+            "p95": 278,
+            "p99": 421,
+            "max": 525,
+            "mean": 203.40828062104657,
+            "stdev": 48.05379700910205,
+            "ops": 28.741603506457803
+          },
+          "success": 1739,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8504887866589994,
+          "replicaReads": 5916,
+          "primaryReads": 1040,
+          "totalReads": 6956,
+          "regions": {
+            "WEUR": 1739
+          },
+          "rps": 28.741603506457803,
+          "wallMs": 60504.62701600045
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1810,
+            "min": 189.3355280002579,
+            "p50": 282.5721439998597,
+            "p90": 496.0898900004104,
+            "p95": 580.2207279996946,
+            "p99": 1479.3040080005303,
+            "max": 2583.8143339995295,
+            "mean": 333.2935452508303,
+            "stdev": 196.23713257877614,
+            "ops": 29.369172108891377
+          },
+          "db": {
+            "n": 1810,
+            "min": 131,
+            "p50": 197,
+            "p90": 257,
+            "p95": 284,
+            "p99": 394,
+            "max": 461,
+            "mean": 206.4574585635359,
+            "stdev": 46.09426579735766,
+            "ops": 29.369172108891377
+          },
+          "query": {
+            "n": 1810,
+            "min": 131,
+            "p50": 197,
+            "p90": 257,
+            "p95": 284,
+            "p99": 394,
+            "max": 461,
+            "mean": 206.4574585635359,
+            "stdev": 46.09426579735766,
+            "ops": 29.369172108891377
+          },
+          "success": 1810,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8552486187845304,
+          "replicaReads": 6192,
+          "primaryReads": 1048,
+          "totalReads": 7240,
+          "regions": {
+            "WEUR": 1810
+          },
+          "rps": 29.369172108891377,
+          "wallMs": 61629.248291000724
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1796,
+            "min": 194.24166099913418,
+            "p50": 286.02803800068796,
+            "p90": 527.3512049997225,
+            "p95": 595.2748119998723,
+            "p99": 1464.5043879998848,
+            "max": 2185.6817399999127,
+            "mean": 335.42451121883244,
+            "stdev": 176.49776742629132,
+            "ops": 29.757713274947
+          },
+          "db": {
+            "n": 1796,
+            "min": 133,
+            "p50": 202,
+            "p90": 256,
+            "p95": 283,
+            "p99": 434,
+            "max": 543,
+            "mean": 209.70824053452117,
+            "stdev": 50.94053652755309,
+            "ops": 29.757713274947
+          },
+          "query": {
+            "n": 1796,
+            "min": 133,
+            "p50": 202,
+            "p90": 256,
+            "p95": 283,
+            "p99": 434,
+            "max": 543,
+            "mean": 209.70824053452117,
+            "stdev": 50.94053652755309,
+            "ops": 29.757713274947
+          },
+          "success": 1796,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8557906458797327,
+          "replicaReads": 6148,
+          "primaryReads": 1036,
+          "totalReads": 7184,
+          "regions": {
+            "WEUR": 1796
+          },
+          "rps": 29.757713274947,
+          "wallMs": 60354.09990699962
+        }
+      ],
+      "summary": {
+        "medianP50": 286.02803800068796,
+        "medianP95": 595.2748119998723,
+        "medianP99": 1464.5043879998848,
+        "medianRps": 29.369172108891377,
+        "medianDbP50": 197,
+        "medianErrorRate": 0,
+        "medianReplicaRate": 0.8552486187845304
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2000,
+            "min": 194.01822699978948,
+            "p50": 1046.3533899998292,
+            "p90": 1416.2554879998788,
+            "p95": 1566.5314029995352,
+            "p99": 2542.546906000003,
+            "max": 4416.291218000464,
+            "mean": 970.3524154920043,
+            "stdev": 486.57114899795556,
+            "ops": 49.82530332119148
+          },
+          "db": {
+            "n": 2000,
+            "min": 132,
+            "p50": 894,
+            "p90": 1170,
+            "p95": 1266,
+            "p99": 1338,
+            "max": 1394,
+            "mean": 779.304,
+            "stdev": 373.3562770116499,
+            "ops": 49.82530332119148
+          },
+          "query": {
+            "n": 2000,
+            "min": 132,
+            "p50": 894,
+            "p90": 1170,
+            "p95": 1266,
+            "p99": 1338,
+            "max": 1394,
+            "mean": 779.304,
+            "stdev": 373.3562770116499,
+            "ops": 49.82530332119148
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.7485,
+          "replicaReads": 5988,
+          "primaryReads": 2012,
+          "totalReads": 8000,
+          "regions": {
+            "WEUR": 2000
+          },
+          "rps": 49.82530332119148,
+          "wallMs": 40140.247357999906
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 2000,
+            "min": 194.54268599953502,
+            "p50": 1015.7487079994753,
+            "p90": 1391.5670350007713,
+            "p95": 1576.0182190006599,
+            "p99": 2120.2312530009076,
+            "max": 3421.310300000012,
+            "mean": 1021.6009126930037,
+            "stdev": 351.15653564652075,
+            "ops": 48.36920896305227
+          },
+          "db": {
+            "n": 2000,
+            "min": 126,
+            "p50": 884,
+            "p90": 1102,
+            "p95": 1299,
+            "p99": 1544,
+            "max": 1650,
+            "mean": 833.4545,
+            "stdev": 314.2979015675255,
+            "ops": 48.36920896305227
+          },
+          "query": {
+            "n": 2000,
+            "min": 126,
+            "p50": 884,
+            "p90": 1102,
+            "p95": 1299,
+            "p99": 1544,
+            "max": 1650,
+            "mean": 833.4545,
+            "stdev": 314.2979015675255,
+            "ops": 48.36920896305227
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8535,
+          "replicaReads": 6828,
+          "primaryReads": 1172,
+          "totalReads": 8000,
+          "regions": {
+            "WEUR": 2000
+          },
+          "rps": 48.36920896305227,
+          "wallMs": 41348.61914999969
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 2000,
+            "min": 291.79026499949396,
+            "p50": 1036.4532819995657,
+            "p90": 1426.6473229993135,
+            "p95": 1618.44289400056,
+            "p99": 2442.763358999975,
+            "max": 3974.075500000268,
+            "mean": 1079.29437387549,
+            "stdev": 363.7533397236891,
+            "ops": 45.048712458696606
+          },
+          "db": {
+            "n": 2000,
+            "min": 131,
+            "p50": 903,
+            "p90": 1174,
+            "p95": 1263,
+            "p99": 1404,
+            "max": 1660,
+            "mean": 863.073,
+            "stdev": 289.42066040799483,
+            "ops": 45.048712458696606
+          },
+          "query": {
+            "n": 2000,
+            "min": 131,
+            "p50": 903,
+            "p90": 1174,
+            "p95": 1263,
+            "p99": 1404,
+            "max": 1660,
+            "mean": 863.073,
+            "stdev": 289.42066040799483,
+            "ops": 45.048712458696606
+          },
+          "success": 2000,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8915,
+          "replicaReads": 7132,
+          "primaryReads": 868,
+          "totalReads": 8000,
+          "regions": {
+            "WEUR": 2000
+          },
+          "rps": 45.048712458696606,
+          "wallMs": 44396.38539800048
+        }
+      ],
+      "summary": {
+        "medianP50": 1036.4532819995657,
+        "medianP95": 1576.0182190006599,
+        "medianP99": 2442.763358999975,
+        "medianRps": 48.36920896305227,
+        "medianDbP50": 894,
+        "medianErrorRate": 0,
+        "medianReplicaRate": 0.8535
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "lesson-page",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1618,
+            "min": 202.10671200044453,
+            "p50": 2722.1594879999757,
+            "p90": 4549.37230399996,
+            "p95": 4665.914456000552,
+            "p99": 4906.512165999971,
+            "max": 4996.820831000805,
+            "mean": 2544.4191114511746,
+            "stdev": 1721.7356836513948,
+            "ops": 52.01617679154047
+          },
+          "db": {
+            "n": 1618,
+            "min": 145,
+            "p50": 2651,
+            "p90": 4394,
+            "p95": 4487,
+            "p99": 4624,
+            "max": 4757,
+            "mean": 2385.777503090235,
+            "stdev": 1731.192323302143,
+            "ops": 52.01617679154047
+          },
+          "query": {
+            "n": 1618,
+            "min": 145,
+            "p50": 2651,
+            "p90": 4394,
+            "p95": 4487,
+            "p99": 4624,
+            "max": 4757,
+            "mean": 2385.777503090235,
+            "stdev": 1731.192323302143,
+            "ops": 52.01617679154047
+          },
+          "success": 1618,
+          "failed": 382,
+          "errorRate": 0.191,
+          "errorsByClass": {
+            "timeout": 382,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 382
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.5080346106304079,
+          "replicaReads": 3288,
+          "primaryReads": 3184,
+          "totalReads": 6472,
+          "regions": {
+            "WEUR": 1618
+          },
+          "rps": 52.01617679154047,
+          "wallMs": 31105.707874000072
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1834,
+            "min": 201.51326399948448,
+            "p50": 3967.500746000558,
+            "p90": 4719.678073000163,
+            "p95": 4870.912665000185,
+            "p99": 4979.681513999589,
+            "max": 4999.614462999627,
+            "mean": 2888.308267958022,
+            "stdev": 1873.8095116558188,
+            "ops": 55.62178033127328
+          },
+          "db": {
+            "n": 1834,
+            "min": 137,
+            "p50": 3873,
+            "p90": 4516,
+            "p95": 4647,
+            "p99": 4826,
+            "max": 4876,
+            "mean": 2744.1875681570336,
+            "stdev": 1848.1543738773219,
+            "ops": 55.62178033127328
+          },
+          "query": {
+            "n": 1834,
+            "min": 137,
+            "p50": 3873,
+            "p90": 4516,
+            "p95": 4647,
+            "p99": 4826,
+            "max": 4876,
+            "mean": 2744.1875681570336,
+            "stdev": 1848.1543738773219,
+            "ops": 55.62178033127328
+          },
+          "success": 1834,
+          "failed": 166,
+          "errorRate": 0.083,
+          "errorsByClass": {
+            "timeout": 166,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 166
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.6543075245365322,
+          "replicaReads": 4800,
+          "primaryReads": 2536,
+          "totalReads": 7336,
+          "regions": {
+            "WEUR": 1834
+          },
+          "rps": 55.62178033127328,
+          "wallMs": 32972.69503200054
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1762,
+            "min": 218.163327999413,
+            "p50": 3597.0055090002716,
+            "p90": 4641.574679000303,
+            "p95": 4772.959657999687,
+            "p99": 4925.44531599991,
+            "max": 4999.7607739996165,
+            "mean": 2642.3010078093066,
+            "stdev": 1877.9570845352291,
+            "ops": 58.09169638976178
+          },
+          "db": {
+            "n": 1762,
+            "min": 153,
+            "p50": 3478,
+            "p90": 4455,
+            "p95": 4565,
+            "p99": 4733,
+            "max": 4784,
+            "mean": 2476.061293984109,
+            "stdev": 1888.429795550874,
+            "ops": 58.09169638976178
+          },
+          "query": {
+            "n": 1762,
+            "min": 153,
+            "p50": 3478,
+            "p90": 4455,
+            "p95": 4565,
+            "p99": 4733,
+            "max": 4784,
+            "mean": 2476.061293984109,
+            "stdev": 1888.429795550874,
+            "ops": 58.09169638976178
+          },
+          "success": 1762,
+          "failed": 238,
+          "errorRate": 0.119,
+          "errorsByClass": {
+            "timeout": 238,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 238
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.5783200908059024,
+          "replicaReads": 4076,
+          "primaryReads": 2972,
+          "totalReads": 7048,
+          "regions": {
+            "WEUR": 1762
+          },
+          "rps": 58.09169638976178,
+          "wallMs": 30331.357311000116
+        }
+      ],
+      "summary": {
+        "medianP50": 3597.0055090002716,
+        "medianP95": 4772.959657999687,
+        "medianP99": 4925.44531599991,
+        "medianRps": 55.62178033127328,
+        "medianDbP50": 3478,
+        "medianErrorRate": 0.119,
+        "medianReplicaRate": 0.5783200908059024
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 1,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 198,
+            "min": 139.45499399956316,
+            "p50": 306.94254099950194,
+            "p90": 409.39904700033367,
+            "p95": 441.0026459991932,
+            "p99": 680.4493460003287,
+            "max": 1331.3497260008007,
+            "mean": 303.7730218990273,
+            "stdev": 113.62647745499882,
+            "ops": 3.291244983465013
+          },
+          "db": {
+            "n": 198,
+            "min": 64,
+            "p50": 146,
+            "p90": 171,
+            "p95": 230,
+            "p99": 267,
+            "max": 340,
+            "mean": 139.7070707070707,
+            "stdev": 43.69909795552207,
+            "ops": 3.291244983465013
+          },
+          "query": {
+            "n": 198,
+            "min": 64,
+            "p50": 146,
+            "p90": 171,
+            "p95": 230,
+            "p99": 267,
+            "max": 340,
+            "mean": 139.7070707070707,
+            "stdev": 43.69909795552207,
+            "ops": 3.291244983465013
+          },
+          "success": 198,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8636363636363636,
+          "replicaReads": 613,
+          "primaryReads": 0,
+          "totalReads": 613,
+          "regions": {
+            "WEUR": 198
+          },
+          "rps": 3.291244983465013,
+          "wallMs": 60159.605557999574
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 210,
+            "min": 134.52068400010467,
+            "p50": 306.93006999976933,
+            "p90": 371.5943750003353,
+            "p95": 409.56818199995905,
+            "p99": 572.8031770000234,
+            "max": 704.8934669997543,
+            "mean": 286.650622333329,
+            "stdev": 81.67330850552221,
+            "ops": 3.4877243113243384
+          },
+          "db": {
+            "n": 210,
+            "min": 58,
+            "p50": 146,
+            "p90": 174,
+            "p95": 221,
+            "p99": 285,
+            "max": 434,
+            "mean": 142.03333333333333,
+            "stdev": 46.91343429616208,
+            "ops": 3.4877243113243384
+          },
+          "query": {
+            "n": 210,
+            "min": 58,
+            "p50": 146,
+            "p90": 174,
+            "p95": 221,
+            "p99": 285,
+            "max": 434,
+            "mean": 142.03333333333333,
+            "stdev": 46.91343429616208,
+            "ops": 3.4877243113243384
+          },
+          "success": 210,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8571428571428571,
+          "replicaReads": 640,
+          "primaryReads": 0,
+          "totalReads": 640,
+          "regions": {
+            "WEUR": 210
+          },
+          "rps": 3.4877243113243384,
+          "wallMs": 60211.18106099963
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 206,
+            "min": 134.72159499954432,
+            "p50": 306.92794599942863,
+            "p90": 408.6194510003552,
+            "p95": 409.7320210002363,
+            "p99": 584.6736780004576,
+            "max": 921.6770540000871,
+            "mean": 292.22996061648814,
+            "stdev": 93.23355405571476,
+            "ops": 3.421102034578045
+          },
+          "db": {
+            "n": 206,
+            "min": 61,
+            "p50": 147,
+            "p90": 174,
+            "p95": 217,
+            "p99": 259,
+            "max": 298,
+            "mean": 140.40291262135923,
+            "stdev": 42.194507893457,
+            "ops": 3.421102034578045
+          },
+          "query": {
+            "n": 206,
+            "min": 61,
+            "p50": 147,
+            "p90": 174,
+            "p95": 217,
+            "p99": 259,
+            "max": 298,
+            "mean": 140.40291262135923,
+            "stdev": 42.194507893457,
+            "ops": 3.421102034578045
+          },
+          "success": 206,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8640776699029126,
+          "replicaReads": 633,
+          "primaryReads": 0,
+          "totalReads": 633,
+          "regions": {
+            "WEUR": 206
+          },
+          "rps": 3.421102034578045,
+          "wallMs": 60214.51506499946
+        }
+      ],
+      "summary": {
+        "medianP50": 306.93006999976933,
+        "medianP95": 409.7320210002363,
+        "medianP99": 584.6736780004576,
+        "medianRps": 3.421102034578045,
+        "medianDbP50": 146,
+        "medianErrorRate": 0,
+        "medianReplicaRate": 0.8636363636363636
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 10,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1354,
+            "min": 114.2132270000875,
+            "p50": 300.07599900010973,
+            "p90": 695.5032439995557,
+            "p95": 903.6359160002321,
+            "p99": 1905.0307989995927,
+            "max": 3609.602479999885,
+            "mean": 441.1444920495089,
+            "stdev": 363.9484042841288,
+            "ops": 22.418997585154234
+          },
+          "db": {
+            "n": 1354,
+            "min": 65,
+            "p50": 173,
+            "p90": 235,
+            "p95": 272,
+            "p99": 363,
+            "max": 451,
+            "mean": 172.7887740029542,
+            "stdev": 56.44349594409068,
+            "ops": 22.418997585154234
+          },
+          "query": {
+            "n": 1354,
+            "min": 65,
+            "p50": 173,
+            "p90": 235,
+            "p95": 272,
+            "p99": 363,
+            "max": 451,
+            "mean": 172.7887740029542,
+            "stdev": 56.44349594409068,
+            "ops": 22.418997585154234
+          },
+          "success": 1354,
+          "failed": 1,
+          "errorRate": 0.0007380073800738007,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.8559822747415067,
+          "replicaReads": 4214,
+          "primaryReads": 0,
+          "totalReads": 4214,
+          "regions": {
+            "WEUR": 1354
+          },
+          "rps": 22.418997585154234,
+          "wallMs": 60395.20700500067
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1187,
+            "min": 115.45230600051582,
+            "p50": 326.66067700088024,
+            "p90": 857.7595640001819,
+            "p95": 1446.6150280004367,
+            "p99": 2512.0889820000157,
+            "max": 3349.602223000489,
+            "mean": 507.6714122552525,
+            "stdev": 448.06095536493063,
+            "ops": 19.591556504194543
+          },
+          "db": {
+            "n": 1187,
+            "min": 61,
+            "p50": 173,
+            "p90": 256,
+            "p95": 287,
+            "p99": 388,
+            "max": 629,
+            "mean": 176.6849199663016,
+            "stdev": 66.01152639940956,
+            "ops": 19.591556504194543
+          },
+          "query": {
+            "n": 1187,
+            "min": 61,
+            "p50": 173,
+            "p90": 256,
+            "p95": 287,
+            "p99": 388,
+            "max": 629,
+            "mean": 176.6849199663016,
+            "stdev": 66.01152639940956,
+            "ops": 19.591556504194543
+          },
+          "success": 1187,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8542544229149115,
+          "replicaReads": 3672,
+          "primaryReads": 0,
+          "totalReads": 3672,
+          "regions": {
+            "WEUR": 1187
+          },
+          "rps": 19.591556504194543,
+          "wallMs": 60587.32493999973
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1404,
+            "min": 118.72258299961686,
+            "p50": 291.58086600061506,
+            "p90": 739.7669170005247,
+            "p95": 833.0778250005096,
+            "p99": 2038.745652999729,
+            "max": 2683.7554079992697,
+            "mean": 431.19711501424615,
+            "stdev": 342.25001816490857,
+            "ops": 22.73391196025136
+          },
+          "db": {
+            "n": 1404,
+            "min": 66,
+            "p50": 181,
+            "p90": 264,
+            "p95": 302,
+            "p99": 407,
+            "max": 493,
+            "mean": 185.5534188034188,
+            "stdev": 65.38521070479224,
+            "ops": 22.73391196025136
+          },
+          "query": {
+            "n": 1404,
+            "min": 66,
+            "p50": 181,
+            "p90": 264,
+            "p95": 302,
+            "p99": 407,
+            "max": 493,
+            "mean": 185.5534188034188,
+            "stdev": 65.38521070479224,
+            "ops": 22.73391196025136
+          },
+          "success": 1404,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": 0.8568376068376068,
+          "replicaReads": 4379,
+          "primaryReads": 0,
+          "totalReads": 4379,
+          "regions": {
+            "WEUR": 1404
+          },
+          "rps": 22.73391196025136,
+          "wallMs": 61757.958878999576
+        }
+      ],
+      "summary": {
+        "medianP50": 300.07599900010973,
+        "medianP95": 903.6359160002321,
+        "medianP99": 2038.745652999729,
+        "medianRps": 22.418997585154234,
+        "medianDbP50": 173,
+        "medianErrorRate": 0,
+        "medianReplicaRate": 0.8559822747415067
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 50,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1999,
+            "min": 124.73547299951315,
+            "p50": 941.1697329999879,
+            "p90": 1480.7905430002138,
+            "p95": 1798.6548779997975,
+            "p99": 2567.9416449991986,
+            "max": 3898.494409000501,
+            "mean": 958.8006706218202,
+            "stdev": 492.3383614283417,
+            "ops": 49.792702877399925
+          },
+          "db": {
+            "n": 1999,
+            "min": 67,
+            "p50": 744,
+            "p90": 1041,
+            "p95": 1137,
+            "p99": 1376,
+            "max": 1542,
+            "mean": 661.4632316158079,
+            "stdev": 335.0690289340951,
+            "ops": 49.792702877399925
+          },
+          "query": {
+            "n": 1999,
+            "min": 67,
+            "p50": 744,
+            "p90": 1041,
+            "p95": 1137,
+            "p99": 1376,
+            "max": 1542,
+            "mean": 661.4632316158079,
+            "stdev": 335.0690289340951,
+            "ops": 49.792702877399925
+          },
+          "success": 1999,
+          "failed": 1,
+          "errorRate": 0.0005,
+          "errorsByClass": {
+            "timeout": 1,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 1
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.6923461730865432,
+          "replicaReads": 5061,
+          "primaryReads": 1122,
+          "totalReads": 6183,
+          "regions": {
+            "WEUR": 1999
+          },
+          "rps": 49.792702877399925,
+          "wallMs": 40146.44485000055
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1998,
+            "min": 122.48795800004154,
+            "p50": 917.4163299994543,
+            "p90": 1480.3445439999923,
+            "p95": 1762.9965080004185,
+            "p99": 2675.1191760003567,
+            "max": 2987.608922000043,
+            "mean": 953.3197583633604,
+            "stdev": 496.70981303420325,
+            "ops": 47.842746005153785
+          },
+          "db": {
+            "n": 1998,
+            "min": 67,
+            "p50": 678,
+            "p90": 1026,
+            "p95": 1128,
+            "p99": 1232,
+            "max": 1399,
+            "mean": 638.7897897897898,
+            "stdev": 321.62165559116374,
+            "ops": 47.842746005153785
+          },
+          "query": {
+            "n": 1998,
+            "min": 67,
+            "p50": 678,
+            "p90": 1026,
+            "p95": 1128,
+            "p99": 1232,
+            "max": 1399,
+            "mean": 638.7897897897898,
+            "stdev": 321.62165559116374,
+            "ops": 47.842746005153785
+          },
+          "success": 1998,
+          "failed": 2,
+          "errorRate": 0.001,
+          "errorsByClass": {
+            "timeout": 2,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 2
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.6996996996996997,
+          "replicaReads": 5102,
+          "primaryReads": 1075,
+          "totalReads": 6177,
+          "regions": {
+            "WEUR": 1998
+          },
+          "rps": 47.842746005153785,
+          "wallMs": 41761.81692799926
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1989,
+            "min": 131.82157700043172,
+            "p50": 1018.4646960003302,
+            "p90": 1639.216660999693,
+            "p95": 1904.2729009995237,
+            "p99": 2848.1987409992144,
+            "max": 4131.216752000153,
+            "mean": 1039.2796893187444,
+            "stdev": 537.2498402664502,
+            "ops": 45.748202313125795
+          },
+          "db": {
+            "n": 1989,
+            "min": 66,
+            "p50": 720,
+            "p90": 1136,
+            "p95": 1210,
+            "p99": 1314,
+            "max": 1876,
+            "mean": 699.015585721468,
+            "stdev": 348.7184138892602,
+            "ops": 45.748202313125795
+          },
+          "query": {
+            "n": 1989,
+            "min": 66,
+            "p50": 720,
+            "p90": 1136,
+            "p95": 1210,
+            "p99": 1314,
+            "max": 1876,
+            "mean": 699.015585721468,
+            "stdev": 348.7184138892602,
+            "ops": 45.748202313125795
+          },
+          "success": 1989,
+          "failed": 11,
+          "errorRate": 0.0055,
+          "errorsByClass": {
+            "timeout": 11,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 11
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.7083961789844143,
+          "replicaReads": 5081,
+          "primaryReads": 1068,
+          "totalReads": 6149,
+          "regions": {
+            "WEUR": 1989
+          },
+          "rps": 45.748202313125795,
+          "wallMs": 43477.118212999776
+        }
+      ],
+      "summary": {
+        "medianP50": 941.1697329999879,
+        "medianP95": 1798.6548779997975,
+        "medianP99": 2675.1191760003567,
+        "medianRps": 47.842746005153785,
+        "medianDbP50": 720,
+        "medianErrorRate": 0.001,
+        "medianReplicaRate": 0.6996996996996997
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-rr",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 60,
+      "iterations": 2000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 1387,
+            "min": 152.2085309997201,
+            "p50": 1115.8998630000278,
+            "p90": 4557.658536999486,
+            "p95": 4810.420906000771,
+            "p99": 4980.5925049996,
+            "max": 4999.6813319996,
+            "mean": 1982.2629153157975,
+            "stdev": 1613.8386372384582,
+            "ops": 43.93074228071462
+          },
+          "db": {
+            "n": 1387,
+            "min": 78,
+            "p50": 778,
+            "p90": 4273,
+            "p95": 4641,
+            "p99": 4850,
+            "max": 4946,
+            "mean": 1648.7620764239366,
+            "stdev": 1504.0840818810154,
+            "ops": 43.93074228071462
+          },
+          "query": {
+            "n": 1387,
+            "min": 78,
+            "p50": 778,
+            "p90": 4273,
+            "p95": 4641,
+            "p99": 4850,
+            "max": 4946,
+            "mean": 1648.7620764239366,
+            "stdev": 1504.0840818810154,
+            "ops": 43.93074228071462
+          },
+          "success": 1387,
+          "failed": 613,
+          "errorRate": 0.3065,
+          "errorsByClass": {
+            "timeout": 613,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 613
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.3684210526315789,
+          "replicaReads": 1565,
+          "primaryReads": 2323,
+          "totalReads": 3888,
+          "regions": {
+            "WEUR": 1387
+          },
+          "rps": 43.93074228071462,
+          "wallMs": 31572.42350099981
+        },
+        {
+          "run": 2,
+          "e2e": {
+            "n": 1449,
+            "min": 144.21764400042593,
+            "p50": 1640.638085999526,
+            "p90": 4395.242502999492,
+            "p95": 4728.5396969998255,
+            "p99": 4930.7886350005865,
+            "max": 4999.092565999366,
+            "mean": 1994.5956615093212,
+            "stdev": 1554.5485082640917,
+            "ops": 46.83073063248693
+          },
+          "db": {
+            "n": 1449,
+            "min": 85,
+            "p50": 1362,
+            "p90": 3619,
+            "p95": 4292,
+            "p99": 4647,
+            "max": 4924,
+            "mean": 1682.7881297446515,
+            "stdev": 1402.3957559912396,
+            "ops": 46.83073063248693
+          },
+          "query": {
+            "n": 1449,
+            "min": 85,
+            "p50": 1362,
+            "p90": 3619,
+            "p95": 4292,
+            "p99": 4647,
+            "max": 4924,
+            "mean": 1682.7881297446515,
+            "stdev": 1402.3957559912396,
+            "ops": 46.83073063248693
+          },
+          "success": 1449,
+          "failed": 551,
+          "errorRate": 0.2755,
+          "errorsByClass": {
+            "timeout": 551,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 551
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.4251207729468599,
+          "replicaReads": 1971,
+          "primaryReads": 2135,
+          "totalReads": 4106,
+          "regions": {
+            "WEUR": 1449
+          },
+          "rps": 46.83073063248693,
+          "wallMs": 30941.221297000535
+        },
+        {
+          "run": 3,
+          "e2e": {
+            "n": 1536,
+            "min": 132.9451449997723,
+            "p50": 2564.20033399947,
+            "p90": 4654.946969999932,
+            "p95": 4817.464391999878,
+            "p99": 4952.999742999673,
+            "max": 4997.832698999904,
+            "mean": 2507.9893806959662,
+            "stdev": 1625.3894243186073,
+            "ops": 45.69577292188237
+          },
+          "db": {
+            "n": 1536,
+            "min": 66,
+            "p50": 2000,
+            "p90": 4303,
+            "p95": 4492,
+            "p99": 4745,
+            "max": 4925,
+            "mean": 2100.2513020833335,
+            "stdev": 1576.5773353690408,
+            "ops": 45.69577292188237
+          },
+          "query": {
+            "n": 1536,
+            "min": 66,
+            "p50": 2000,
+            "p90": 4303,
+            "p95": 4492,
+            "p99": 4745,
+            "max": 4925,
+            "mean": 2100.2513020833335,
+            "stdev": 1576.5773353690408,
+            "ops": 45.69577292188237
+          },
+          "success": 1536,
+          "failed": 464,
+          "errorRate": 0.232,
+          "errorsByClass": {
+            "timeout": 464,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {
+            "timeout": 464
+          },
+          "sampleErrors": [
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms",
+            "op timed out after 5000ms"
+          ],
+          "replicaRate": 0.5572916666666666,
+          "replicaReads": 2859,
+          "primaryReads": 1603,
+          "totalReads": 4462,
+          "regions": {
+            "WEUR": 1536
+          },
+          "rps": 45.69577292188237,
+          "wallMs": 33613.612414999865
+        }
+      ],
+      "summary": {
+        "medianP50": 1640.638085999526,
+        "medianP95": 4810.420906000771,
+        "medianP99": 4952.999742999673,
+        "medianRps": 45.69577292188237,
+        "medianDbP50": 1362,
+        "medianErrorRate": 0.2755,
+        "medianReplicaRate": 0.4251207729468599
+      }
+    }
+  ]
+}

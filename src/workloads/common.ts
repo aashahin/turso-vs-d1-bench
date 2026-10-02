@@ -37,7 +37,11 @@ export interface OpQuery {
   method: "GET" | "POST";
 }
 
-export function tenantFor(opIndex: number, tenantMode: string, tenantCount: number): number {
+export function tenantFor(
+  opIndex: number,
+  tenantMode: string,
+  tenantCount: number,
+): number {
   if (tenantMode !== "distributed") return 1;
   return 1 + (hash32(opIndex ^ 0x74e4a7) % Math.max(1, tenantCount));
 }

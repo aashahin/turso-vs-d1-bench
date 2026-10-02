@@ -1,0 +1,13 @@
+{
+  "status": "stopped",
+  "pid": 1393176,
+  "updatedAt": "2026-10-02T02:28:54.439Z",
+  "resultPath": "results-manhali-full-100-20261001T1300Z-partial.json",
+  "tenantCount": 100,
+  "runs": 10,
+  "partial": true,
+  "lastMeasurementAt": "2026-10-02T02:18:18.475Z",
+  "completedSteps": 143,
+  "plannedSteps": 1500,
+  "processStateAtInspection": "not-running"
+}

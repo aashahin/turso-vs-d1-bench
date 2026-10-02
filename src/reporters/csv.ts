@@ -2,6 +2,25 @@
 import type { ScenarioResult } from "../results.ts";
 
 const COLUMNS = [
+  "suite",
+  "tenantIsolation",
+  "databaseCount",
+  "routingStrategy",
+  "accessLayer",
+  "distribution",
+  "offeredRps",
+  "scheduled",
+  "started",
+  "completed",
+  "dropped",
+  "lateStarts",
+  "queueP95",
+  "peakInFlight",
+  "poolWaitP50",
+  "connectionReuseRate",
+  "connectionsCreated",
+  "poolEvictions",
+  "warnings",
   "backend",
   "engine",
   "transactionMode",
@@ -48,6 +67,25 @@ export function toCsv(scenarios: ScenarioResult[]): string {
       const tx = r.tx;
       lines.push(
         [
+          s.suite ?? "",
+          s.tenantIsolation ?? "legacy-unknown",
+          s.databaseCount ?? "",
+          s.routingStrategy ?? "",
+          s.accessLayer ?? "raw",
+          s.distribution ?? "",
+          s.offeredRps ?? "",
+          r.arrival?.scheduled ?? "",
+          r.arrival?.started ?? "",
+          r.arrival?.completed ?? "",
+          r.arrival?.dropped ?? "",
+          r.arrival?.lateStarts ?? "",
+          r.arrival?.queueDelay.p95 ?? "",
+          r.arrival?.peakInFlight ?? "",
+          r.pool?.wait?.p50 ?? "",
+          r.pool?.reuseRate ?? "",
+          r.pool?.events.connectionCreated ?? "",
+          r.pool?.events.poolEviction ?? "",
+          (s.warnings ?? []).join("|"),
           s.backend,
           s.engine ?? "",
           s.transactionMode ?? "",
@@ -64,7 +102,7 @@ export function toCsv(scenarios: ScenarioResult[]): string {
           num(r.e2e.n > 0 ? r.e2e.p50 : null),
           num(r.e2e.n > 0 ? r.e2e.p90 : null),
           num(r.e2e.n > 0 ? r.e2e.p95 : null),
-          num(r.e2e.n > 0 ? r.e2e.p99 : null),
+          num(r.e2e.n >= 1000 ? r.e2e.p99 : null),
           num(r.e2e.n > 0 ? r.e2e.mean : null),
           num(r.e2e.n > 0 ? r.e2e.max : null),
           r.db === null ? "" : num(r.db.p50),
@@ -81,7 +119,14 @@ export function toCsv(scenarios: ScenarioResult[]): string {
           tx === null ? "" : tx.avgRetries.toFixed(4),
           s.mode,
           s.loadModel,
-        ].join(","),
+        ]
+          .map((v) => {
+            const text = String(v);
+            return /[",\n\r]/.test(text)
+              ? `"${text.replace(/"/g, '""')}"`
+              : text;
+          })
+          .join(","),
       );
     }
   }

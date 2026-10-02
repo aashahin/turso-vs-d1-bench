@@ -1,0 +1,227 @@
+{
+  "timestamp": "2026-09-10T16:25:57.731Z",
+  "environment": {
+    "timestamp": "2026-09-10T16:25:57.731Z",
+    "workerUrl": "https://bench-turso-vs-d1.manhali-sandbox.workers.dev",
+    "colo": "MRS",
+    "tursoHost": "bench-turso-vs-d1-aashahin.aws-eu-west-1.turso.io",
+    "tursodbHost": "bench-tursodb-aashahin.aws-eu-west-1.turso.io",
+    "tursodbConfigured": true,
+    "kvRows": {
+      "d1_weur": 10000,
+      "d1_eeur": 10000,
+      "turso": 10000,
+      "tursodb": 10000
+    },
+    "lmsRows": {
+      "users": 2000,
+      "courses": 50,
+      "lessons": 500,
+      "enrollments": 4000
+    },
+    "concurrencyRows": {
+      "d1_weur_progress": 10000,
+      "d1_weur_hot": 1,
+      "turso_progress": 10000,
+      "tursodb_progress": 10000,
+      "tursodb_hot": 1
+    },
+    "kvPayloadBytes": 200,
+    "seedDims": {
+      "seedRows": 10000,
+      "tenants": 10,
+      "studentsPerTenant": 200,
+      "coursesPerTenant": 5,
+      "lessonsPerCourse": 10
+    },
+    "sdk": {
+      "tursoServerless": "1.4.0",
+      "drizzleOrm": "0.44.7"
+    },
+    "wrangler": "4.128.0",
+    "bun": "1.4.2",
+    "notes": []
+  },
+  "scenarios": [
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "engine": "d1",
+      "transactionMode": "none",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 100,
+      "loadModel": "constant",
+      "durationSec": 20,
+      "iterations": 20000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2163,
+            "min": 170.3613130000001,
+            "p50": 940.6197670000001,
+            "p90": 1425.5130319999998,
+            "p95": 1826.3836339999998,
+            "p99": 2945.3095060000014,
+            "max": 3556.387208,
+            "mean": 1001.5749588284779,
+            "stdev": 461.1108020669852,
+            "ops": 96.43711219119442
+          },
+          "db": {
+            "n": 2163,
+            "min": 62,
+            "p50": 777,
+            "p90": 1054,
+            "p95": 1124,
+            "p99": 1226,
+            "max": 1565,
+            "mean": 745.0194174757281,
+            "stdev": 249.49655196546613,
+            "ops": 96.43711219119442
+          },
+          "query": {
+            "n": 2163,
+            "min": 62,
+            "p50": 777,
+            "p90": 1054,
+            "p95": 1124,
+            "p99": 1226,
+            "max": 1565,
+            "mean": 745.0194174757281,
+            "stdev": 249.49655196546613,
+            "ops": 96.43711219119442
+          },
+          "success": 2163,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "conflict": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "engine": "d1",
+          "transactionMode": "none",
+          "tx": null,
+          "rps": 96.43711219119442,
+          "wallMs": 22429.124544
+        }
+      ],
+      "summary": {
+        "medianP50": 940.6197670000001,
+        "medianP95": 1826.3836339999998,
+        "medianP99": 2945.3095060000014,
+        "medianRps": 96.43711219119442,
+        "medianDbP50": 777,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null,
+        "tx": null
+      }
+    },
+    {
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "engine": "d1",
+      "transactionMode": "none",
+      "test": "mixed",
+      "workload": "lms",
+      "scanLimit": null,
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "concurrency": 200,
+      "loadModel": "constant",
+      "durationSec": 20,
+      "iterations": 20000,
+      "timeoutMs": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "e2e": {
+            "n": 2341,
+            "min": 296.8438930000011,
+            "p50": 1910.8806150000019,
+            "p90": 2392.331714,
+            "p95": 2458.3795029999965,
+            "p99": 2587.1538729999993,
+            "max": 3226.637893000003,
+            "mean": 1765.0113609111459,
+            "stdev": 510.4814687135793,
+            "ops": 111.234775413119
+          },
+          "db": {
+            "n": 2341,
+            "min": 175,
+            "p50": 1766,
+            "p90": 2167,
+            "p95": 2264,
+            "p99": 2363,
+            "max": 2446,
+            "mean": 1596.457069628364,
+            "stdev": 490.83930200328376,
+            "ops": 111.234775413119
+          },
+          "query": {
+            "n": 2341,
+            "min": 175,
+            "p50": 1766,
+            "p90": 2167,
+            "p95": 2264,
+            "p99": 2363,
+            "max": 2446,
+            "mean": 1596.457069628364,
+            "stdev": 490.83930200328376,
+            "ops": 111.234775413119
+          },
+          "success": 2341,
+          "failed": 0,
+          "errorRate": 0,
+          "errorsByClass": {
+            "timeout": 0,
+            "http": 0,
+            "rate-limit": 0,
+            "backend": 0,
+            "conflict": 0,
+            "unknown": 0
+          },
+          "errorsByStatus": {},
+          "sampleErrors": [],
+          "replicaRate": null,
+          "replicaReads": 0,
+          "primaryReads": 0,
+          "totalReads": 0,
+          "regions": {},
+          "engine": "d1",
+          "transactionMode": "none",
+          "tx": null,
+          "rps": 111.234775413119,
+          "wallMs": 21045.576720999998
+        }
+      ],
+      "summary": {
+        "medianP50": 1910.8806150000019,
+        "medianP95": 2458.3795029999965,
+        "medianP99": 2587.1538729999993,
+        "medianRps": 111.234775413119,
+        "medianDbP50": 1766,
+        "medianErrorRate": 0,
+        "medianReplicaRate": null,
+        "tx": null
+      }
+    }
+  ]
+}

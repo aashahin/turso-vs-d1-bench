@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-10-02T02:39:00.078Z",
+  "status": "failed",
+  "partial": true,
+  "completion": {
+    "startedAt": "2026-10-02T02:39:00.078Z",
+    "deadlineAt": "2026-10-02T08:39:00.078Z",
+    "maxRunMs": 21600000,
+    "finishReserveMs": 30000,
+    "savedAt": "2026-10-02T02:55:15.821Z",
+    "lastMeasurementAt": null,
+    "sourceCheckpoint": "results-manhali-30-6h-20261002T023855Z-1a7075-checkpoint.json",
+    "unfinishedOperationAccounting": "Only completed checkpoint records are available. Uncheckpointed attempts have unknown outcomes; reliability metrics describe completed scenario records only."
+  },
+  "warnings": [
+    "INCOMPLETE_RUN",
+    "EXPLORATORY_SINGLE_OR_FEW_RUNS"
+  ]
+}

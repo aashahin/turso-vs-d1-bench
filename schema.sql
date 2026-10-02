@@ -139,3 +139,13 @@ CREATE TABLE IF NOT EXISTS orders (
   created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
 CREATE INDEX IF NOT EXISTS idx_orders_student ON orders (tenant_id, student_id);
+
+-- Validation evidence, outside measured workload. ID is a physical database stamp.
+CREATE TABLE IF NOT EXISTS bench_identity (
+  singleton INTEGER PRIMARY KEY CHECK (singleton = 1),
+  database_id TEXT NOT NULL,
+  engine TEXT NOT NULL,
+  schema_version INTEGER NOT NULL,
+  seed_dims TEXT NOT NULL,
+  tenant INTEGER
+);

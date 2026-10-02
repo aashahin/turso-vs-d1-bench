@@ -1,0 +1,5 @@
+backend,run,tenantMode,tenantCount,idleMs,samples,warmRequests,firstSuccess,firstErrors,followingSuccess,followingErrors,firstE2eP50,followingE2eP50,firstDbP50,followingDbP50,newIsolate,reusedIsolate,unknownLifecycle,pairedTrials,pairedE2eDeltaMs,pairedDbDeltaMs
+d1,1,single,1,30000,5,5,5,0,25,0,172.02099600000656,128.39181599998847,45,38,1,4,0,5,51.13408500001242,13
+d1-eeur,1,single,1,30000,5,5,5,0,25,0,135.26096400001552,120.66237799997907,40,36,0,5,0,5,10.928695000067819,7
+turso-reused,1,single,1,30000,5,5,5,0,25,0,287.4969980000169,137.94619099999545,187,43,0,5,0,5,147.6758109999937,148
+tursodb-reused,1,single,1,30000,5,5,4,1,19,6,276.1005460000597,129.66147799999453,126,34,1,3,1,4,232.58895100004156,108

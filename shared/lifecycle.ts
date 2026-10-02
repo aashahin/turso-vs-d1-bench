@@ -8,8 +8,18 @@ export interface WorkerLifecycle {
 export function parseLifecycle(raw: unknown): WorkerLifecycle | null {
   if (typeof raw !== "object" || raw === null) return null;
   const value = raw as Record<string, unknown>;
-  if (typeof value.isolateId !== "string" || value.isolateId === "" ||
-      typeof value.requestNumber !== "number" || !Number.isSafeInteger(value.requestNumber) || value.requestNumber < 1 ||
-      value.firstRequest !== (value.requestNumber === 1)) return null;
-  return { isolateId: value.isolateId, requestNumber: value.requestNumber, firstRequest: value.firstRequest };
+  if (
+    typeof value.isolateId !== "string" ||
+    value.isolateId === "" ||
+    typeof value.requestNumber !== "number" ||
+    !Number.isSafeInteger(value.requestNumber) ||
+    value.requestNumber < 1 ||
+    value.firstRequest !== (value.requestNumber === 1)
+  )
+    return null;
+  return {
+    isolateId: value.isolateId,
+    requestNumber: value.requestNumber,
+    firstRequest: value.firstRequest,
+  };
 }

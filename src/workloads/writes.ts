@@ -9,7 +9,12 @@
 // backend (D1 batch, BEGIN IMMEDIATE, or BEGIN CONCURRENT).
 import { type Dims, type OpQuery } from "./common.ts";
 
-export function writeOp(test: string, opIndex: number, tenant: number, dims: Dims): OpQuery {
+export function writeOp(
+  test: string,
+  opIndex: number,
+  tenant: number,
+  dims: Dims,
+): OpQuery {
   if (test === "independent-writes") {
     // Distinct student row per op index, uniform over the seeded range.
     // A hash modulo the row count collides before exhausting the row set.

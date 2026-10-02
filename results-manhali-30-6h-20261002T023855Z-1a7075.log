@@ -1,0 +1,231 @@
+seed turso-per-tenant/tenant-1
+seed turso-per-tenant/tenant-2
+seed turso-per-tenant/tenant-3
+seed tursodb-per-tenant/tenant-1
+seed d1-per-tenant/tenant-1
+seed tursodb-per-tenant/tenant-2
+seed tursodb-per-tenant/tenant-3
+seed d1-per-tenant/tenant-2
+seed complete d1-per-tenant 1/30
+seed d1-per-tenant/tenant-3
+seed complete d1-per-tenant 2/30
+seed d1-per-tenant/tenant-4
+seed complete turso-per-tenant 1/30
+seed turso-per-tenant/tenant-4
+seed complete turso-per-tenant 2/30
+seed turso-per-tenant/tenant-5
+seed complete d1-per-tenant 3/30
+seed d1-per-tenant/tenant-5
+seed complete turso-per-tenant 3/30
+seed turso-per-tenant/tenant-6
+seed complete d1-per-tenant 4/30
+seed d1-per-tenant/tenant-6
+seed complete tursodb-per-tenant 1/30
+seed tursodb-per-tenant/tenant-4
+seed complete tursodb-per-tenant 2/30
+seed tursodb-per-tenant/tenant-5
+seed complete d1-per-tenant 5/30
+seed d1-per-tenant/tenant-7
+seed complete d1-per-tenant 6/30
+seed d1-per-tenant/tenant-8
+seed complete turso-per-tenant 5/30
+seed turso-per-tenant/tenant-7
+seed complete turso-per-tenant 5/30
+seed turso-per-tenant/tenant-8
+seed complete d1-per-tenant 7/30
+seed d1-per-tenant/tenant-9
+seed complete turso-per-tenant 6/30
+seed turso-per-tenant/tenant-9
+seed complete d1-per-tenant 8/30
+seed d1-per-tenant/tenant-10
+seed complete d1-per-tenant 9/30
+seed d1-per-tenant/tenant-11
+seed complete tursodb-per-tenant 3/30
+seed tursodb-per-tenant/tenant-6
+seed complete tursodb-per-tenant 4/30
+seed tursodb-per-tenant/tenant-7
+seed complete d1-per-tenant 10/30
+seed d1-per-tenant/tenant-12
+seed complete turso-per-tenant 7/30
+seed turso-per-tenant/tenant-10
+seed complete turso-per-tenant 8/30
+seed turso-per-tenant/tenant-11
+seed complete turso-per-tenant 9/30
+seed turso-per-tenant/tenant-12
+seed complete d1-per-tenant 11/30
+seed d1-per-tenant/tenant-13
+seed complete turso-per-tenant 10/30
+seed turso-per-tenant/tenant-13
+seed complete d1-per-tenant 12/30
+seed d1-per-tenant/tenant-14
+seed complete turso-per-tenant 11/30
+seed turso-per-tenant/tenant-14
+seed complete turso-per-tenant 12/30
+seed turso-per-tenant/tenant-15
+seed complete tursodb-per-tenant 5/30
+seed tursodb-per-tenant/tenant-8
+seed complete tursodb-per-tenant 6/30
+seed tursodb-per-tenant/tenant-9
+seed complete d1-per-tenant 13/30
+seed d1-per-tenant/tenant-15
+seed complete turso-per-tenant 13/30
+seed turso-per-tenant/tenant-16
+seed complete turso-per-tenant 14/30
+seed turso-per-tenant/tenant-17
+seed complete turso-per-tenant 15/30
+seed turso-per-tenant/tenant-18
+seed complete d1-per-tenant 14/30
+seed d1-per-tenant/tenant-16
+seed complete tursodb-per-tenant 7/30
+seed tursodb-per-tenant/tenant-10
+seed complete tursodb-per-tenant 8/30
+seed tursodb-per-tenant/tenant-11
+seed complete d1-per-tenant 15/30
+seed d1-per-tenant/tenant-17
+seed complete turso-per-tenant 16/30
+seed turso-per-tenant/tenant-19
+seed complete turso-per-tenant 17/30
+seed turso-per-tenant/tenant-20
+seed complete turso-per-tenant 18/30
+seed turso-per-tenant/tenant-21
+seed complete d1-per-tenant 16/30
+seed d1-per-tenant/tenant-18
+seed complete d1-per-tenant 17/30
+seed d1-per-tenant/tenant-19
+seed complete turso-per-tenant 19/30
+seed turso-per-tenant/tenant-22
+seed complete turso-per-tenant 20/30
+seed turso-per-tenant/tenant-23
+seed complete turso-per-tenant 21/30
+seed turso-per-tenant/tenant-24
+seed complete tursodb-per-tenant 9/30
+seed tursodb-per-tenant/tenant-12
+seed complete tursodb-per-tenant 10/30
+seed tursodb-per-tenant/tenant-13
+seed complete d1-per-tenant 18/30
+seed d1-per-tenant/tenant-20
+seed complete turso-per-tenant 22/30
+seed turso-per-tenant/tenant-25
+seed complete turso-per-tenant 23/30
+seed turso-per-tenant/tenant-26
+seed complete d1-per-tenant 19/30
+seed d1-per-tenant/tenant-21
+seed complete turso-per-tenant 24/30
+seed turso-per-tenant/tenant-27
+seed complete d1-per-tenant 20/30
+seed d1-per-tenant/tenant-22
+seed complete tursodb-per-tenant 11/30
+seed tursodb-per-tenant/tenant-14
+seed complete tursodb-per-tenant 12/30
+seed tursodb-per-tenant/tenant-15
+seed complete turso-per-tenant 25/30
+seed turso-per-tenant/tenant-28
+seed complete turso-per-tenant 26/30
+seed turso-per-tenant/tenant-29
+seed complete turso-per-tenant 27/30
+seed turso-per-tenant/tenant-30
+seed complete d1-per-tenant 21/30
+seed d1-per-tenant/tenant-23
+seed complete d1-per-tenant 22/30
+seed d1-per-tenant/tenant-24
+seed complete turso-per-tenant 28/30
+seed complete turso-per-tenant 29/30
+seed complete turso-per-tenant 30/30
+seed set complete: turso-per-tenant, 30 isolated databases
+seed complete tursodb-per-tenant 13/30
+seed tursodb-per-tenant/tenant-16
+seed complete tursodb-per-tenant 14/30
+seed tursodb-per-tenant/tenant-17
+seed complete d1-per-tenant 23/30
+seed d1-per-tenant/tenant-25
+seed complete d1-per-tenant 24/30
+seed d1-per-tenant/tenant-26
+seed complete d1-per-tenant 25/30
+seed d1-per-tenant/tenant-27
+seed complete tursodb-per-tenant 15/30
+seed tursodb-per-tenant/tenant-18
+seed complete tursodb-per-tenant 16/30
+seed tursodb-per-tenant/tenant-19
+seed complete d1-per-tenant 26/30
+seed d1-per-tenant/tenant-28
+seed complete d1-per-tenant 27/30
+seed d1-per-tenant/tenant-29
+seed complete tursodb-per-tenant 17/30
+seed tursodb-per-tenant/tenant-20
+seed complete d1-per-tenant 28/30
+seed d1-per-tenant/tenant-30
+seed complete tursodb-per-tenant 18/30
+seed tursodb-per-tenant/tenant-21
+seed complete d1-per-tenant 29/30
+67 |         body: JSON.stringify(dims),
+68 |         signal: AbortSignal.timeout(300000),
+69 |       },
+70 |     );
+71 |     if (!response.ok)
+72 |       throw new Error(
+                     ^
+error: seed failed d1-per-tenant/tenant-10: HTTP 500
+      at /home/shahin/Documents/projects/personal/scripts/turso-vs-d1-bench/scripts/seed-isolated-set.ts:72:17
+
+Bun v1.4.2 (Linux x64)
+Resuming setup d1-per-tenant, attempt 2
+seed d1-per-tenant/tenant-10
+seed complete d1-per-tenant 30/30
+seed set complete: d1-per-tenant, 30 isolated databases
+seed complete tursodb-per-tenant 19/30
+seed tursodb-per-tenant/tenant-22
+seed complete tursodb-per-tenant 20/30
+seed tursodb-per-tenant/tenant-23
+seed complete tursodb-per-tenant 21/30
+seed tursodb-per-tenant/tenant-24
+seed complete tursodb-per-tenant 22/30
+seed tursodb-per-tenant/tenant-25
+seed complete tursodb-per-tenant 23/30
+seed tursodb-per-tenant/tenant-26
+seed complete tursodb-per-tenant 24/30
+seed tursodb-per-tenant/tenant-27
+seed complete tursodb-per-tenant 25/30
+seed tursodb-per-tenant/tenant-28
+seed complete tursodb-per-tenant 26/30
+seed tursodb-per-tenant/tenant-29
+seed complete tursodb-per-tenant 27/30
+seed tursodb-per-tenant/tenant-30
+seed complete tursodb-per-tenant 28/30
+seed complete tursodb-per-tenant 29/30
+67 |         body: JSON.stringify(dims),
+68 |         signal: AbortSignal.timeout(300000),
+69 |       },
+70 |     );
+71 |     if (!response.ok)
+72 |       throw new Error(
+                     ^
+error: seed failed tursodb-per-tenant/tenant-1: HTTP 504
+      at /home/shahin/Documents/projects/personal/scripts/turso-vs-d1-bench/scripts/seed-isolated-set.ts:72:17
+
+Bun v1.4.2 (Linux x64)
+Resuming setup tursodb-per-tenant, attempt 2
+seed tursodb-per-tenant/tenant-1
+67 |         body: JSON.stringify(dims),
+68 |         signal: AbortSignal.timeout(300000),
+69 |       },
+70 |     );
+71 |     if (!response.ok)
+72 |       throw new Error(
+                     ^
+error: seed failed tursodb-per-tenant/tenant-1: HTTP 504
+      at <anonymous> (/home/shahin/Documents/projects/personal/scripts/turso-vs-d1-bench/scripts/seed-isolated-set.ts:72:17)
+
+Bun v1.4.2 (Linux x64)
+Resuming setup tursodb-per-tenant, attempt 3
+seed tursodb-per-tenant/tenant-1
+67 |         body: JSON.stringify(dims),
+68 |         signal: AbortSignal.timeout(300000),
+69 |       },
+70 |     );
+71 |     if (!response.ok)
+72 |       throw new Error(
+                     ^
+error: seed failed tursodb-per-tenant/tenant-1: HTTP 504
+      at <anonymous> (/home/shahin/Documents/projects/personal/scripts/turso-vs-d1-bench/scripts/seed-isolated-set.ts:72:17)
+
+Bun v1.4.2 (Linux x64)

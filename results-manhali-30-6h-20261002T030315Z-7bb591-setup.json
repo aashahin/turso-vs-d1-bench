@@ -1,0 +1,32 @@
+{
+  "phase": "unmeasured-setup",
+  "workerUrl": "https://bench-turso-vs-d1.manhali-sandbox.workers.dev",
+  "tenantCount": 30,
+  "physicalDatabasesSelected": 90,
+  "seedDimensions": {
+    "seedRows": 10000,
+    "tenants": 30,
+    "studentsPerTenant": 500,
+    "coursesPerTenant": 5,
+    "lessonsPerCourse": 10
+  },
+  "setupResumedFrom": "results-manhali-30-6h-20261002T023855Z-1a7075",
+  "startedAt": "2026-10-02T02:39:00.078Z",
+  "deadlineAt": "2026-10-02T08:39:00.078Z",
+  "recovery": {
+    "backend": "tursodb-per-tenant",
+    "tenant": 1,
+    "initialSeedFailures": {
+      "httpStatus": 504,
+      "attempts": 3
+    },
+    "action": "Cleared generated quiz answers, attempts, lesson progress, orders and enrollments in batches of at most 250 rows with the Turso CLI, then reran the same seed endpoint successfully.",
+    "physicalDatabaseReplaced": false
+  },
+  "notes": [
+    "D1 also required one setup retry after HTTP 500.",
+    "Setup, cleanup and validation are outside query timing but inside the original job budget.",
+    "Measured backend operation timeouts remain 5000ms. Seed endpoint SDK query timeout is 10000ms.",
+    "No credentials are included in this document."
+  ]
+}

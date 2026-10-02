@@ -1,0 +1,3573 @@
+{
+  "timestamp": "2026-10-01T08:46:40.993Z",
+  "environment": {
+    "timestamp": "2026-10-01T08:46:40.993Z",
+    "workerUrl": "https://bench-turso-vs-d1.manhali-sandbox.workers.dev",
+    "colo": "MRS",
+    "tursoHost": "bench-turso-vs-d1-aashahin.aws-eu-west-1.turso.io",
+    "tursodbHost": "bench-tursodb-aashahin.aws-eu-west-1.turso.io",
+    "tursodbConfigured": true,
+    "kvRows": {
+      "d1_weur": 10000,
+      "d1_eeur": 10000,
+      "turso": 10000,
+      "tursodb": 10000
+    },
+    "lmsRows": {
+      "users": 2000,
+      "courses": 50,
+      "lessons": 500,
+      "enrollments": 4000
+    },
+    "concurrencyRows": {
+      "d1_weur_progress": 10000,
+      "d1_weur_hot": 1,
+      "turso_progress": 10000,
+      "tursodb_progress": 10000,
+      "tursodb_hot": 1
+    },
+    "kvPayloadBytes": 200,
+    "seedDims": {
+      "seedRows": 10000,
+      "tenants": 10,
+      "studentsPerTenant": 200,
+      "coursesPerTenant": 5,
+      "lessonsPerCourse": 10
+    },
+    "sdk": {
+      "tursoServerless": "1.4.0",
+      "drizzleOrm": "0.44.7"
+    },
+    "wrangler": "4.128.0",
+    "bun": "1.4.2",
+    "notes": [
+      "cold-start measures a point-read after runner idle, then identical sequential follow-ups; no warmup or preflight. Idle does not force Worker eviction, a new DB connection, or a cold DB cache. Lifecycle is observational; paired deltas require the same reported isolate. End-to-end timing includes client networking; dbMs excludes platform startup. Other traffic can keep a Worker or database warm.",
+      "tursodb backends target the new Turso Database engine (turso db create --tursodb). tursodb-concurrent uses BEGIN CONCURRENT (early-preview MVCC): conflicts are detected at commit, retried up to --write-retries, and every retry is inside the measured latency."
+    ]
+  },
+  "scenarios": [],
+  "coldStarts": [
+    {
+      "run": 1,
+      "mode": "edge",
+      "backend": "d1",
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "idleMs": 30000,
+      "warmRequests": 5,
+      "first": {
+        "success": 5,
+        "failed": 0,
+        "e2e": {
+          "n": 5,
+          "min": 128.49878900000476,
+          "p50": 172.02099600000656,
+          "p90": 966.5287659999995,
+          "p95": 966.5287659999995,
+          "p99": 966.5287659999995,
+          "max": 966.5287659999995,
+          "mean": 318.40212920000414,
+          "stdev": 324.60572928935864,
+          "ops": 3.1406825152599733
+        },
+        "db": {
+          "n": 5,
+          "min": 40,
+          "p50": 45,
+          "p90": 637,
+          "p95": 637,
+          "p99": 637,
+          "max": 637,
+          "mean": 164.2,
+          "stdev": 236.46175166398476,
+          "ops": 3.1406825152599733
+        },
+        "query": {
+          "n": 5,
+          "min": 40,
+          "p50": 45,
+          "p90": 637,
+          "p95": 637,
+          "p99": 637,
+          "max": 637,
+          "mean": 164.2,
+          "stdev": 236.46175166398476,
+          "ops": 3.1406825152599733
+        }
+      },
+      "following": {
+        "success": 25,
+        "failed": 0,
+        "e2e": {
+          "n": 25,
+          "min": 103.77927600000112,
+          "p50": 128.39181599998847,
+          "p90": 152.40206700000272,
+          "p95": 155.84788000000117,
+          "p99": 280.058726999996,
+          "max": 280.058726999996,
+          "mean": 134.49323948000034,
+          "stdev": 32.20003300125916,
+          "ops": 7.4353179674038845
+        },
+        "db": {
+          "n": 25,
+          "min": 27,
+          "p50": 38,
+          "p90": 46,
+          "p95": 53,
+          "p99": 53,
+          "max": 53,
+          "mean": 37.12,
+          "stdev": 8.130535037745055,
+          "ops": 7.4353179674038845
+        },
+        "query": {
+          "n": 25,
+          "min": 27,
+          "p50": 38,
+          "p90": 46,
+          "p95": 53,
+          "p99": 53,
+          "max": 53,
+          "mean": 37.12,
+          "stdev": 8.130535037745055,
+          "ops": 7.4353179674038845
+        }
+      },
+      "firstOnNewIsolate": 1,
+      "firstOnReusedIsolate": 4,
+      "firstLifecycleUnknown": 0,
+      "pairedTrials": 5,
+      "medianE2eDeltaMs": 51.13408500001242,
+      "medianDbDeltaMs": 13,
+      "trials": [
+        {
+          "idleMs": 30007.090764,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 966.5287659999995,
+              "dbMs": 637,
+              "queryMs": 637,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 1,
+                "firstRequest": true
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 137.7548800000004,
+                "dbMs": 53,
+                "queryMs": 53,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 2,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 134.80931399999827,
+                "dbMs": 41,
+                "queryMs": 41,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 3,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 147.93386399999872,
+                "dbMs": 45,
+                "queryMs": 45,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 4,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 128.7604140000003,
+                "dbMs": 45,
+                "queryMs": 45,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 5,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 143.0145999999986,
+                "dbMs": 53,
+                "queryMs": 53,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 6,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 828.773885999999,
+          "dbDeltaMs": 592
+        },
+        {
+          "idleMs": 30003.655419,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 144.27695600000152,
+              "dbMs": 56,
+              "queryMs": 56,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 7,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 152.40206700000272,
+                "dbMs": 38,
+                "queryMs": 38,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 8,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 121.83742099999654,
+                "dbMs": 27,
+                "queryMs": 27,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 9,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 125.2103719999941,
+                "dbMs": 38,
+                "queryMs": 38,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 10,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 130.84426200000598,
+                "dbMs": 39,
+                "queryMs": 39,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 11,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 114.86483600000065,
+                "dbMs": 32,
+                "queryMs": 32,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 12,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 19.066584000007424,
+          "dbDeltaMs": 18
+        },
+        {
+          "idleMs": 30000.760914,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 128.49878900000476,
+              "dbMs": 40,
+              "queryMs": 40,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 13,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 123.99246900000435,
+                "dbMs": 29,
+                "queryMs": 29,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 14,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 128.39181599998847,
+                "dbMs": 39,
+                "queryMs": 39,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 15,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 115.3773979999969,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 16,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 131.27040100000158,
+                "dbMs": 46,
+                "queryMs": 46,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 17,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 103.77927600000112,
+                "dbMs": 27,
+                "queryMs": 27,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 18,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 4.506320000000414,
+          "dbDeltaMs": 7
+        },
+        {
+          "idleMs": 30003.846175,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 172.02099600000656,
+              "dbMs": 43,
+              "queryMs": 43,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 19,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 155.84788000000117,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 20,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.88691099999414,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 21,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 115.01433099999849,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 22,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 113.68988099999842,
+                "dbMs": 28,
+                "queryMs": 28,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 23,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 136.92767000000458,
+                "dbMs": 29,
+                "queryMs": 29,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 24,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 51.13408500001242,
+          "dbDeltaMs": 13
+        },
+        {
+          "idleMs": 30003.245341,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 180.68513900000835,
+              "dbMs": 45,
+              "queryMs": 45,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 25,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 127.08913800001028,
+                "dbMs": 44,
+                "queryMs": 44,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 26,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 130.99415600000066,
+                "dbMs": 46,
+                "queryMs": 46,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 27,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 113.69594100001268,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 28,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 280.058726999996,
+                "dbMs": 46,
+                "queryMs": 46,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 29,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 127.88296200000332,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 30,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 52.80217700000503,
+          "dbDeltaMs": 1
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "mode": "edge",
+      "backend": "d1-eeur",
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "idleMs": 30000,
+      "warmRequests": 5,
+      "first": {
+        "success": 5,
+        "failed": 0,
+        "e2e": {
+          "n": 5,
+          "min": 130.92302099999506,
+          "p50": 135.26096400001552,
+          "p90": 168.99119100000826,
+          "p95": 168.99119100000826,
+          "p99": 168.99119100000826,
+          "max": 168.99119100000826,
+          "mean": 143.55266200000187,
+          "stdev": 14.237188409872823,
+          "ops": 6.96608468326409
+        },
+        "db": {
+          "n": 5,
+          "min": 38,
+          "p50": 40,
+          "p90": 72,
+          "p95": 72,
+          "p99": 72,
+          "max": 72,
+          "mean": 46.8,
+          "stdev": 12.82809416865966,
+          "ops": 6.96608468326409
+        },
+        "query": {
+          "n": 5,
+          "min": 38,
+          "p50": 40,
+          "p90": 72,
+          "p95": 72,
+          "p99": 72,
+          "max": 72,
+          "mean": 46.8,
+          "stdev": 12.82809416865966,
+          "ops": 6.96608468326409
+        }
+      },
+      "following": {
+        "success": 25,
+        "failed": 0,
+        "e2e": {
+          "n": 25,
+          "min": 107.84948199999053,
+          "p50": 120.66237799997907,
+          "p90": 137.27025399997365,
+          "p95": 149.98058499995386,
+          "p99": 474.7474500000244,
+          "max": 474.7474500000244,
+          "mean": 138.03770431999584,
+          "stdev": 69.38142440847093,
+          "ops": 7.244397499409459
+        },
+        "db": {
+          "n": 25,
+          "min": 27,
+          "p50": 36,
+          "p90": 41,
+          "p95": 43,
+          "p99": 45,
+          "max": 45,
+          "mean": 35.12,
+          "stdev": 4.537135660303757,
+          "ops": 7.244397499409459
+        },
+        "query": {
+          "n": 25,
+          "min": 27,
+          "p50": 36,
+          "p90": 41,
+          "p95": 43,
+          "p99": 45,
+          "max": 45,
+          "mean": 35.12,
+          "stdev": 4.537135660303757,
+          "ops": 7.244397499409459
+        }
+      },
+      "firstOnNewIsolate": 0,
+      "firstOnReusedIsolate": 5,
+      "firstLifecycleUnknown": 0,
+      "pairedTrials": 5,
+      "medianE2eDeltaMs": 10.928695000067819,
+      "medianDbDeltaMs": 7,
+      "trials": [
+        {
+          "idleMs": 30001.10431600001,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 168.99119100000826,
+              "dbMs": 72,
+              "queryMs": 72,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 31,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 134.87494499998866,
+                "dbMs": 45,
+                "queryMs": 45,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 32,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.15049699999508,
+                "dbMs": 35,
+                "queryMs": 35,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 33,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 132.81538899999578,
+                "dbMs": 41,
+                "queryMs": 41,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 34,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 121.78923500000383,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 35,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.09426800001529,
+                "dbMs": 36,
+                "queryMs": 36,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 36,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 47.20195600000443,
+          "dbDeltaMs": 36
+        },
+        {
+          "idleMs": 30000.785432999983,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 130.92302099999506,
+              "dbMs": 39,
+              "queryMs": 39,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 37,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 115.85583300000872,
+                "dbMs": 27,
+                "queryMs": 27,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 38,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 125.04578200000105,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 39,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 107.84948199999053,
+                "dbMs": 27,
+                "queryMs": 27,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 40,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 129.28670999998576,
+                "dbMs": 40,
+                "queryMs": 40,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 41,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.6340499999933,
+                "dbMs": 32,
+                "queryMs": 32,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 42,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 10.288971000001766,
+          "dbDeltaMs": 7
+        },
+        {
+          "idleMs": 30001.47278900002,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 149.29113900000812,
+              "dbMs": 45,
+              "queryMs": 45,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 43,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 119.68593399997917,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 44,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 119.94096599999466,
+                "dbMs": 35,
+                "queryMs": 35,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 45,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 113.13401099998737,
+                "dbMs": 31,
+                "queryMs": 31,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 46,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 117.12291900001583,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 47,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.04231400002027,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 48,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 29.605205000028946,
+          "dbDeltaMs": 10
+        },
+        {
+          "idleMs": 30001.071322999982,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 135.26096400001552,
+              "dbMs": 40,
+              "queryMs": 40,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 49,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 135.46488300000783,
+                "dbMs": 40,
+                "queryMs": 40,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 50,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 124.3322689999477,
+                "dbMs": 35,
+                "queryMs": 35,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 51,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 124.95358899998246,
+                "dbMs": 36,
+                "queryMs": 36,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 52,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.21677900000941,
+                "dbMs": 36,
+                "queryMs": 36,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 53,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.66237799997907,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 54,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 10.928695000067819,
+          "dbDeltaMs": 4
+        },
+        {
+          "idleMs": 30000.502643999993,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 133.29699499998242,
+              "dbMs": 38,
+              "queryMs": 38,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": null,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "d1",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 55,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 136.97165000002133,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 56,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 108.02043600002071,
+                "dbMs": 30,
+                "queryMs": 30,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 57,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 149.98058499995386,
+                "dbMs": 43,
+                "queryMs": 43,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 58,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 474.7474500000244,
+                "dbMs": 36,
+                "queryMs": 36,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 59,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 137.27025399997365,
+                "dbMs": 31,
+                "queryMs": 31,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": null,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "d1",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 60,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": -3.9732589999912307,
+          "dbDeltaMs": 7
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "mode": "edge",
+      "backend": "turso-reused",
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "idleMs": 30000,
+      "warmRequests": 5,
+      "first": {
+        "success": 5,
+        "failed": 0,
+        "e2e": {
+          "n": 5,
+          "min": 228.77114199998323,
+          "p50": 287.4969980000169,
+          "p90": 481.5520259999903,
+          "p95": 481.5520259999903,
+          "p99": 481.5520259999903,
+          "max": 481.5520259999903,
+          "mean": 314.4949085999862,
+          "stdev": 88.39444782586497,
+          "ops": 3.1797017142554904
+        },
+        "db": {
+          "n": 5,
+          "min": 129,
+          "p50": 187,
+          "p90": 389,
+          "p95": 389,
+          "p99": 389,
+          "max": 389,
+          "mean": 218.8,
+          "stdev": 88.92333776911435,
+          "ops": 3.1797017142554904
+        },
+        "query": {
+          "n": 5,
+          "min": 129,
+          "p50": 187,
+          "p90": 389,
+          "p95": 389,
+          "p99": 389,
+          "max": 389,
+          "mean": 218.8,
+          "stdev": 88.92333776911435,
+          "ops": 3.1797017142554904
+        }
+      },
+      "following": {
+        "success": 25,
+        "failed": 0,
+        "e2e": {
+          "n": 25,
+          "min": 111.95671800000127,
+          "p50": 137.94619099999545,
+          "p90": 231.55815399996936,
+          "p95": 275.5044160000398,
+          "p99": 279.0158450000454,
+          "max": 279.0158450000454,
+          "mean": 154.58681068000615,
+          "stdev": 46.12547368305661,
+          "ops": 6.468857178701969
+        },
+        "db": {
+          "n": 25,
+          "min": 33,
+          "p50": 43,
+          "p90": 50,
+          "p95": 52,
+          "p99": 189,
+          "max": 189,
+          "mean": 46.64,
+          "stdev": 29.675417435985636,
+          "ops": 6.468857178701969
+        },
+        "query": {
+          "n": 25,
+          "min": 33,
+          "p50": 43,
+          "p90": 50,
+          "p95": 52,
+          "p99": 189,
+          "max": 189,
+          "mean": 46.64,
+          "stdev": 29.675417435985636,
+          "ops": 6.468857178701969
+        }
+      },
+      "firstOnNewIsolate": 0,
+      "firstOnReusedIsolate": 5,
+      "firstLifecycleUnknown": 0,
+      "pairedTrials": 5,
+      "medianE2eDeltaMs": 147.6758109999937,
+      "medianDbDeltaMs": 148,
+      "trials": [
+        {
+          "idleMs": 30001.314231999975,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 481.5520259999903,
+              "dbMs": 389,
+              "queryMs": 389,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "libsql",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 61,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 279.0158450000454,
+                "dbMs": 189,
+                "queryMs": 189,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 62,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 185.0849079999607,
+                "dbMs": 39,
+                "queryMs": 39,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 63,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 224.69015799998306,
+                "dbMs": 44,
+                "queryMs": 44,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 64,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 275.5044160000398,
+                "dbMs": 39,
+                "queryMs": 39,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 65,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 231.55815399996936,
+                "dbMs": 35,
+                "queryMs": 35,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 66,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 249.99387200002093,
+          "dbDeltaMs": 350
+        },
+        {
+          "idleMs": 30000.475022999977,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 228.77114199998323,
+              "dbMs": 129,
+              "queryMs": 129,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "libsql",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 67,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 141.5304350000224,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 68,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 128.7857560000266,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 69,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 129.34897699998692,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 70,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 115.74154000001727,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 71,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 129.7356359999976,
+                "dbMs": 35,
+                "queryMs": 35,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 72,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 99.42216499999631,
+          "dbDeltaMs": 95
+        },
+        {
+          "idleMs": 30002.776445000025,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 258.98825599998236,
+              "dbMs": 182,
+              "queryMs": 182,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "libsql",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 73,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 111.95671800000127,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 74,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 123.82452800002648,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 75,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 142.04686399997445,
+                "dbMs": 52,
+                "queryMs": 52,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 76,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 117.73102399997879,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 77,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 125.19115799997235,
+                "dbMs": 36,
+                "queryMs": 36,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 78,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 135.16372799995588,
+          "dbDeltaMs": 148
+        },
+        {
+          "idleMs": 30000.839521999995,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 315.66612099995837,
+              "dbMs": 207,
+              "queryMs": 207,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "libsql",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 79,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 132.16599100001622,
+                "dbMs": 44,
+                "queryMs": 44,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 80,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 137.94619099999545,
+                "dbMs": 46,
+                "queryMs": 46,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 81,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 139.90051900001708,
+                "dbMs": 44,
+                "queryMs": 44,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 82,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 134.41799499996705,
+                "dbMs": 43,
+                "queryMs": 43,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 83,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 153.65451700001722,
+                "dbMs": 43,
+                "queryMs": 43,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 84,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 177.71992999996291,
+          "dbDeltaMs": 163
+        },
+        {
+          "idleMs": 30001.59266200004,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 287.4969980000169,
+              "dbMs": 187,
+              "queryMs": 187,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "libsql",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                "requestNumber": 85,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 139.8211870000232,
+                "dbMs": 48,
+                "queryMs": 48,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 86,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 149.66798199998448,
+                "dbMs": 50,
+                "queryMs": 50,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 87,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 135.2559600000386,
+                "dbMs": 47,
+                "queryMs": 47,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 88,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 148.1548410000396,
+                "dbMs": 47,
+                "queryMs": 47,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 89,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 131.9389670000528,
+                "dbMs": 48,
+                "queryMs": 48,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "libsql",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "5e89eca7-5681-4226-b6a1-76568ca5f6d1",
+                  "requestNumber": 90,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 147.6758109999937,
+          "dbDeltaMs": 139
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "mode": "edge",
+      "backend": "tursodb-reused",
+      "tenantMode": "single",
+      "tenantCount": 1,
+      "idleMs": 30000,
+      "warmRequests": 5,
+      "first": {
+        "success": 4,
+        "failed": 1,
+        "e2e": {
+          "n": 4,
+          "min": 228.19569399999455,
+          "p50": 276.1005460000597,
+          "p90": 586.0318739999784,
+          "p95": 586.0318739999784,
+          "p99": 586.0318739999784,
+          "max": 586.0318739999784,
+          "mean": 386.4280580000195,
+          "stdev": 143.00897042983902,
+          "ops": 2.5878038079728403
+        },
+        "db": {
+          "n": 4,
+          "min": 122,
+          "p50": 126,
+          "p90": 285,
+          "p95": 285,
+          "p99": 285,
+          "max": 285,
+          "mean": 173.5,
+          "stdev": 66.13811306652164,
+          "ops": 2.5878038079728403
+        },
+        "query": {
+          "n": 4,
+          "min": 122,
+          "p50": 126,
+          "p90": 285,
+          "p95": 285,
+          "p99": 285,
+          "max": 285,
+          "mean": 173.5,
+          "stdev": 66.13811306652164,
+          "ops": 2.5878038079728403
+        }
+      },
+      "following": {
+        "success": 19,
+        "failed": 6,
+        "e2e": {
+          "n": 19,
+          "min": 112.13574399997015,
+          "p50": 129.66147799999453,
+          "p90": 145.5570969999535,
+          "p95": 253.01718600001186,
+          "p99": 253.01718600001186,
+          "max": 253.01718600001186,
+          "mean": 133.7412844736889,
+          "stdev": 30.41450607969721,
+          "ops": 7.477122744373907
+        },
+        "db": {
+          "n": 19,
+          "min": 32,
+          "p50": 34,
+          "p90": 48,
+          "p95": 169,
+          "p99": 169,
+          "max": 169,
+          "mean": 42.94736842105263,
+          "stdev": 29.934091960436096,
+          "ops": 7.477122744373907
+        },
+        "query": {
+          "n": 19,
+          "min": 32,
+          "p50": 34,
+          "p90": 48,
+          "p95": 169,
+          "p99": 169,
+          "max": 169,
+          "mean": 42.94736842105263,
+          "stdev": 29.934091960436096,
+          "ops": 7.477122744373907
+        }
+      },
+      "firstOnNewIsolate": 1,
+      "firstOnReusedIsolate": 3,
+      "firstLifecycleUnknown": 1,
+      "pairedTrials": 4,
+      "medianE2eDeltaMs": 232.58895100004156,
+      "medianDbDeltaMs": 108,
+      "trials": [
+        {
+          "idleMs": 30002.22155700001,
+          "first": {
+            "ok": false,
+            "err": {
+              "message": "op timed out after 5000ms",
+              "errorClass": "timeout",
+              "httpStatus": null
+            }
+          },
+          "following": [
+            {
+              "ok": false,
+              "err": {
+                "message": "op timed out after 5000ms",
+                "errorClass": "timeout",
+                "httpStatus": null
+              }
+            },
+            {
+              "ok": false,
+              "err": {
+                "message": "op timed out after 5000ms",
+                "errorClass": "timeout",
+                "httpStatus": null
+              }
+            },
+            {
+              "ok": false,
+              "err": {
+                "message": "op timed out after 5000ms",
+                "errorClass": "timeout",
+                "httpStatus": null
+              }
+            },
+            {
+              "ok": false,
+              "err": {
+                "message": "op timed out after 5000ms",
+                "errorClass": "timeout",
+                "httpStatus": null
+              }
+            },
+            {
+              "ok": false,
+              "err": {
+                "message": "op timed out after 5000ms",
+                "errorClass": "timeout",
+                "httpStatus": null
+              }
+            }
+          ],
+          "e2eDeltaMs": null,
+          "dbDeltaMs": null
+        },
+        {
+          "idleMs": 30001.84383399994,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 455.3841180000454,
+              "dbMs": 126,
+              "queryMs": 126,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "tursodb",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "1c13bf36-1295-4f60-8e21-8b37e0554b0e",
+                "requestNumber": 4,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 120.95444100000896,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "1c13bf36-1295-4f60-8e21-8b37e0554b0e",
+                  "requestNumber": 5,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 133.39258400001563,
+                "dbMs": 36,
+                "queryMs": 36,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "1c13bf36-1295-4f60-8e21-8b37e0554b0e",
+                  "requestNumber": 6,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 145.5570969999535,
+                "dbMs": 42,
+                "queryMs": 42,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "1c13bf36-1295-4f60-8e21-8b37e0554b0e",
+                  "requestNumber": 7,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 139.8979840000393,
+                "dbMs": 48,
+                "queryMs": 48,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "1c13bf36-1295-4f60-8e21-8b37e0554b0e",
+                  "requestNumber": 8,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": false,
+              "err": {
+                "message": "op timed out after 5000ms",
+                "errorClass": "timeout",
+                "httpStatus": null
+              }
+            }
+          ],
+          "e2eDeltaMs": 318.73883400001796,
+          "dbDeltaMs": 86.5
+        },
+        {
+          "idleMs": 30001.12954799994,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 586.0318739999784,
+              "dbMs": 285,
+              "queryMs": 285,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "tursodb",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                "requestNumber": 1,
+                "firstRequest": true
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 253.01718600001186,
+                "dbMs": 169,
+                "queryMs": 169,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 2,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 124.90623600000981,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 3,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 112.13574399997015,
+                "dbMs": 38,
+                "queryMs": 38,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 4,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 129.75106599996798,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 5,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 113.12579399999231,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 6,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 461.1256379999686,
+          "dbDeltaMs": 251
+        },
+        {
+          "idleMs": 30000.984097999986,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 276.1005460000597,
+              "dbMs": 161,
+              "queryMs": 161,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "tursodb",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                "requestNumber": 7,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 131.38173300004564,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 8,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 129.66147799999453,
+                "dbMs": 35,
+                "queryMs": 35,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 9,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 114.85365699999966,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 10,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 144.18059000000358,
+                "dbMs": 38,
+                "queryMs": 38,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 11,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 122.94864100008272,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 12,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 146.43906800006516,
+          "dbDeltaMs": 127
+        },
+        {
+          "idleMs": 30012.616144000087,
+          "first": {
+            "ok": true,
+            "sample": {
+              "e2eMs": 228.19569399999455,
+              "dbMs": 122,
+              "queryMs": 122,
+              "buildMs": null,
+              "clientCreationMs": null,
+              "clientCloseMs": null,
+              "checkoutMs": 0,
+              "replica": null,
+              "region": null,
+              "replicaReads": 0,
+              "primaryReads": 0,
+              "totalReads": 0,
+              "engine": "tursodb",
+              "transactionMode": "none",
+              "tx": null,
+              "txFailed": false,
+              "lifecycle": {
+                "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                "requestNumber": 13,
+                "firstRequest": false
+              }
+            }
+          },
+          "following": [
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 140.27102500002366,
+                "dbMs": 34,
+                "queryMs": 34,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 14,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 114.07889800006524,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 15,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 112.79890499997418,
+                "dbMs": 33,
+                "queryMs": 33,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 16,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 113.17113599996082,
+                "dbMs": 32,
+                "queryMs": 32,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 17,
+                  "firstRequest": false
+                }
+              }
+            },
+            {
+              "ok": true,
+              "sample": {
+                "e2eMs": 145.00020999996923,
+                "dbMs": 37,
+                "queryMs": 37,
+                "buildMs": null,
+                "clientCreationMs": null,
+                "clientCloseMs": null,
+                "checkoutMs": 0,
+                "replica": null,
+                "region": null,
+                "replicaReads": 0,
+                "primaryReads": 0,
+                "totalReads": 0,
+                "engine": "tursodb",
+                "transactionMode": "none",
+                "tx": null,
+                "txFailed": false,
+                "lifecycle": {
+                  "isolateId": "aab15dad-8bb1-4c81-ae31-85e571af29a0",
+                  "requestNumber": 18,
+                  "firstRequest": false
+                }
+              }
+            }
+          ],
+          "e2eDeltaMs": 114.11679599992931,
+          "dbDeltaMs": 89
+        }
+      ]
+    }
+  ]
+}

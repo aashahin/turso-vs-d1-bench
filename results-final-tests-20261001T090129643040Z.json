@@ -1,0 +1,913 @@
+{
+  "kind": "automated-test-suite",
+  "status": "passed",
+  "startedAt": "2026-10-01T09:01:29.643040+00:00",
+  "finishedAt": "2026-10-01T09:01:29.816068+00:00",
+  "durationSeconds": 0.16638818699721014,
+  "branch": "main",
+  "commit": "7b1b2c6915bd442de8f9b0662bc70176834ff133",
+  "command": [
+    "bun",
+    "test",
+    "--reporter=junit",
+    "--reporter-outfile=<temporary-file>"
+  ],
+  "bunVersion": "1.4.2",
+  "exitCode": 0,
+  "summary": {
+    "total": 98,
+    "passed": 98,
+    "failed": 0,
+    "error": 0,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "name": "idles before every first request, skips warmup, then repeats the same read sequentially",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 0.002946,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "does not infer a cold isolate from idle time (reused lifecycle)",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 0.000555,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "does not infer a cold isolate from idle time (missing lifecycle)",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 0.000298,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "does not infer a cold isolate from idle time (changed lifecycle)",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 8e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "records errors in both phases, keeps successful follow-ups, and excludes unpaired deltas",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 0.000852,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "a failed first request is not retried or replaced with a successful sample",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 0.000277,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects writes before idling or issuing any request",
+      "className": "cold-start measurement",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 0.000156,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "each fresh tracker starts once and captures request order before completion",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 7.4e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: ",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 7.6e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: null",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 4e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: {}",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 1e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: {\"isolateId\":\"\",\"requestNumber\":1,\"firstRequest\":true}",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 1e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: {\"isolateId\":\"x\",\"requestNumber\":2,\"firstRequest\":true}",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 8e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: {\"isolateId\":\"x\",\"requestNumber\":-1,\"firstRequest\":false}",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 1e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "invalid or missing evidence is unknown: {\"isolateId\":\"x\",\"requestNumber\":1.5,\"firstRequest\":false}",
+      "className": "Worker lifecycle evidence",
+      "file": "tests/cold-start.test.ts",
+      "durationSeconds": 6e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "cold-start accepts explicit zero idle and env overrides flags",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 0.001168,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects invalid COLD_SAMPLES=0",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 0.000177,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects invalid COLD_SAMPLES=1.5",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 5.8e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects invalid COLD_IDLE_MS=-1",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 4.8e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects invalid COLD_IDLE_MS=3600001",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 0.00013,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects invalid COLD_WARM_REQUESTS=0",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 0.000112,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rejects invalid COLD_WARM_REQUESTS=NaN",
+      "className": "",
+      "file": "tests/config.test.ts",
+      "durationSeconds": 9e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "Worker health checks warm the isolate and edge execution preserves lifecycle evidence",
+      "className": "",
+      "file": "tests/edge-and-cli.test.ts",
+      "durationSeconds": 0.005234,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "edge executor rejects invalid timing rather than counting success: {\"dbMs\":-1}",
+      "className": "",
+      "file": "tests/edge-and-cli.test.ts",
+      "durationSeconds": 0.000171,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "edge executor rejects invalid timing rather than counting success: {\"dbMs\":\"10\"}",
+      "className": "",
+      "file": "tests/edge-and-cli.test.ts",
+      "durationSeconds": 3.2e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "edge executor rejects invalid timing rather than counting success: {\"dbMs\":null}",
+      "className": "",
+      "file": "tests/edge-and-cli.test.ts",
+      "durationSeconds": 1.8e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "edge executor rejects invalid timing rather than counting success: {}",
+      "className": "",
+      "file": "tests/edge-and-cli.test.ts",
+      "durationSeconds": 1.4e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "CLI runs cold observations first, once per run, and exports separate results",
+      "className": "",
+      "file": "tests/edge-and-cli.test.ts",
+      "durationSeconds": 0.072319,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "no conflict commits on the first attempt",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.00066,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "one conflict commits after one retry",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.001586,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "two conflicts commit after two retries",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.005272,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "latency covers every attempt plus its backoff",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.005474,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "exhausting the retry budget is reported as a failure, not dropped",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.002531,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "a zero retry budget still attempts the transaction exactly once",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000454,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "propagates constraint errors instead of retrying them",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000226,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "propagates query timeout errors instead of retrying them",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 4.4e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "propagates application errors instead of retrying them",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.7e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "propagates connection limit errors instead of retrying them",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 4.5e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies SQLITE_BUSY code as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 6.9e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies SQLITE_BUSY_SNAPSHOT code as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 8e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies write/write conflict message as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 4e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies locked message as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 1.2e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies constraint code as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 9e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies timeout code as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 4e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies connection limit as retryable=%s",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.3e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "classifies non-error value as retryable=boom",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.5e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "rates aggregate across runs by summing counters",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000258,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "a scenario with no transaction samples reports no transaction counters",
+      "className": "MVCC conflict retrying",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.2e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb-concurrent runs insert as concurrent",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.8e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb-concurrent runs independent-writes as concurrent",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 5e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb-concurrent runs hot-row-write as concurrent",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb-concurrent runs point-read as none",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb-reused runs independent-writes as transaction",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb-reused runs insert as none",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "turso-reused runs independent-writes as transaction",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "turso-reused runs insert as none",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "d1-eeur runs independent-writes as transaction",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "d1-eeur runs point-read as none",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "write tests include the MVCC benchmarks",
+      "className": "backend transaction modes",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3.4e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats scan as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.2e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats scan-100 as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 3.3e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats scan-1000 as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2.5e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats point-read as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 4e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats lesson-page as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 2e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats insert as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 5e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats mixed as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 4e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "treats submit-quiz-answer as a read: %s",
+      "className": "report classification",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 6e-06,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "libSQL pool: a checkout whose client already left never runs its operation",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.001534,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb pool: a checkout whose client already left never runs its operation",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000203,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "libSQL: an abandoned queued request frees its slot without releasing active work",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.001016,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb: an abandoned queued request frees its slot without releasing active work",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000307,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "libSQL: stalled calls reject at the deadline and all slots recover with new connections",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000785,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb: stalled calls reject at the deadline and all slots recover with new connections",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000377,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "libSQL: rejected operations release all pool slots",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000523,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "tursodb: rejected operations release all pool slots",
+      "className": "connection pool queueing",
+      "file": "tests/mvcc-retry-and-pool.test.ts",
+      "durationSeconds": 0.000262,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "times out an executor that ignores AbortSignal and ignores its late completion",
+      "className": "operation deadlines",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000496,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "observes a late rejection after timing out",
+      "className": "operation deadlines",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000269,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "clears the deadline after an early success or failure",
+      "className": "operation deadlines",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000312,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "constant executes the exact budget and excludes warmup",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.001708,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "burst executes the exact budget and excludes warmup",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000218,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "constant caps in-flight work and handles partial final batches",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000523,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "burst caps in-flight work and handles partial final batches",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.00015,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "constant load refills a free slot while another request is still running",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000398,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "constant stops claiming at duration and drains in-flight requests",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000298,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "burst stops claiming at duration and drains in-flight requests",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 4.5e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "counts failed transactions and HTTP errors without polluting success percentiles",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000448,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "retains failure counters and routing evidence when all operations fail",
+      "className": "load scheduling and accounting",
+      "file": "tests/runner.test.ts",
+      "durationSeconds": 0.000328,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "nearest-rank percentiles preserve input and handle singleton/empty samples",
+      "className": "latency and reports",
+      "file": "tests/stats-and-reports.test.ts",
+      "durationSeconds": 0.000156,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "failed runs do not create zero latency or zero replica-rate samples",
+      "className": "latency and reports",
+      "file": "tests/stats-and-reports.test.ts",
+      "durationSeconds": 0.001266,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "an all-failed backend cannot win latency and CSV leaves missing latency blank",
+      "className": "latency and reports",
+      "file": "tests/stats-and-reports.test.ts",
+      "durationSeconds": 0.00189,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "transaction rates remain finite with zero attempts",
+      "className": "latency and reports",
+      "file": "tests/stats-and-reports.test.ts",
+      "durationSeconds": 6.7e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "independent writes visit each of 1 rows once before wrapping",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 0.000224,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "independent writes visit each of 2 rows once before wrapping",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 1.5e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "independent writes visit each of 17 rows once before wrapping",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 2.1e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "independent writes visit each of 100 rows once before wrapping",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 0.000169,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "hot-row writes keep every operation on the same row",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 3.4e-05,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "scans can return the requested number of seeded rows and replay out of order",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 0.000328,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    },
+    {
+      "name": "distributed lesson reads stay inside their tenant and course ranges",
+      "className": "deterministic workload fairness",
+      "file": "tests/workloads.test.ts",
+      "durationSeconds": 0.001426,
+      "status": "passed",
+      "failure": null,
+      "error": null
+    }
+  ],
+  "stdout": "bun test v1.4.2 (744846f84)\nedge/d1/cold-start run=1 sample=1/2: idle 30000ms\nedge/d1/cold-start run=1 sample=2/2: idle 30000ms\nedge/d1/cold-start run=1 sample=1/1: idle 30000ms\nedge/d1/cold-start run=1 sample=1/1: idle 30000ms\nedge/d1/cold-start run=1 sample=1/1: idle 30000ms\nedge/d1/cold-start run=1 sample=1/1: idle 30000ms\nedge/d1/cold-start run=1 sample=1/1: idle 30000ms\noffline: 7/7 ok=7 err=0\noffline: 7/7 ok=7 err=0\noffline: 7/7 ok=7 err=0\noffline: 7/7 ok=7 err=0\noffline: 5/5 ok=5 err=0\noffline: 5/5 ok=5 err=0\noffline: 5/5 ok=5 err=0\noffline: 5/5 ok=5 err=0\noffline: 3/3 ok=3 err=0\noffline: 3/3 ok=3 err=0\noffline: 1/100 ok=1 err=0\noffline: 1/100 ok=1 err=0\noffline: 4/4 ok=2 err=2\noffline: 4/4 ok=2 err=2\noffline: 4/4 ok=0 err=4\noffline: 4/4 ok=0 err=4\noffline: 4/4 ok=4 err=0\noffline: 4/4 ok=4 err=0\noffline: 4/4 ok=0 err=4\noffline: 4/4 ok=0 err=4\noffline: 4/4 ok=0 err=4\noffline: 4/4 ok=0 err=4\noffline: 4/4 ok=4 err=0\noffline: 4/4 ok=4 err=0\n",
+  "stderr": "\ntests/cold-start.test.ts:\n(pass) cold-start measurement > idles before every first request, skips warmup, then repeats the same read sequentially [2.95ms]\n(pass) cold-start measurement > does not infer a cold isolate from idle time (reused lifecycle) [0.55ms]\n(pass) cold-start measurement > does not infer a cold isolate from idle time (missing lifecycle) [0.30ms]\n(pass) cold-start measurement > does not infer a cold isolate from idle time (changed lifecycle) [0.08ms]\n(pass) cold-start measurement > records errors in both phases, keeps successful follow-ups, and excludes unpaired deltas [0.85ms]\n(pass) cold-start measurement > a failed first request is not retried or replaced with a successful sample [0.28ms]\n(pass) cold-start measurement > rejects writes before idling or issuing any request [0.16ms]\n(pass) Worker lifecycle evidence > each fresh tracker starts once and captures request order before completion [0.07ms]\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown:  [0.08ms]\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown: null\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown: {}\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown: {\"isolateId\":\"\",\"requestNumber\":1,\"firstRequest\":true}\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown: {\"isolateId\":\"x\",\"requestNumber\":2,\"firstRequest\":true}\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown: {\"isolateId\":\"x\",\"requestNumber\":-1,\"firstRequest\":false}\n(pass) Worker lifecycle evidence > invalid or missing evidence is unknown: {\"isolateId\":\"x\",\"requestNumber\":1.5,\"firstRequest\":false}\n\ntests/config.test.ts:\n(pass) cold-start accepts explicit zero idle and env overrides flags [1.17ms]\n(pass) rejects invalid COLD_SAMPLES=0 [0.18ms]\n(pass) rejects invalid COLD_SAMPLES=1.5 [0.06ms]\n(pass) rejects invalid COLD_IDLE_MS=-1 [0.05ms]\n(pass) rejects invalid COLD_IDLE_MS=3600001 [0.13ms]\n(pass) rejects invalid COLD_WARM_REQUESTS=0 [0.11ms]\n(pass) rejects invalid COLD_WARM_REQUESTS=NaN [0.09ms]\n\ntests/edge-and-cli.test.ts:\n(pass) Worker health checks warm the isolate and edge execution preserves lifecycle evidence [5.23ms]\n(pass) edge executor rejects invalid timing rather than counting success: {\"dbMs\":-1} [0.17ms]\n(pass) edge executor rejects invalid timing rather than counting success: {\"dbMs\":\"10\"} [0.03ms]\n(pass) edge executor rejects invalid timing rather than counting success: {\"dbMs\":null} [0.02ms]\n(pass) edge executor rejects invalid timing rather than counting success: {} [0.01ms]\n(pass) CLI runs cold observations first, once per run, and exports separate results [72.32ms]\n\ntests/mvcc-retry-and-pool.test.ts:\n(pass) MVCC conflict retrying > no conflict commits on the first attempt [0.66ms]\n(pass) MVCC conflict retrying > one conflict commits after one retry [1.59ms]\n(pass) MVCC conflict retrying > two conflicts commit after two retries [5.27ms]\n(pass) MVCC conflict retrying > latency covers every attempt plus its backoff [5.47ms]\n(pass) MVCC conflict retrying > exhausting the retry budget is reported as a failure, not dropped [2.53ms]\n(pass) MVCC conflict retrying > a zero retry budget still attempts the transaction exactly once [0.45ms]\n(pass) MVCC conflict retrying > propagates constraint errors instead of retrying them [0.23ms]\n(pass) MVCC conflict retrying > propagates query timeout errors instead of retrying them [0.04ms]\n(pass) MVCC conflict retrying > propagates application errors instead of retrying them [0.03ms]\n(pass) MVCC conflict retrying > propagates connection limit errors instead of retrying them [0.04ms]\n(pass) MVCC conflict retrying > classifies SQLITE_BUSY code as retryable=%s [0.07ms]\n(pass) MVCC conflict retrying > classifies SQLITE_BUSY_SNAPSHOT code as retryable=%s\n(pass) MVCC conflict retrying > classifies write/write conflict message as retryable=%s\n(pass) MVCC conflict retrying > classifies locked message as retryable=%s [0.01ms]\n(pass) MVCC conflict retrying > classifies constraint code as retryable=%s\n(pass) MVCC conflict retrying > classifies timeout code as retryable=%s\n(pass) MVCC conflict retrying > classifies connection limit as retryable=%s [0.02ms]\n(pass) MVCC conflict retrying > classifies non-error value as retryable=boom [0.03ms]\n(pass) MVCC conflict retrying > rates aggregate across runs by summing counters [0.26ms]\n(pass) MVCC conflict retrying > a scenario with no transaction samples reports no transaction counters [0.02ms]\n(pass) backend transaction modes > tursodb-concurrent runs insert as concurrent [0.03ms]\n(pass) backend transaction modes > tursodb-concurrent runs independent-writes as concurrent\n(pass) backend transaction modes > tursodb-concurrent runs hot-row-write as concurrent\n(pass) backend transaction modes > tursodb-concurrent runs point-read as none\n(pass) backend transaction modes > tursodb-reused runs independent-writes as transaction\n(pass) backend transaction modes > tursodb-reused runs insert as none\n(pass) backend transaction modes > turso-reused runs independent-writes as transaction\n(pass) backend transaction modes > turso-reused runs insert as none\n(pass) backend transaction modes > d1-eeur runs independent-writes as transaction\n(pass) backend transaction modes > d1-eeur runs point-read as none\n(pass) backend transaction modes > write tests include the MVCC benchmarks [0.03ms]\n(pass) report classification > treats scan as a read: %s [0.02ms]\n(pass) report classification > treats scan-100 as a read: %s [0.03ms]\n(pass) report classification > treats scan-1000 as a read: %s [0.03ms]\n(pass) report classification > treats point-read as a read: %s\n(pass) report classification > treats lesson-page as a read: %s\n(pass) report classification > treats insert as a read: %s\n(pass) report classification > treats mixed as a read: %s\n(pass) report classification > treats submit-quiz-answer as a read: %s\n(pass) connection pool queueing > libSQL pool: a checkout whose client already left never runs its operation [1.53ms]\n(pass) connection pool queueing > tursodb pool: a checkout whose client already left never runs its operation [0.20ms]\n(pass) connection pool queueing > libSQL: an abandoned queued request frees its slot without releasing active work [1.02ms]\n(pass) connection pool queueing > tursodb: an abandoned queued request frees its slot without releasing active work [0.31ms]\n(pass) connection pool queueing > libSQL: stalled calls reject at the deadline and all slots recover with new connections [0.78ms]\n(pass) connection pool queueing > tursodb: stalled calls reject at the deadline and all slots recover with new connections [0.38ms]\n(pass) connection pool queueing > libSQL: rejected operations release all pool slots [0.52ms]\n(pass) connection pool queueing > tursodb: rejected operations release all pool slots [0.26ms]\n\ntests/runner.test.ts:\n(pass) operation deadlines > times out an executor that ignores AbortSignal and ignores its late completion [0.50ms]\n(pass) operation deadlines > observes a late rejection after timing out [0.27ms]\n(pass) operation deadlines > clears the deadline after an early success or failure [0.31ms]\n(pass) load scheduling and accounting > constant executes the exact budget and excludes warmup [1.71ms]\n(pass) load scheduling and accounting > burst executes the exact budget and excludes warmup [0.22ms]\n(pass) load scheduling and accounting > constant caps in-flight work and handles partial final batches [0.52ms]\n(pass) load scheduling and accounting > burst caps in-flight work and handles partial final batches [0.15ms]\n(pass) load scheduling and accounting > constant load refills a free slot while another request is still running [0.40ms]\n(pass) load scheduling and accounting > constant stops claiming at duration and drains in-flight requests [0.30ms]\n(pass) load scheduling and accounting > burst stops claiming at duration and drains in-flight requests [0.04ms]\n(pass) load scheduling and accounting > counts failed transactions and HTTP errors without polluting success percentiles [0.45ms]\n(pass) load scheduling and accounting > retains failure counters and routing evidence when all operations fail [0.33ms]\n\ntests/stats-and-reports.test.ts:\n(pass) latency and reports > nearest-rank percentiles preserve input and handle singleton/empty samples [0.16ms]\n(pass) latency and reports > failed runs do not create zero latency or zero replica-rate samples [1.27ms]\n(pass) latency and reports > an all-failed backend cannot win latency and CSV leaves missing latency blank [1.89ms]\n(pass) latency and reports > transaction rates remain finite with zero attempts [0.07ms]\n\ntests/workloads.test.ts:\n(pass) deterministic workload fairness > independent writes visit each of 1 rows once before wrapping [0.22ms]\n(pass) deterministic workload fairness > independent writes visit each of 2 rows once before wrapping [0.01ms]\n(pass) deterministic workload fairness > independent writes visit each of 17 rows once before wrapping [0.02ms]\n(pass) deterministic workload fairness > independent writes visit each of 100 rows once before wrapping [0.17ms]\n(pass) deterministic workload fairness > hot-row writes keep every operation on the same row [0.03ms]\n(pass) deterministic workload fairness > scans can return the requested number of seeded rows and replay out of order [0.33ms]\n(pass) deterministic workload fairness > distributed lesson reads stay inside their tenant and course ranges [1.43ms]\n\n 98 pass\n 0 fail\n 765 expect() calls\nRan 98 tests across 7 files. [158.00ms]\n",
+  "notes": [
+    "Automated tests use local servers and mocks; this report does not contain live database performance measurements."
+  ]
+}

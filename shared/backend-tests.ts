@@ -4,10 +4,18 @@
 //
 // `Record<string, true>` rather than `Set`: these are static lookup tables.
 
-export const KV_TESTS: Readonly<Record<string, true>> = { "point-read": true, scan: true, insert: true, update: true };
+export const KV_TESTS: Readonly<Record<string, true>> = {
+  "point-read": true,
+  scan: true,
+  insert: true,
+  update: true,
+};
 
 /** Row-level MVCC / write-conflict benchmarks (read-then-write transactions). */
-export const CONCURRENCY_TESTS: Readonly<Record<string, true>> = { "independent-writes": true, "hot-row-write": true };
+export const CONCURRENCY_TESTS: Readonly<Record<string, true>> = {
+  "independent-writes": true,
+  "hot-row-write": true,
+};
 
 /** Tests that mutate data (POST + admin auth in edge mode). */
 export const WRITE_TESTS: Readonly<Record<string, true>> = {
@@ -16,6 +24,8 @@ export const WRITE_TESTS: Readonly<Record<string, true>> = {
   "submit-quiz-answer": true,
   "update-progress": true,
   enrollment: true,
+  "order-event": true,
+  "exam-submit": true,
   ...CONCURRENCY_TESTS,
 };
 
@@ -25,7 +35,14 @@ export const WRITE_TESTS: Readonly<Record<string, true>> = {
  * normal transaction equivalent; `tursodb-concurrent` uses BEGIN CONCURRENT.
  * Same members as CONCURRENCY_TESTS today, but a different rule.
  */
-export const TX_WRITE_TESTS: Readonly<Record<string, true>> = { "independent-writes": true, "hot-row-write": true };
+export const TX_WRITE_TESTS: Readonly<Record<string, true>> = {
+  "exam-submit": true,
+  "submit-quiz-answer": true,
+  "update-progress": true,
+  enrollment: true,
+  "independent-writes": true,
+  "hot-row-write": true,
+};
 
 export const READ_TESTS: Readonly<Record<string, true>> = {
   "point-read": true,
@@ -41,5 +58,8 @@ export const READ_TESTS: Readonly<Record<string, true>> = {
  * classification must go through this predicate instead of a raw table lookup.
  */
 export function isReadTest(test: string): boolean {
-  return READ_TESTS[test] === true || READ_TESTS[test.replace(/^scan-\d+$/, "scan")] === true;
+  return (
+    READ_TESTS[test] === true ||
+    READ_TESTS[test.replace(/^scan-\d+$/, "scan")] === true
+  );
 }

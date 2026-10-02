@@ -15,17 +15,24 @@
 //
 // Concurrency: an atomic `batch(stmts, mode)` transaction is one HTTP request
 // on the connection's own stream, so `tursodb-concurrent` runs BEGIN
-// CONCURRENT transactions through the same 8-connection pool as
+// CONCURRENT transactions through the same configurable pool model as
 // `turso-reused` — bounded, not serialized, and the only reuse model Turso
 // Cloud accepts at benchmark concurrency. (`transactionAsync()` gives every
 // transaction its own server session and is rejected with "Database
 // connections limit exceeded" once concurrency climbs.)
-import { connect, type Connection as TursoClient } from "@tursodatabase/serverless";
+import {
+  connect,
+  type Connection as TursoClient,
+} from "@tursodatabase/serverless";
+import { EXPLICIT_BACKENDS, backendSpec } from "../../shared/topology.ts";
+import { DEFAULT_POOL, type PoolConfig } from "../../shared/policy.ts";
+import { TenantPoolManager } from "./pool.ts";
 import { TX_WRITE_TESTS, WRITE_TESTS } from "../../shared/backend-tests.ts";
 
 export type { TursoClient };
 
 export type BackendName =
+  | (typeof EXPLICIT_BACKENDS)[number]
   | "d1"
   | "d1-eeur"
   | "d1-rr"
@@ -55,18 +62,18 @@ export interface Env {
 }
 
 const BACKEND_ALIASES: Record<string, BackendName> = {
-  "d1": "d1",
+  d1: "d1",
   "d1-raw": "d1",
   "d1-eeur": "d1-eeur",
   "d1-eeur-raw": "d1-eeur",
   "d1-rr": "d1-rr",
   "d1-eeur-rr": "d1-eeur-rr",
-  "turso": "turso",
+  turso: "turso",
   "turso-raw": "turso",
   "turso-request-client": "turso",
   "turso-reused": "turso-reused",
   "turso-reused-client": "turso-reused",
-  "tursodb": "tursodb-reused",
+  tursodb: "tursodb-reused",
   "tursodb-raw": "tursodb-reused",
   "tursodb-reused": "tursodb-reused",
   "tursodb-reused-client": "tursodb-reused",
@@ -78,15 +85,17 @@ const BACKEND_ALIASES: Record<string, BackendName> = {
 };
 
 export function normalizeBackend(raw: string): BackendName | null {
-  return BACKEND_ALIASES[raw] ?? null;
+  return (EXPLICIT_BACKENDS as readonly string[]).includes(raw)
+    ? (raw as BackendName)
+    : (BACKEND_ALIASES[raw] ?? null);
 }
 
 export function isLibsqlBackend(b: BackendName): boolean {
-  return b === "turso" || b === "turso-reused" || b === "turso-drizzle";
+  return backendSpec(b).engine === "libsql";
 }
 
 export function isTursoDbBackend(b: BackendName): boolean {
-  return b === "tursodb-reused" || b === "tursodb-concurrent";
+  return backendSpec(b).engine === "tursodb";
 }
 
 /** Any backend served by an external Turso (libSQL or Turso Database) database. */
@@ -99,9 +108,7 @@ export function usesSessions(b: BackendName): boolean {
 }
 
 export function engineOf(b: BackendName): EngineName {
-  if (isTursoDbBackend(b)) return "tursodb";
-  if (isLibsqlBackend(b)) return "libsql";
-  return "d1";
+  return backendSpec(b).engine;
 }
 
 /**
@@ -117,7 +124,12 @@ export function txModeOf(b: BackendName, test: string): TxMode {
 }
 
 export function tursoDbConfigured(env: Env): boolean {
-  return typeof env.TURSODB_URL === "string" && env.TURSODB_URL !== "" && typeof env.TURSODB_TOKEN === "string" && env.TURSODB_TOKEN !== "";
+  return (
+    typeof env.TURSODB_URL === "string" &&
+    env.TURSODB_URL !== "" &&
+    typeof env.TURSODB_TOKEN === "string" &&
+    env.TURSODB_TOKEN !== ""
+  );
 }
 
 function requireTursoDb(env: Env): { url: string; token: string } {
@@ -129,151 +141,107 @@ function requireTursoDb(env: Env): { url: string; token: string } {
   return { url: env.TURSODB_URL as string, token: env.TURSODB_TOKEN as string };
 }
 
-// ---- Client pools -----------------------------------------------------------
-// Pool of long-lived Connections. The per-slot queue is belt-and-braces: the
-// SDK already serializes concurrent calls per Connection via its execLock, but
-// holding one Connection per in-flight request preserves parallelism instead
-// of funneling everything through a single lock.
-//
-// Two failure modes matter on the edge, and both are handled here:
-//  * a hung fetch (aborted client, stalled socket) must not own a slot for the
-//    life of the isolate — a watchdog recycles the connection and frees the
-//    slot (POOL_SLOT_DEADLINE_MS);
-//  * work for a client that already timed out is pure waste and saturates the
-//    database — checkout (and each phase before it) aborts with the request
-//    signal instead of running queries nobody will read.
-
-const POOL_SIZE = 8;
-/** Max time one pooled connection may be held by a single request. */
-const POOL_SLOT_DEADLINE_MS = 15000;
-/**
- * Per-call SDK timeout (`defaultQueryTimeout` -> `AbortSignal.timeout` on the
- * SDK's own fetch). Without it a stalled Turso call never settles, the Worker
- * handler never returns, and the Workers runtime cancels the request as hung
- * (HTTP 500 "error code: 1101"). Bounded above the client's own op timeout
- * (5s by default) so the server side always settles and frees the pool slot.
- */
-const TURSO_QUERY_TIMEOUT_MS = 10000;
-
-interface Slot {
-  conn: TursoClient;
-  queue: Promise<void>;
-}
-
-interface ClientPool {
-  slots: Slot[];
-  key: string;
-  cursor: number;
-}
-
-function newPool(): ClientPool {
-  return { slots: [], key: "", cursor: 0 };
-}
-
-const libsqlPool = newPool();
-const tursoDbPool = newPool();
-
-function poolFor(pool: ClientPool, url: string, token: string): ClientPool {
-  const key = `${url}\0${token}`;
-  if (pool.key !== key) {
-    pool.slots = Array.from({ length: POOL_SIZE }, () => ({ conn: connect({ url, authToken: token, defaultQueryTimeout: TURSO_QUERY_TIMEOUT_MS }), queue: Promise.resolve() }));
-    pool.key = key;
-  }
-  return pool;
-}
-
-/** Awaits the slot queue but gives up as soon as the client is gone. */
-async function waitForSlot(prev: Promise<void>, signal: AbortSignal | undefined): Promise<void> {
-  if (signal === undefined) {
-    await prev;
-    return;
-  }
-  const abortError = (): DOMException => new DOMException("bench request aborted by the client", "AbortError");
-  if (signal.aborted) throw abortError();
-  let onAbort!: () => void;
-  const abortSignal = new Promise<never>((_, reject) => {
-    onAbort = () => reject(abortError());
-    signal.addEventListener("abort", onAbort, { once: true });
-  });
-  try {
-    await Promise.race([prev, abortSignal]);
-  } finally {
-    signal.removeEventListener("abort", onAbort);
-  }
-}
-
-async function withPool<T>(
-  pool: ClientPool,
-  url: string,
-  token: string,
+// Compatibility helpers use the same bounded manager. Live runOp supplies the
+// common operation budget; these helpers retain the old 15s regression deadline.
+export function withPooledTurso<T>(
+  env: Env,
   fn: (conn: TursoClient) => Promise<T>,
   signal?: AbortSignal,
-): Promise<{ out: T; checkoutMs: number }> {
-  const t0 = performance.now();
-  poolFor(pool, url, token);
-  const idx = (pool.cursor = (pool.cursor + 1) % POOL_SIZE);
-  const slot = pool.slots[idx] as Slot;
-  const prev = slot.queue;
-  let release!: () => void;
-  const gate = new Promise<void>((res) => {
-    release = res;
-  });
-  slot.queue = prev.then(() => gate);
-  let released = false;
-  const releaseOnce = (): void => {
-    if (released) return;
-    released = true;
-    release();
+) {
+  const config = {
+    ...DEFAULT_POOL,
+    operationTimeoutMs: 15000,
+    queryTimeoutMs: 10000,
+    checkoutTimeoutMs: 15000,
   };
-  try {
-    await waitForSlot(prev, signal);
-  } catch (e) {
-    // Abandoned checkout: free the gate we just installed. Without this the
-    // slot stays gated forever (nobody will ever resolve it), every later
-    // request on it hangs, and the Workers runtime cancels hung requests with
-    // an HTTP 500.
-    releaseOnce();
-    throw e;
-  }
-  const checkoutMs = performance.now() - t0;
-  const watchdog = setTimeout(() => {
-    if (!released) {
-      // Drop the possibly-hung connection and let queued requests through on a
-      // fresh one; the orphaned call can no longer block the pool.
-      slot.conn = connect({ url, authToken: token, defaultQueryTimeout: TURSO_QUERY_TIMEOUT_MS });
-      releaseOnce();
-    }
-  }, POOL_SLOT_DEADLINE_MS);
-  let deadlineTimer!: ReturnType<typeof setTimeout>;
-  const deadline = new Promise<never>((_, reject) => {
-    deadlineTimer = setTimeout(() => reject(new Error(`pooled Turso call exceeded ${POOL_SLOT_DEADLINE_MS}ms; connection recycled`)), POOL_SLOT_DEADLINE_MS);
-  });
-  try {
-    const out = await Promise.race([fn(slot.conn), deadline]);
-    return { out, checkoutMs };
-  } finally {
-    clearTimeout(watchdog);
-    clearTimeout(deadlineTimer);
-    releaseOnce();
-  }
+  return tenantManager("legacy-libsql", config).use(
+    "shared",
+    JSON.stringify({ url: env.TURSO_URL, token: env.TURSO_TOKEN }),
+    fn,
+    signal,
+  );
 }
-
-/** libSQL (`turso-reused`): pooled Clients on the existing Turso Cloud database. */
-export function withPooledTurso<T>(env: Env, fn: (conn: TursoClient) => Promise<T>, signal?: AbortSignal): Promise<{ out: T; checkoutMs: number }> {
-  return withPool(libsqlPool, env.TURSO_URL, env.TURSO_TOKEN, fn, signal);
-}
-
-/** Turso Database (`tursodb-reused`): pooled Clients on the tursodb database. */
-export function withPooledTursoDb<T>(env: Env, fn: (conn: TursoClient) => Promise<T>, signal?: AbortSignal): Promise<{ out: T; checkoutMs: number }> {
+export function withPooledTursoDb<T>(
+  env: Env,
+  fn: (conn: TursoClient) => Promise<T>,
+  signal?: AbortSignal,
+) {
   const { url, token } = requireTursoDb(env);
-  return withPool(tursoDbPool, url, token, fn, signal);
+  const config = {
+    ...DEFAULT_POOL,
+    operationTimeoutMs: 15000,
+    queryTimeoutMs: 10000,
+    checkoutTimeoutMs: 15000,
+  };
+  return tenantManager("legacy-tursodb", config).use(
+    "shared",
+    JSON.stringify({ url, token }),
+    fn,
+    signal,
+  );
 }
-
-export function freshTursoConn(env: Env): TursoClient {
-  return connect({ url: env.TURSO_URL, authToken: env.TURSO_TOKEN, defaultQueryTimeout: TURSO_QUERY_TIMEOUT_MS });
+const TURSO_QUERY_TIMEOUT_MS = 5000;
+export function freshTursoConn(
+  env: Env,
+  timeoutMs = TURSO_QUERY_TIMEOUT_MS,
+): TursoClient {
+  return connect({
+    url: env.TURSO_URL,
+    authToken: env.TURSO_TOKEN,
+    defaultQueryTimeout: timeoutMs,
+  });
 }
 
 export function freshTursoDbConn(env: Env): TursoClient {
   const { url, token } = requireTursoDb(env);
-  return connect({ url, authToken: token, defaultQueryTimeout: TURSO_QUERY_TIMEOUT_MS });
+  return connect({
+    url,
+    authToken: token,
+    defaultQueryTimeout: TURSO_QUERY_TIMEOUT_MS,
+  });
+}
+
+// Per-tenant managers use one bounded cache per engine and configuration in each isolate.
+// Config changes require a fresh deployment/isolate; do not accumulate caches per run.
+const tenantManagers = new Map<
+  string,
+  { config: string; manager: TenantPoolManager<TursoClient> }
+>();
+export function tenantManager(
+  engine: string,
+  config: PoolConfig,
+): TenantPoolManager<TursoClient> {
+  const key = JSON.stringify(config);
+  const old = tenantManagers.get(engine);
+  if (old && old.config !== key)
+    throw new Error(
+      "pool config changed in a live isolate; deploy a fresh Worker for a new config",
+    );
+  if (old) return old.manager;
+  const manager = new TenantPoolManager(config, (identity) => {
+    const { url, token } = JSON.parse(identity) as {
+      url: string;
+      token: string;
+    };
+    return connect({
+      url,
+      authToken: token,
+      defaultQueryTimeout: config.queryTimeoutMs,
+    });
+  });
+  tenantManagers.set(engine, { config: key, manager });
+  return manager;
+}
+export function poolConfig(env: Env, timeoutMs = 5000): PoolConfig {
+  const raw =
+    typeof env.TURSO_POOL_CONFIG === "string"
+      ? (JSON.parse(env.TURSO_POOL_CONFIG) as Partial<PoolConfig>)
+      : {};
+  return {
+    ...DEFAULT_POOL,
+    ...raw,
+    operationTimeoutMs: timeoutMs,
+    queryTimeoutMs: Math.min(raw.queryTimeoutMs ?? timeoutMs, timeoutMs),
+    checkoutTimeoutMs: Math.min(raw.checkoutTimeoutMs ?? timeoutMs, timeoutMs),
+  };
 }

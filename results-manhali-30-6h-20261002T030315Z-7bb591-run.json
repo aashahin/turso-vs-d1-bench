@@ -1,0 +1,20 @@
+{
+  "startedAt": "2026-10-02T02:39:00.078Z",
+  "deadlineAt": "2026-10-02T08:39:00.078Z",
+  "maxRunMs": 21600000,
+  "finishReserveMs": 30000,
+  "pid": 2128856,
+  "resultPath": "results-manhali-30-6h-20261002T030315Z-7bb591.json",
+  "tenantCount": 30,
+  "backends": [
+    "d1-per-tenant",
+    "turso-per-tenant",
+    "tursodb-per-tenant"
+  ],
+  "runs": 5,
+  "plannedSteps": 585,
+  "systemdUnit": "manhali-bench-30-6h-20261002t030315z-7bb591",
+  "setupResumedFrom": "results-manhali-30-6h-20261002T023855Z-1a7075",
+  "status": "complete",
+  "updatedAt": "2026-10-02T08:04:09.832Z"
+}
